@@ -1,0 +1,50 @@
+<?php 
+require_once 'includes/_header.php';
+define('IMG_PATH', 'files/');
+require 'vendor/autoload.php';
+if(!Functions::isAdmin()){
+    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+    header('Location:connection.php');exit;
+}
+
+$params = array(
+	'maintenance'  => Functions::getConfig('maintenance'),
+	'websitename'  => Functions::getConfig('websitename'),
+	'contact'      => Functions::getConfig('contact')
+);
+
+if (isset($_POST['edition'])) {
+	foreach ($params as $k => $v) {
+		if ($k == 'plaquette' || $k == 'pres_img') break;
+		if (isset($_POST[$k]) && $_POST[$k] != $params[$k]) {
+			Functions::setConfig($k,$_POST[$k]);
+			$params[$k] = $_POST[$k];
+		}
+	}
+	// header('Location:admin_parametres.php');exit;
+}
+
+$title_for_layout = 'Paramètres';
+require_once 'includes/Forms.class.php'; if(!isset ($form)){$form = new form();}
+$form->set($params);
+include 'includes/header.php';
+
+?>
+
+<h1 class="page-header"><img src="img/icons/gear_48.png" alt="Paramètres"> Paramétrer le site</h1>
+<form action="admin_parametres.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
+	<fieldset>
+    	<legend>En vrac :</legend>
+		<?= $form->input('edition', 'hidden', array('value'=>'true')); ?>
+		<?= $form->input('maintenance','Maintenance :',array('type'=>'checkbox')); ?>
+		<?= $form->input('websitename','Nom du site : ', array('maxlength'=>"255")); ?>
+		<?= $form->input('contact','Email de contact : ', array('maxlength'=>"255")); ?>
+	</fieldset>
+
+    <div class="form-actions">
+        <button class="btn btn-primary" type="submit">Save changes</button>
+        &nbsp;
+        <button class="btn" type="reset">Cancel</button>
+    </div>              
+</form>
+<?php include 'includes/footer.php'; ?>
