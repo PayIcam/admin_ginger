@@ -175,7 +175,7 @@ class Member{
             $flash = array();
             if ($_POST['action'] == 'delete') {
                 foreach ($_POST[$name.'s'] as $login) {
-                    if($DB->delete(self::TABLE_NAME,'login='.$login))
+                    if($DB->delete(self::TABLE_NAME,array('login'=>$login)))
                         $flash[] = '<strong>'.$nom.' #'.$login.' supprimé</strong>';
                 }
             }else if ($_POST['action'] == 'online') {
@@ -214,13 +214,13 @@ class Member{
 
     public static function deleteMember($login){
     	global $DB;
-    	if ($DB->findCount(self::TABLE_NAME,"login=$login",'login') != 0) {
-            $DB->delete(self::TABLE_NAME,'login='.$login);
+    	if ($DB->findCount(self::TABLE_NAME,array('login'=>$login),'login') > 0) {
+            $DB->delete(self::TABLE_NAME,array('login'=>$login));
             // self::ajouterAuxLog(date('Y-m-d h:m:s').' : Suppression Member #'.$login."\n");
             Functions::setFlash('<strong>Member #'.$login.' supprimée</strong>','success');
             return true;
         }else{
-            Functions::setFlash('<strong>Member inconnue</strong>','danger');
+            Functions::setFlash('<strong>Member inconnu</strong>','danger');
             return false;
         }
     }
