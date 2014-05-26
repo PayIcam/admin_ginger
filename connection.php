@@ -19,13 +19,12 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
         } // Si utilisateur inactif, on met un message
     }else{
         //Si utilisateur inconnu
-        Functions::setFlash('Identifiants incorects','error');
-        $error_email = '';
-        $error_password = '';
+        Functions::setFlash('Identifiants incorects','danger');
+        $errorLogin = true;
     }
     
 }else if (!empty($_POST)) { // Si l'utilisateur n'a pas rempli tous les champs demandés
-    Functions::setFlash('Veuillez remplir tous vos champs','error');
+    Functions::setFlash('Veuillez remplir tous vos champs','danger');
 }
 ?>
 <!DOCTYPE html>
@@ -34,48 +33,54 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
     <meta charset="utf-8">
     <title>Connexion</title> <!--afficher dans le titre de la page web Bonjour icam précédé de title-for-layout qui est préciser dans chaque page-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Site internet - Connexion">
-    <meta name="author" content="Ithor">
+    <meta name="description" content="Site internet Admin Ginger - Connexion">
+    <meta name="author" content="Antoine Giraud">
+    <link rel="shortcut icon" href="favicon.png">
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="css/jqueryui/style.css">
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <!-- <link href="css/docs.css" rel="stylesheet"> -->
+    <link href="bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 40px;
-        padding-bottom: 40px;
-        background-color: #f5f5f5;
-      }
+        body {
+          padding-top: 40px;
+          padding-bottom: 40px;
+          background-color: #eee;
+        }
 
-      .form-signin {
-        max-width: 300px;
-        padding: 19px 29px 29px;
-        margin: 0 auto 20px;
-        background-color: #fff;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-           -moz-border-radius: 5px;
-                border-radius: 5px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-                box-shadow: 0 1px 2px rgba(0,0,0,.05);
-      }
-      .form-signin .form-signin-heading,
-      .form-signin .checkbox {
-        margin-bottom: 10px;
-      }
-      .form-signin input[type="text"],
-      .form-signin input[type="password"] {
-        font-size: 16px;
-        height: auto;
-        margin-bottom: 15px;
-        padding: 7px 9px;
-      }
-
+        .form-signin {
+          max-width: 330px;
+          padding: 15px;
+          margin: 0 auto;
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+          margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+          font-weight: normal;
+        }
+        .form-signin .form-control {
+          position: relative;
+          height: auto;
+          -webkit-box-sizing: border-box;
+             -moz-box-sizing: border-box;
+                  box-sizing: border-box;
+          padding: 10px;
+          font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+          z-index: 2;
+        }
+        .form-signin input[type="email"] {
+          margin-bottom: -1px;
+          border-bottom-right-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+          margin-bottom: 10px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
     </style>
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -83,42 +88,18 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
     <![endif]-->
 
     <!-- Le favicon (img du site ds le navigateur) -->
-    <link rel="shortcut icon" href="img/favicon_IDiiL.ico">
-
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-ui.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/main.js"></script>
   </head>
 
   <body>
 
     <div class="container">
       <?= Functions::flash(); ?>
-    <form action="connection.php" method="POST" class="form-signin"> <!-- on introduit un formulaire de connexion. Les données qu'il récupèrera, il les envoie à la page connection.php par la méthode POST-->
-    <h2 class="form-signin-heading">Identifiez-vous !</h2> <!--titre en haut-->
-        <div class="control-group <?php if(isset($error_email)){echo 'error';} ?>">
-            <label class="control-label" for="email">Email :</label>
-            <div class="controls">
-            <input id="email" name="email" type="email" value="<?php if(isset($return['email'])){echo $return['email'];} ?>">
-            <span class="help-inline"><?php if(isset($error_email)){ echo $error_email; } ?></span>
-            </div>
-        </div>
-
-        <div class="control-group <?php if(isset($error_password)){echo 'error';} ?>">
-            <label class="control-label" for="password">Password :</label>
-            <div class="controls">
-            <input id="password" name="password" type="password">
-            <span class="help-inline"><?php if(isset($error_password)){ echo $error_password; } ?></span>
-            </div>
-        </div>
-
-        <div class="control-group">
-            <div class="controls">
-                <button class="btn btn-primary" type="submit">Se connecter</button>
-            </div>
-        </div>               
-    </form>
+        <form class="form-signin<?= (isset($errorLogin))?' has-error':''; ?>" role="form" action="connection.php" method="POST">
+            <h2 class="form-signin-heading">Identifiez-vous !</h2>
+            <input type="email" name="email" class="form-control" placeholder="Email" required autofocus value="<?= (isset($return['email']))?$return['email']:''; ?>">
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
+        </form>
     <?php if (Functions::getConfig('inscriptions') == true): ?>
         <p><a href="register.php">Vous n'avez pas de compte ?</a></p>
     <?php endif ?>

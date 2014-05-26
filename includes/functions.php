@@ -21,7 +21,7 @@ if (empty($DB)) {
 function debug($var,$nom=NULL,$open=1){ //afficher les données tel que le pc les récupère
     //if (isset($_SESSION['role']) && $_SESSION['role']=='admin' || preg_match('/^\/SiteBdsIcamLille\//', $_SERVER['REQUEST_URI'])) {
         preg_match('#([a-z1-9_-]+.php)$#', $_SERVER['SCRIPT_FILENAME'], $matches);
-        echo '<div><div><p class="alert" onclick="jQuery(this).next().slideToggle();" style="cursor:pointer;"><a class="close" href="#" onclick="$(this).parent().parent().slideUp();return false;">×</a>debug à la ligne <strong>'.__LINE__.'</strong>';
+        echo '<div><div><p class="alert alert-warning" onclick="jQuery(this).next().slideToggle();" style="cursor:pointer;"><a class="close" href="#" onclick="$(this).parent().parent().slideUp();return false;">×</a>debug à la ligne <strong>'.__LINE__.'</strong>';
         if($nom!=NULL){echo ' de <em><strong>'.$nom.'</em></strong>';}
         echo ' dans <em><strong>'.$matches[0].'</em></strong></p>';
         echo '<pre'.((!empty($open))?'':' style="display:none;"').'>';
