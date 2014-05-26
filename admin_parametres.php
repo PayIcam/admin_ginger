@@ -3,7 +3,7 @@ require_once 'includes/_header.php';
 define('IMG_PATH', 'files/');
 require 'vendor/autoload.php';
 if(!Functions::isAdmin()){
-    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
     header('Location:connection.php');exit;
 }
 
@@ -40,11 +40,12 @@ include 'includes/header.php';
 		<?= $form->input('websitename','Nom du site : ', array('maxlength'=>"255")); ?>
 		<?= $form->input('contact','Email de contact : ', array('maxlength'=>"255")); ?>
 	</fieldset>
-
-    <div class="form-actions">
-        <button class="btn btn-primary" type="submit">Save changes</button>
-        &nbsp;
-        <button class="btn" type="reset">Cancel</button>
-    </div>              
+	<div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+	        <button class="btn btn-primary" type="submit">Save changes</button>
+	        &nbsp;
+	        <button class="btn btn-default" type="reset">Cancel</button>
+        </div>
+    </div>            
 </form>
 <?php include 'includes/footer.php'; ?>

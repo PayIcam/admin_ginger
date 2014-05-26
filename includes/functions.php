@@ -102,7 +102,7 @@ class Functions{
                 Functions::setFlash('<strong>'.$title.' #'.$id.' supprimé</strong>','success');
                 header('Location:'.$page);exit;
             }else{
-                Functions::setFlash('<strong>'.$title.' inconnu</strong>','error');
+                Functions::setFlash('<strong>'.$title.' inconnu</strong>','danger');
                 header('Location:'.$page);exit;
             }
         }else{
@@ -127,7 +127,7 @@ class Functions{
                 Functions::setFlash('<strong>'.$title.' #'.$id.' activé</strong>','success');
                 header('Location:admin_liste_'.$name.'s.php');exit;
             }else{
-                Functions::setFlash('<strong>'.$title.' inconnu</strong>','error');
+                Functions::setFlash('<strong>'.$title.' inconnu</strong>','danger');
                 header('Location:admin_liste_'.$name.'s.php');exit;
             }
         }else if (!empty($_GET['disactivate_'.$name])) {
@@ -138,7 +138,7 @@ class Functions{
                 Functions::setFlash('<strong>'.$title.' #'.$id.' desactivé</strong>','info');
                 header('Location:admin_liste_'.$name.'s.php');exit;
             }else{
-                Functions::setFlash('<strong>'.$title.' inconnu</strong>','error');
+                Functions::setFlash('<strong>'.$title.' inconnu</strong>','danger');
                 header('Location:admin_liste_'.$name.'s.php');exit;
             }
         }else{
@@ -206,7 +206,7 @@ class Functions{
                 On est sur la page maintenance.php (preg_match("/maintenance.php/", $_SERVER['SCRIPT_NAME']))
                 */
             }else{ // Sinon, redirection !
-                Functions::setFlash('redirection maintenance..','error');
+                Functions::setFlash('redirection maintenance..','danger');
                 header('Location:maintenance.php');
             }
         }
@@ -585,7 +585,7 @@ class Functions{
 
     static function getProgressBar( $pourcent, $width, $height, $color, $class='success' ) {
         $bar = '<div style="margin:0 auto;height:'.$height.'px;width:'.$width.'px;border:1px solid '.$color.';text-align:left;display:inline-block;position:relative;" class="progress progress-'.$class.'">
-            <div class="bar" style="width: '.$pourcent.'%;"></div>
+            <div class="progress-bar" style="width: '.$pourcent.'%;"></div>
         </div>';
         return $bar;
     }
@@ -598,9 +598,9 @@ class Functions{
             if (!empty($options['sum'])) {
                 foreach ($options['all'] as $key => $bar) {
                     if ($key<count($options['all'])-1) {
-                        $returnbar .= '<span class="bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
+                        $returnbar .= '<span class="progress-bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
                     }else{
-                        $returnbar .= '<span class="bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100-0.01,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
+                        $returnbar .= '<span class="progress-bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100-0.01,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
                     }//rel="tooltip" href="#" data-original-title
                 }
             }

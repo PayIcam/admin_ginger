@@ -74,30 +74,3 @@ jQuery(function($){
 
 	});
 });
-
-/* -------------------- Menu - sera corrigé avec le nouveau thème du Bootstrap -------------------- */
-jQuery(function(){
-	var width = $(".navbar-fixed-top").width();
-	if (width < 963) {
-		$("#admin i").each(function(){
-			$(this).addClass('icon-white');
-		});
-	}else{
-		$("#admin i.icon-white").each(function(){
-			$(this).removeClass('icon-white');
-		});
-	};
-
-	$(window).bind('resize', function() {
-		var width = $(".navbar-fixed-top").width();
-		if (width < 963) {
-			$("#admin i").each(function(){
-				$(this).addClass('icon-white');
-			});
-		}else{
-			$("#admin i.icon-white").each(function(){
-				$(this).removeClass('icon-white');
-			});
-		};
-	});
-});

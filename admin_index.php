@@ -74,7 +74,7 @@
     <div class="actions">
         <button class="btn primary" type="submit">Envoyer</button>
         &nbsp;
-        <button class="btn" type="reset">Cancel</button>
+        <button class="btn btn-default" type="reset">Cancel</button>
     </div>
 </form>
 

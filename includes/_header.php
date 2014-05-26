@@ -17,7 +17,7 @@
 
 	header('Content-Type: text/html; charset=utf-8');
 	if(!Functions::islog() && basename($_SERVER['SCRIPT_FILENAME']) != 'connection.php'){	// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
 	    header('Location:connection.php');exit;
 	}
 ?>

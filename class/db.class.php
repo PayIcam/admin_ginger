@@ -247,7 +247,7 @@ class DB{
         try{
             $pre = $this->db->query($sql);
             return true;
-        }catch (PDOException $e){Functions::setFlash($e,'error');}
+        }catch (PDOException $e){Functions::setFlash($e,'danger');}
     }
 
     /**

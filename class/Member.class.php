@@ -220,7 +220,7 @@ class Member{
             Functions::setFlash('<strong>Member #'.$login.' supprimée</strong>','success');
             return true;
         }else{
-            Functions::setFlash('<strong>Member inconnue</strong>','error');
+            Functions::setFlash('<strong>Member inconnue</strong>','danger');
             return false;
         }
     }

@@ -2,7 +2,7 @@
   require_once 'includes/_header.php';
 
 	if(!Functions::isAdmin()){					// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
 	    header('Location:connection.php');exit;
 	}
 ?>
@@ -39,13 +39,13 @@
 <?php include 'includes/header.php'; ?>
 <h1 class="page-header clearfix">
   <div class="pull-left"><img src="img/icons/contact.png" alt=""> Liste des Administrateurs</div>
-  <div class="pull-right"><a href="admin_edit_user.php" class="btn btn-info btn-large">Ajouter</a></div>
+  <div class="pull-right"><a href="admin_edit_user.php" class="btn btn-info btn-lg">Ajouter</a></div>
 </h1>
 
 <form action="admin_liste_users.php" method="POST">
 <div class="clearfix">
   <p class="actions form-inline pull-left">
-    <select name="action" id="action1" class="span2">
+    <select class="form-control" name="action" id="action1">
       <option selected="selected" value="-1">Action Groupée</option>
       <optgroup label="Activation, désactivation">
         <option value="online">Passer en ligne</option>
@@ -53,11 +53,11 @@
       </optgroup>
       <option value="delete">Supprimer </option>
     </select>
-    <button class="btn" type="submit">Appliquer</button>
+    <button class="btn btn-default" type="submit">Appliquer</button>
   </p>
-  <p class="pull-left" style="margin-left:15px;">
-    <input class="input-medium search-query" id="recherche" placeholder="Rechercher ..." name="recherche" type="text" value="<?php if(!empty($motclef)) echo $motclef; ?>">
-    <button class="btn" type="submit">Search</button>
+  <p class="pull-left form-inline" style="margin-left:15px;">
+    <input class="form-control" id="recherche" placeholder="Rechercher ..." name="recherche" type="text" value="<?php if(!empty($motclef)) echo $motclef; ?>">
+    <button class="btn btn-default" type="submit">Search</button>
   </p>
   <p class="pull-right">
     <em><?= $sizeOfAdministrateurs; ?> Utilisateurs</em>
@@ -70,8 +70,8 @@
         <th>Id</th>
         <th>Prenom</th>
         <th>Nom</th>
-        <th><i class="icon-envelope"></i> Email</th>
-        <th><i class="icon-user"></i> Profil</th>
+        <th><i class="glyphicon glyphicon-envelope"></i> Email</th>
+        <th><i class="glyphicon glyphicon-user"></i> Profil</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -92,23 +92,23 @@
       		<td>
             <i class="<?php
                     if($user['profil']=='admin')
-                      echo 'icon-certificate';
+                      echo 'glyphicon glyphicon-certificate';
                     else if($user['profil']=='inscrit')
-                      echo 'icon-ok-circle';
-                    else echo 'icon-ban-circle'; 
+                      echo 'glyphicon glyphicon-ok-circle';
+                    else echo 'glyphicon glyphicon-ban-circle'; 
             ?>" title="<?= $user['profil'] ?>"></i>
             <?= (empty($motclef))? $user['profil']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $user['profil']); ?>
           </td>
           <td>
             <div class="pull-right">
               <?php if ($user['online']==1){ ?>
-                <a href="admin_liste_users.php?disactivate_user=<?= $user['id']; ?>" title="Désactiver le compte"><i class="icon-ban-circle"></i></a> |
+                <a href="admin_liste_users.php?disactivate_user=<?= $user['id']; ?>" title="Désactiver le compte"><i class="glyphicon glyphicon-ban-circle"></i></a> |
               <?php }else{ ?>
-                <a href="admin_liste_users.php?activate_user=<?= $user['id']; ?>" title="Activer le compte"><i class="icon-ok-sign"></i></a> |
+                <a href="admin_liste_users.php?activate_user=<?= $user['id']; ?>" title="Activer le compte"><i class="glyphicon glyphicon-ok-sign"></i></a> |
               <?php } ?>
 
-              <a href="admin_edit_user.php?id=<?= $user['id']; ?>" title="Editer l'utilisateur #<?= $user['id']; ?>"><i class="icon-pencil"></i></a>
-              <a href="admin_liste_users.php?del_user=<?= $user['id']; ?>" title="Supprimer l'utilisateur #<?= $user['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');"><i class="icon-trash"></i></a>              
+              <a href="admin_edit_user.php?id=<?= $user['id']; ?>" title="Editer l'utilisateur #<?= $user['id']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+              <a href="admin_liste_users.php?del_user=<?= $user['id']; ?>" title="Supprimer l'utilisateur #<?= $user['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');"><i class="glyphicon glyphicon-trash"></i></a>              
             </div>
           </td>
       	</tr>
@@ -128,8 +128,8 @@
         <th>Id</th>
         <th>Prenom</th>
         <th>Nom</th>
-        <th><i class="icon-envelope"></i> Email</th>
-        <th><i class="icon-user"></i> Profil</th>
+        <th><i class="glyphicon glyphicon-envelope"></i> Email</th>
+        <th><i class="glyphicon glyphicon-user"></i> Profil</th>
         <th>Actions</th>
       </tr>
     </tfoot>
@@ -138,7 +138,7 @@
 <?php if ($sizeOfAdministrateurs > 10): ?>
 <div class="clearfix">
   <p class="actions form-inline pull-left">
-    <select name="action2" id="action2" class="span2">
+    <select name="action2" id="action2" class="form-control">
       <option selected="selected" value="-1">Action Groupée</option>
       <optgroup label="Activation, désactivation">
         <option value="online">Passer en ligne</option>
@@ -146,11 +146,11 @@
       </optgroup>
       <option value="delete">Supprimer </option>
     </select>
-    <button class="btn" type="submit">Appliquer</button>
+    <button class="btn btn-default" type="submit">Appliquer</button>
   </p>
   <p class="pull-left" style="margin-left:15px;">
-    <input class="input-medium search-query" id="recherche2" name="recherche2" type="text">
-    <button class="btn" type="submit">Search</button>
+    <input class="form-control" id="recherche2" name="recherche2" type="text">
+    <button class="btn btn-default" type="submit">Search</button>
   </p>
   <p class="pull-right">
     <em><?= $sizeOfAdministrateurs; ?> Utilisateurs</em>

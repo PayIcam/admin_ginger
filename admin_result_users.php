@@ -33,23 +33,23 @@ if(isset($_GET['motclef']) && Functions::isAdmin()){
     <td>
     <i class="<?php
             if($user['profil']=='admin')
-              echo 'icon-certificate';
+              echo 'glyphicon glyphicon-certificate';
             else if($user['profil']=='inscrit')
-              echo 'icon-ok-circle';
-            else echo 'icon-ban-circle'; 
+              echo 'glyphicon glyphicon-ok-circle';
+            else echo 'glyphicon glyphicon-ban-circle'; 
     ?>" title="<?= $user['profil'] ?>"></i>
     <?= (empty($motclef))? $user['profil']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $user['profil']); ?>
   </td>
   <td>
     <div class="pull-right">
       <?php if ($user['online']==1){ ?>
-        <a href="admin_liste_users.php?disactivate_user=<?= $user['id']; ?>" title="Désactiver le compte"><i class="icon-ban-circle"></i></a> |
+        <a href="admin_liste_users.php?disactivate_user=<?= $user['id']; ?>" title="Désactiver le compte"><i class="glyphicon glyphicon-ban-circle"></i></a> |
       <?php }else{ ?>
-        <a href="admin_liste_users.php?activate_user=<?= $user['id']; ?>" title="Activer le compte"><i class="icon-ok-sign"></i></a> |
+        <a href="admin_liste_users.php?activate_user=<?= $user['id']; ?>" title="Activer le compte"><i class="glyphicon glyphicon-ok-sign"></i></a> |
       <?php } ?>
 
-      <a href="admin_edit_user.php?id=<?= $user['id']; ?>" title="Editer l'utilisateur #<?= $user['id']; ?>"><i class="icon-pencil"></i></a>
-      <a href="admin_liste_users.php?del_user=<?= $user['id']; ?>" title="Supprimer l'utilisateur #<?= $user['id']; ?>"><i class="icon-trash"></i></a>              
+      <a href="admin_edit_user.php?id=<?= $user['id']; ?>" title="Editer l'utilisateur #<?= $user['id']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+      <a href="admin_liste_users.php?del_user=<?= $user['id']; ?>" title="Supprimer l'utilisateur #<?= $user['id']; ?>"><i class="glyphicon glyphicon-trash"></i></a>              
     </div>
   </td>
 </tr>

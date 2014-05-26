@@ -2,7 +2,7 @@
 	require_once 'includes/_header.php';
 
 	if(!Functions::isAdmin()){					// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
 	    header('Location:connection.php');exit;
 	}
 	if (isset($_GET['id'],$_POST['id']) && $_GET['id'] != $_POST['id']) {
@@ -15,7 +15,7 @@
 		$img  = 'img/icons/user_edit.png';
 	}else if (isset($_GET['id']) && $_GET['id'] != -1 && !Functions::isUser($_GET['id'])){
 		// Cas où l'id donnée ne corresponds à aucun utilisateur
-		Functions::setFlash('<strong>Erreur :</strong> Cet id ne correspond à aucuns users','error');
+		Functions::setFlash('<strong>Erreur :</strong> Cet id ne correspond à aucuns users','danger');
 		header('Location:admin_liste_users.php');exit;
 	}else if ((isset($_GET['id']) && $_GET['id'] == -1)){
 		// Cas de l'ajout d'un nouvel utilisateur
@@ -110,8 +110,8 @@
 <h1 class="page-header clearfix">
 	<div class="pull-left"><img src="<?= $img; ?>" alt=""> <?= $title_for_layout; ?></div>
 	<div class="pull-right">
-		<a href="admin_liste_users.php" class="btn btn-primary btn-large" onlick="">Retour liste</a>
-		<a href="admin_edit_user.php?id=-1" class="btn btn-info btn-large">Ajouter</a>
+		<a href="admin_liste_users.php" class="btn btn-primary btn-lg" onlick="">Retour liste</a>
+		<a href="admin_edit_user.php?id=-1" class="btn btn-info btn-lg">Ajouter</a>
 	</div>
 </h1>
 
@@ -135,10 +135,12 @@
 	        <?= $form->input('pass_new2','Confirmez le :', array('type'=>'password','maxlength'=>"30")); ?>
 	    </div>
     </fieldset>
-    <div class="form-actions">
-        <button class="btn btn-primary" type="submit">Enregistrer</button>
-        &nbsp;
-        <button class="btn" type="reset">Annuler</button>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+	        <button class="btn btn-primary" type="submit">Save changes</button>
+	        &nbsp;
+	        <button class="btn btn-default" type="reset">Cancel</button>
+        </div>
     </div>
 </form>
 

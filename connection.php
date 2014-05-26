@@ -38,7 +38,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
     <link rel="shortcut icon" href="favicon.png">
 
     <!-- Le styles -->
-    <link href="bootstrap-3.1.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
         body {
           padding-top: 40px;

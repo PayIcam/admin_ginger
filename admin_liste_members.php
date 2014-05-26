@@ -2,7 +2,7 @@
   require_once 'includes/_header.php';
 
   if(!Functions::islog()){          // sécuriser l'accès
-      Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+      Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
       header('Location:connection.php');exit;
   }
   require_once 'class/Member.class.php';
@@ -25,8 +25,8 @@
 <h1 class="page-header clearfix">
   <div class="pull-left"><img src="img/icons/contact.png" alt=""> Liste des membres</div>
   <div class="pull-right">
-    <a id="export" href="export_liste_members.php" class="btn btn-primary btn-large" onlick="">Exporter</a>
-    <a href="admin_edit_member.php" class="btn btn-info btn-large">Ajouter</a>
+    <a id="export" href="export_liste_members.php" class="btn btn-primary btn-lg" onlick="">Exporter</a>
+    <a href="admin_edit_member.php" class="btn btn-info btn-lg">Ajouter</a>
   </div>
 </h1>
 <?php 
@@ -46,11 +46,11 @@
 <form id="form" action="admin_liste_members.php" method="POST">
   <?= $form->input('page', 'hidden', array('value'=>$ListMembers->page)); ?>
   <div class="clearfix"><?= $ListMembers->getActionsGroupees(1); ?></div>
-  <div class="pagination"><?= $ListMembers->getPagination(); ?></div>
+  <div class="pagination-container"><?= $ListMembers->getPagination(); ?></div>
   <?php /* if (Functions::isAdmin()): ?>
   <div class="well" id="FormRechercheAvancee" style="display:none;">
     <h2 class="page-header" style="margin:10px auto;">Recherche Avancée</h2>
-    <div class="row-fluid">
+    <div class="row">
       <div>
         <h3>Type :</h3>
         <p><?= $form->input('options[selectAllTypes]','Tous les types',array('type'=>'checkbox','id'=>'selectAllTypes','checkboxNoClassControl'=>1,'selected'=>'selected')); ?></p>
@@ -59,13 +59,13 @@
         ?></p>
       </div>
     </div>
-    <div class="form-actions" style="margin-bottom: 0;text-align: center;">
-      <div class="row-fluid">
-        <div class="span10">
-          <button class="btn btn-primary btn-large" type="submit" style="width: 100%;">Rechercher</button> 
+    <div style="margin-bottom: 0;text-align: center;">
+      <div class="row">
+        <div class="col-md-10">
+          <button class="btn btn-primary btn-lg" type="submit" style="width: 100%;">Rechercher</button> 
         </div>
-        <div class="span2">
-          <a href="admin_liste_members.php" id="resetSearchAdvancedForm" class="btn btn-large"  style="width: 100%;">Reset</a> 
+        <div class="col-md-2">
+          <a href="admin_liste_members.php" id="resetSearchAdvancedForm" class="btn btn-lg"  style="width: 100%;">Reset</a> 
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
       <?php endif ?>
   </table>
   <?php if ($ListMembers->countMembers > 10): ?>
-    <div class="pagination"><?= $ListMembers->getPagination(); ?></div>
+    <div class="pagination-container"><?= $ListMembers->getPagination(); ?></div>
     <div class="clearfix"><?= $ListMembers->getActionsGroupees(2); ?></div>
   <?php endif ?>
 </form>

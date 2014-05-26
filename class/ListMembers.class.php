@@ -84,7 +84,8 @@ class ListMembers{
 	    // --------------------- Vérification sur le nombre de pages --------------------- //
 		$this->countMembers = current($DB->queryFirst('SELECT COUNT(login) FROM '.Member::TABLE_NAME.' '.$where, $q));
 		$this->countPages  = ceil($this->countMembers/$this->perPages);
-		/*if ( empty($this->options)  || !empty($this->options['fields'])
+		//*
+		if ( empty($this->options)  || !empty($this->options['fields'])
 			|| isset($this->options['selectAllTypes'],$this->options['type'])
 			&& !( Member::getTypesCount() > count($this->options['type'])
 				&& $this->options['selectAllTypes'] == 0 && !empty($this->options['type']))
@@ -97,12 +98,13 @@ class ListMembers{
 		// --------------------- Sélection des member dans la base --------------------- //
 	    $fields = (!empty($this->options['fields']))?((is_array($this->options['fields']))?implode(',', $this->options['fields']):$this->options['fields']):'*';
 		$sql = 'SELECT '.$fields.' FROM '.Member::TABLE_NAME.' '.(($leftJoin != '')?$leftJoin:'').' '.$where;
-		/*if (empty($this->options) || !empty($this->options['fields'])
+		//*
+		if (empty($this->options) || !empty($this->options['fields'])
 			|| (isset($this->options['selectAllTypes'],$this->options['type'])
 					&& !( Member::getTypesCount() > count($this->options['type'])
 								&& $this->options['selectAllTypes'] == 0 && !empty($this->options['type'])))
 		)
-			$sql .= ' ORDER BY id ASC LIMIT '.(($this->page-1)*$this->perPages).','.$this->perPages;
+			$sql .= ' ORDER BY login ASC LIMIT '.(($this->page-1)*$this->perPages).','.$this->perPages;
 		//*/
 		$retour = $DB->query($sql, $q);
 
@@ -176,8 +178,8 @@ class ListMembers{
   <td><?= (empty($motclef))? $member['badge_uid']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['badge_uid']); ?></td>
   <td>
     <div class="pull-right">
-      <a href="admin_edit_member.php?login=<?= $member['login'] ?>" title="Editer le member #<?= $member['login']; ?>"><i class="icon-pencil"></i></a>
-      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="icon-trash"></i></a>              
+      <a href="admin_edit_member.php?login=<?= $member['login'] ?>" title="Editer le member #<?= $member['login']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
+      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="glyphicon glyphicon-trash"></i></a>              
     </div>
   </td>
 </tr>
@@ -217,7 +219,7 @@ class ListMembers{
 		global $DB;
 		ob_start(); ?>
 <p class="actions form-inline pull-left">
-	<select name="action" id="action<?= $id ?>" class="span2">
+	<select name="action" id="action<?= $id ?>" class="form-control">
 	  <option selected="selected" value="-1">Action Groupée</option>
 	  <optgroup label="Mettre en ligne">
         <option value="online">Oui</option>
@@ -225,13 +227,13 @@ class ListMembers{
       </optgroup>
 	  <option value="delete">Supprimer </option>
 	</select>
-	<button class="btn" type="submit">Appliquer</button>
+	<button class="btn btn-default" type="submit">Appliquer</button>
 </p>
-<div class="pull-left form-search" style="margin-left:15px;">
-	<div class="input-append">
-	  <input class="input-medium search-query" id="recherche<?= $id ?>" name="recherche<?= $id ?>" placeholder="Rechercher ..." type="text" value="<?= $this->keyword; ?>">
-	  <button class="btn" type="submit">Search</button>
+<div class="pull-left form-inline" style="margin-left:15px;">
+	<div class="form-group">
+		<input class="form-control search-query" id="recherche<?= $id ?>" name="recherche<?= $id ?>" placeholder="Rechercher ..." type="text" value="<?= $this->keyword; ?>">
 	</div>
+	<button class="btn btn-default" type="submit">Submit</button>
 </div>
 <?php /* ?>
 <div class="pull-left" style="margin-left:15px;">
@@ -255,7 +257,7 @@ class ListMembers{
 			<!-- <li><a href="#">»</a></li> -->
 		*/
 		ob_start();
-		?><ul>
+		?><ul class="pagination">
 			<?php for ($i=1; $i <= $this->countPages; $i++): ?>
 				<li id="p<?= $i ?>" <?= ($i == $this->page)?'class="active"':''; ?>>
 					<a class="page" id="p<?= $i ?>" href="admin_liste_members.php?page=<?= $i ?>">
@@ -328,14 +330,14 @@ class ListMembers{
 
 	public function generalData(){
 		return array(
-			'keyword'                => $this->keyword,
-			'page'                   => $this->page,
-			'perPages'               => $this->perPages,
-			'options'                => $this->options,
+			'keyword'                 => $this->keyword,
+			'page'                    => $this->page,
+			'perPages'                => $this->perPages,
+			'options'                 => $this->options,
 			'globalCountMembers'      => $this->globalCountMembers,
 			'countMembers'            => $this->countMembers,
 			'countSqlReturnedMembers' => $this->countSqlReturnedMembers,
-			'countPages'             => $this->countPages
+			'countPages'              => $this->countPages
 		);
 	}
 

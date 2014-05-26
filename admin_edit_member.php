@@ -3,7 +3,7 @@
 	require 'vendor/autoload.php';;
 
 	if(!Functions::islog()){					// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
 	    header('Location:connection.php');exit;
 	}
 
@@ -20,7 +20,7 @@
 		$img  = 'img/icons/user_edit.png';
 	}else if (isset($_GET['login']) && $_GET['login'] != -1 && !Member::isMember($_GET['login'])){
 		// Cas où l'login donnée ne corresponds à aucun utilisateur
-		Functions::setFlash('<strong>Erreur :</strong> Ce login ne correspond à aucun member','error');
+		Functions::setFlash('<strong>Erreur :</strong> Ce login ne correspond à aucun member','danger');
 		header('Location:admin_liste_members.php');exit;
 	}else if ((isset($_GET['login']) && $_GET['login'] == -1)){
 		$Member = new Member();
@@ -68,12 +68,12 @@
 <h1 class="page-header clearfix">
 	<div class="pull-left"><img src="<?= $img; ?>" alt=""> <?= $nom_for_layout; ?> </div>
 	<div class="pull-right">
-		<a href="admin_edit_member.php?login=-1" class="btn btn-info btn-large">Ajouter</a>
-		<a href="admin_liste_members.php" class="btn btn-primary btn-large" onlick="">Retour liste</a>
+		<a href="admin_edit_member.php?login=-1" class="btn btn-info btn-lg">Ajouter</a>
+		<a href="admin_liste_members.php" class="btn btn-primary btn-lg" onlick="">Retour liste</a>
 	</div>
 </h1>
 
-<form action="admin_edit_member.php?login=<?= $_GET["login"]; ?>" method="post" enctype="multipart/form-data" class="form-horizontal">
+<form action="admin_edit_member.php?login=<?= $_GET["login"]; ?>" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
 	<div class="row">
 	    <fieldset>
 	        <legend>Informations générales :</legend>
@@ -92,10 +92,12 @@
     	    </div>
     	</fieldset>
     </div>
-    <div class="form-actions">
-        <button class="btn btn-primary" type="submit">Save changes</button>
-        &nbsp;
-        <button class="btn" type="reset">Cancel</button>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+	        <button class="btn btn-primary" type="submit">Save changes</button>
+	        &nbsp;
+	        <button class="btn btn-default" type="reset">Cancel</button>
+        </div>
     </div>
 </form>
 

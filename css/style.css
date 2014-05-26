@@ -1,52 +1,10 @@
 body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+    padding-top: 80px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
 
-.subnav {
-    background-color: #EEEEEE;
-    background-image: -moz-linear-gradient(center top , #F5F5F5 0%, #EEEEEE 100%);
-    background-repeat: repeat-x;
-    border: 1px solid #E5E5E5;
-    border-radius: 4px 4px 4px 4px;
-    height: 36px;
-    width: 100%;
-}
-.subnav .nav {
-    margin-bottom: 0;
-}
-.subnav .nav > li > a {
-    border-left: 1px solid #F5F5F5;
-    border-radius: 0 0 0 0;
-    border-right: 1px solid #E5E5E5;
-    margin: 0;
-    padding-bottom: 11px;
-    padding-top: 11px;
-}
-.subnav .nav > .active > a, .subnav .nav > .active > a:hover {
-    background-color: #E9E9E9;
-    border-left: 0 none;
-    border-right-color: #DDDDDD;
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05) inset;
-    color: #777777;
-    padding-left: 13px;
-}
-.subnav .nav > .active > a .caret, .subnav .nav > .active > a:hover .caret {
-    border-top-color: #777777;
-}
-.subnav .nav > li:first-child > a, .subnav .nav > li:first-child > a:hover {
-    border-left: 0 none;
-    border-radius: 4px 0 0 4px;
-    padding-left: 12px;
-}
-.subnav .nav > li:last-child > a {
-    border-right: 0 none;
-}
-.subnav .dropdown-menu {
-    border-radius: 0 0 4px 4px;
-}
 .hidden{display: none;}
 
-/* tables */
+/* ---------- tablesorter ---------- */
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
     /*background-color: #e6EEEE;*/
 }
@@ -67,138 +25,6 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     /*background-color: #8dbdd8;*/
 }
 
-/* icones édition d'image */
-
-.newtab-control {
-    -webkit-transition: opacity 100ms ease-out 0s;
-    -moz-transition: opacity 100ms ease-out 0s;
-    -o-transition: opacity 100ms ease-out 0s;
-    -ms-transition: opacity 100ms ease-out 0s;
-    transition: opacity 100ms ease-out 0s;
-    background: url("../img/icons/controls.png") repeat scroll 0 0 transparent;
-    position: absolute;
-    overflow: hidden;
-    z-index: 10;
-    top: 8px;
-    height:24px;
-    width: 24px;
-}
-
-.newtab-control:-moz-focusring, .Post:hover > .newtab-control {
-    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
-}
-.newtab-control-block {
-    right:8px;
-}
-.newtab-control-block {
-    background-position: 0px 0;
-}
-.newtab-control-block:hover {
-    background-position: -24px 0;
-}
-.newtab-control-block:active {
-    background-position: -48px 0;
-}
-.newtab-control-pin {
-    left:8px;
-}
-.newtab-control-pin {
-    background-position: 72px 0;
-}
-.newtab-control-pin:hover {
-    background-position: 48px 0;
-}
-.newtab-control-pin:active {
-    background-position: 24px 0;
-}
-
-#map{
-    height:620px;width:895px;
-    position: relative;
-    background: url(../../img/residences/map_axentia_with_paris.png) no-repeat;
-}
-
-.site{
-    /*background: url("../img/icons/orange-square.png") no-repeat left top transparent;*/
-    position: absolute;
-    height: 12px;
-    width: 12px;
-    /*cursor: move;*/
-    opacity: 0.9;
-    z-index: 2;
-}
-.site a{
-    background: url("../img/icons/orange-square.png") no-repeat left top transparent;
-    cursor: move;
-    height: 12px;
-    width: 13px;
-    position: relative;
-    top:0;
-    left:0;
-    display: inline-block;
-    z-index: 2;
-}
-.site:hover{
-    opacity: 1;
-    z-index: 3;
-}
-.wrap{
-    display: block;
-    width: 160px;
-    position: absolute;
-    cursor: default;
-    left: 20px;
-    top: 4px;
-    font-size: 12px;
-    line-height: 12px;
-    z-index: 1;
-}
-#map .site.Axentia.service a{
-    background: url("../img/icons/orange-square.png") no-repeat left top transparent;
-}
-#map .site.Sofari.service a{
-    background: url("../img/icons/green-square.png") no-repeat left top transparent;
-}
-#map .site.Axentia.etude a{
-    background: url("../img/icons/red-circle.png") no-repeat left top transparent;
-}
-#map .site.Axentia.construction a{
-    background: url("../img/icons/yellow-triangle.png") no-repeat left top transparent;
-}
-
-#map #legend{
-    position: absolute;
-    right: 0px;
-}
-#map #legend img{
-    width: 13px;
-    margin-right: 10px;
-}
-.site.fleft .wrap{
-    text-align: right;
-    left:-166px;
-}
-
-/* ------------------------------ Savoir-Faire ------------------------------ */
-.savoir-faire a.bulle{height: 228px;width: 228px;margin: 20px auto;background-image: url('../../img/contour_savoir-faire.png');position: relative;display: block;color:#373737;}
-.savoir-faire a.bulle .thumb{position: absolute;top: 40px;left: 74px;
-  background-image: url("../../img/icones.png");background-position: 0px 0px;background-repeat: no-repeat;
-  display: inline-block;height: 80px;line-height: 80px;margin-top: 0px;vertical-align: text-top;width: 80px;}
-.savoir-faire a.bulle .thumb.thumb-btp{background-position: 0px 0px;}
-.savoir-faire a.bulle .thumb.thumb-transport{background-position: -80px 0px;}
-.savoir-faire a.bulle .thumb.thumb-fin_ass{background-position: -160px 0px;}
-.savoir-faire a.bulle .thumb.thumb-service{background-position: 0px -80px;}
-.savoir-faire a.bulle .thumb.thumb-manufact{background-position: -80px -80px;}
-.savoir-faire a.bulle .thumb.thumb-education{background-position: -160px -80px;}
-.savoir-faire a.bulle .thumb.thumb-sante{background-position: 0px -160px;}
-.savoir-faire a.bulle .thumb.thumb-agro{background-position: -80px -160px;}
-.savoir-faire a.bulle .thumb.thumb-petrol{background-position: -160px -160px;}
-
-.savoir-faire a.bulle .bulle-title{display: inline;position: absolute;top: 120px;left: 19px;text-align:center;width: 190px;font-size: 20px;}
-
-
 /* ---------- Styliser les Sliders ---------- */
 .ui-slider .ui-slider-handle {
     background: url("../img/bouton.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0); border: medium none; cursor: pointer; height: 25px; margin-left: -13px; top: -7px; width: 25px;
@@ -206,8 +32,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 .ui-slider { height: 10px;margin: 10px 0;background: #282a31; border-radius: 5px;border:0;}
 .ui-slider .ui-slider-range { background: #3b8ec0;border-radius: 5px;}
 
-
-
-#board ul.thumbnails>li.span4{position: relative;}
-#board ul.thumbnails>li.span4>a.thumbnail{position: relative;z-index: 100;}
-#board .links{position: absolute;top: 10px;left: 10px;z-index: 200;}
+/* ---------- Accueil Admin ---------- */
+.board .board-item{position: relative;}
+.board .board-thumbnail{position: relative;z-index: 100;text-align: center;}
+.board .board-links{position: absolute;top: 10px;left: 22px;z-index: 200;}

@@ -1,10 +1,10 @@
 <hr>
 
 <footer class="footer">
-    <div class="clearfix">
-        <em>Administration par Antoine Giraud <small>115</small> pour IDiiL :)</em>
+    <p class="clearfix">
+        <em>Administration par Antoine Giraud <small>115</small> pour PayIcam :)</em>
         <a class="pull-right" href="#">Back to top</a>
-    </div>
+    </p>
 </footer>
 
 </div> <!-- /container -->

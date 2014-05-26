@@ -54,40 +54,40 @@ if(!empty($_POST) && strlen($_POST['prenom'])>4 && filter_var($_POST['email'], F
 <?php include 'includes/header.php'; ?>
     <h1 class="page-header"><img src="img/icons/contact.png" alt=""> Formulaire d'inscription :</h1>
     <form action="register.php" method="POST" class="form-horizontal">
-        <div class="control-group <?php if(isset($error_nom)){echo 'error';} ?>">
-            <label class="control-label" for="nom">Nom :</label>
-            <div class="controls">
-            <input id="nom" name="nom" type="text">
-            <span class="help-inline"><?php if(isset($error_nom)){ echo $error_nom; } ?></span>
+        <div class="form-group <?php if(isset($error_nom)){echo 'error';} ?>">
+            <label class="col-sm-2 control-label" for="nom">Nom :</label>
+            <div class="col-sm-10">
+            <input class="form-control" id="nom" name="nom" type="text">
+            <span class="help-block"><?php if(isset($error_nom)){ echo $error_nom; } ?></span>
             </div>
         </div>
 
-        <div class="control-group <?php if(isset($error_prenom)){echo 'error';} ?>">
-            <label class="control-label" for="prenom">Prenom :</label>
-            <div class="controls">
-            <input id="prenom" name="prenom" type="text">
-            <span class="help-inline"><?php if(isset($error_prenom)){ echo $error_prenom; } ?></span>
+        <div class="form-group <?php if(isset($error_prenom)){echo 'error';} ?>">
+            <label class="col-sm-2 control-label" for="prenom">Prenom :</label>
+            <div class="col-sm-10">
+            <input class="form-control" id="prenom" name="prenom" type="text">
+            <span class="help-block"><?php if(isset($error_prenom)){ echo $error_prenom; } ?></span>
             </div>
         </div>
 
-        <div class="control-group <?php if(isset($error_email)){echo 'error';} ?>">
-            <label class="control-label" for="email">Email :</label>
-            <div class="controls">
-            <input id="email" name="email" type="email">
-            <span class="help-inline"><?php if(isset($error_email)){ echo $error_email; } ?></span>
+        <div class="form-group <?php if(isset($error_email)){echo 'error';} ?>">
+            <label class="col-sm-2 control-label" for="email">Email :</label>
+            <div class="col-sm-10">
+            <input class="form-control" id="email" name="email" type="email">
+            <span class="help-block"><?php if(isset($error_email)){ echo $error_email; } ?></span>
             </div>
         </div>
 
-        <div class="control-group">
-            <label class="control-label" for="password">Password :</label>
-            <div class="controls">
-            <input id="password" name="password" type="password">
-            <span class="help-inline"></span>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">Password :</label>
+            <div class="col-sm-10">
+            <input class="form-control" id="password" name="password" type="password">
+            <span class="help-block"></span>
             </div>
         </div>
 
-        <div class="control-group">
-            <div class="controls">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
                 <button class="btn btn-primary" type="submit">Se connecter</button>
             </div>
         </div>               

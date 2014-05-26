@@ -97,11 +97,11 @@ class form extends Functions{
 	 * 
 	 */
 	/*
-<div class="control-group ">
-	<label class="control-label" for="inputWarning">Input with warning</label>
-	<div class="controls">
+<div class="form-group ">
+	<label class="col-sm-2 control-label" for="inputWarning">Input with warning</label>
+	<div class="col-sm-10">
 		<input id="inputWarning" type="text">
-		<span class="help-inline">Something may have gone wrong</span>
+		<span class="help-block">Something may have gone wrong</span>
 	</div>
 </div>
 	*/
@@ -125,69 +125,69 @@ class form extends Functions{
 		if (isset($options['type'],$options['checkboxNoClassControl']) && $options['type'] == 'checkbox')
 			$html ='';
 		else if (isset($options['type'],$options['class']) && ($options['class']=='wysiwyg') && $options['type']=='textarea')
-			$html ='<div class="control-group '.$classError.'">
-				<label class="control-label" for="'.$idName.'">'.$label.'</label>
-				<div class="controls">';
+			$html ='<div class="form-group '.$classError.'">
+				<label class="col-sm-2 control-label" for="'.$idName.'">'.$label.'</label>
+				<div class="col-sm-10">';
 		else
-			$html ='<div class="control-group '.$classError.'">
-				<label class="control-label" for="'.$idName.'">'.$label.'</label>
-				<div class="controls">';
+			$html ='<div class="form-group '.$classError.'">
+				<label class="col-sm-2 control-label" for="'.$idName.'">'.$label.'</label>
+				<div class="col-sm-10">';
 		if (!empty($options['append']))
         	$html .= ' '.$options['append'].' ';
 		if (isset($options['datalist'])) {
 			$options['list']="liste-".$name;
 		}	
 		$attr = ' ';
-		foreach ($options as $k => $v) { if (!in_array($k,array('data','type','helper','datalist','append','prepend','input-prepend','input-append','selected','checkboxNoClassControl'))){
+		foreach ($options as $k => $v) { if (!in_array($k,array('data','type','helper','datalist','append','prepend','input-group','input-group','selected','checkboxNoClassControl'))){
 				$attr .= $k.'="'.$v.'" ';
 		}}
 		if (!isset($options['class'])) {
-			$attr .= 'class="span3 "';
+			$attr .= 'class="col-md-3 "';
 		}
 		if (!isset($options['type']) && $name == 'email' || $name == 'mail') {
-			$html.= '<div class="input-prepend">
-				<span class="add-on">@</span><input type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
+			$html.= '<div class="input-group">
+				<span class="input-group-addon">@</span><input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
 			</div>';
 		}else if (!isset($options['type']) && $name == 'date') {
-			$html.= '<div class="input-prepend">
-				<span class="add-on"><i class="icon-calendar ui-datepicker-trigger"></i></span><input type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
+			$html.= '<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar ui-datepicker-trigger"></i></span><input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
 			</div>';
-		}else if (!isset($options['type']) && (isset($options['input-prepend']) || isset($options['input-append']))) {
-			$html.= '<div class="input-prepend input-append">';
-			if (isset($options['input-prepend']) && !is_array($options['input-prepend'])) {
-				if (!preg_match('/span|button|input/', $options['input-prepend']))
-					$html.= '<span class="add-on">'.$options['input-prepend'].'</span>';
+		}else if (!isset($options['type']) && (isset($options['input-group']) || isset($options['input-group']))) {
+			$html.= '<div class="input-group input-group">';
+			if (isset($options['input-group']) && !is_array($options['input-group'])) {
+				if (!preg_match('/span|button|input/', $options['input-group']))
+					$html.= '<span class="input-group-addon">'.$options['input-group'].'</span>';
 				else
-					$html.= $options['input-prepend'];
-			}elseif (isset($options['input-prepend']) && is_array($options['input-prepend'])) {
-				foreach ($options['input-prepend'] as $inkey => $inval) {
+					$html.= $options['input-group'];
+			}elseif (isset($options['input-group']) && is_array($options['input-group'])) {
+				foreach ($options['input-group'] as $inkey => $inval) {
 					if (($inkey == 'button' || $inkey == 'btn') && is_array($inval)) {
 						$html.= '<button class="btn';
 						if(!empty($inval['class'])) $html.= ' '.$inval['class'].' ';
 						$html.= '" type="button">'.$inval['label'].'</button>';
 					}elseif(!is_array($inval)){
 						if (!preg_match('/span|button|input|select/', $inval))
-							$html.= '<span class="add-on">'.$inval.'</span>';
+							$html.= '<span class="input-group-addon">'.$inval.'</span>';
 						else
 							$html.= $inval;
 					}
 				}
 			}
-			$html.= '<input type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>';
-			if (isset($options['input-append']) && !is_array($options['input-append'])) {
-				if (!preg_match('/span|button|input/', $options['input-append']))
-					$html.= '<span class="add-on">'.$options['input-append'].'</span>';
+			$html.= '<input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>';
+			if (isset($options['input-group']) && !is_array($options['input-group'])) {
+				if (!preg_match('/span|button|input/', $options['input-group']))
+					$html.= '<span class="input-group-addon">'.$options['input-group'].'</span>';
 				else
-					$html.= $options['input-append'];				
-			}elseif (isset($options['input-append']) && is_array($options['input-append'])) {
-				foreach ($options['input-append'] as $inkey => $inval) {
+					$html.= $options['input-group'];				
+			}elseif (isset($options['input-group']) && is_array($options['input-group'])) {
+				foreach ($options['input-group'] as $inkey => $inval) {
 					if (($inkey == 'button' || $inkey == 'btn') && is_array($inval)) {
 						$html.= '<button class="btn';
 						if(!empty($inval['class'])) $html.= ' '.$inval['class'].' ';
 						$html.= '" type="button">'.$inval['label'].'</button>';
 					}elseif(!is_array($inval)){
 						if (!preg_match('/span|button|input|select/', $inval))
-							$html.= '<span class="add-on">'.$inval.'</span>';
+							$html.= '<span class="input-group-addon">'.$inval.'</span>';
 						else
 							$html.= $inval;
 					}
@@ -195,15 +195,16 @@ class form extends Functions{
 			}
 			$html.= '</div>';
 		}else if (!isset($options['type'])) {
-			$html.= '<input type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>';
+			$html.= '<input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>';
 		}elseif($options['type'] == 'textarea'){
 			if (isset($options['class']) && $options['class']=='wysiwyg') {$html.= '<div class="clear"></div>';}
 			$html.= '<textarea name="'.$name.'" id="'.$idName.'" '.$attr.'>'.$value.'</textarea>';
 		}elseif($options['type'] == 'checkbox' || $options['type'] == 'radio'){
+			$html .= '<div class="'.$options['type'].'">';
 			if (isset($options['value'])) {
 				foreach ($options['value'] as $k => $v) {
-				   	$html .= '<label class="'.$options['type'].(isset($options['inline'])?' inline':'').'">';
-				   	$html .= '<input type="'.$options['type'].'" id="'.$name.'['.$k.']" name="'.(($options['type'] == 'radio')?$name:$name.'['.$k.']').'" value="'.(($options['type'] == 'radio')?$k:'1').'"';
+				   	$html .= '<label class="'.$options['type'].(isset($options['inline'])?(($options['type'] == 'checkbox')?' checkbox-inline':' radio-inline'):'').'">';
+				   	$html .= '<input class="'.((!empty($options['class']))?' '.$options['class']:'').'" type="'.$options['type'].'" id="'.$name.'['.$k.']" name="'.(($options['type'] == 'radio')?$name:$name.'['.$k.']').'" value="'.(($options['type'] == 'radio')?$k:'1').'"';
 				   	if (!empty($value) && !isset($options['selected']))
 				   		$html .= ' checked="checked" ';
 				   	elseif ((isset($options['selected']) && ($k == $options['selected'] || $options['selected'] == $v))){
@@ -213,20 +214,21 @@ class form extends Functions{
 				   	$html .= $v.'</label>';
 				}
 			}else {
-				$html.= '<label class="'.$options['type'].' inline"
+				$html.= '<label class="'.$options['type'].(($options['type'] == 'checkbox')?' checkbox-inline':' radio-inline').'"
 				'.((isset($options['type'],$options['checkboxNoClassControl']) && $options['type'] == 'checkbox')?' for="'.$idName.'"':'').'>
 					<input type="hidden" name="'.$name.'" value="0"/>
-					<input type="checkbox" '.((!empty($options['class']))?'class="'.$options['class'].'"':'').' id="'.$idName.'" name="'.$name.'" value="1" '.((!empty($value))?'checked="checked"':'').'/>
+					<input class="'.((!empty($options['class']))?' '.$options['class']:'').'" type="checkbox" '.((!empty($options['class']))?'class="'.$options['class'].'"':'').' id="'.$idName.'" name="'.$name.'" value="1" '.((!empty($value))?'checked="checked"':'').'/>
 					'.((isset($options['type'],$options['checkboxNoClassControl']) && $options['type'] == 'checkbox')?$label:'').'
 				</label>';
 			}
+			$html .= '</div>';
 		}elseif($options['type'] == 'file'){
 			$html.= '<input type="file" class="input-file" id="'.$idName.'" name="'.$name.'" '.$attr.'/>';
 		}elseif($options['type'] == 'password'){
-			$html.= '<input type="password" id="'.$idName.'" name="'.$name.'" value="'.$value.'" '.$attr.'/>';
+			$html.= '<input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="password" id="'.$idName.'" name="'.$name.'" value="'.$value.'" '.$attr.'/>';
 		}
 		if (isset($options['datalist'])) {
-			$html.='<datalist id="'.$options['list'].'">';
+			$html.='<datalist class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" id="'.$options['list'].'">';
 			foreach ($options['datalist'] as $value) {
 				$html.='<option value="'.$value.'" label="'.$value.'"></option>';
 			}
@@ -234,17 +236,17 @@ class form extends Functions{
 		}
 		if ($error){
 			if (isset($options['type']) && ($options['type'] != 'checkbox' || $options['type'] != 'radio') && empty($options['helper-block']))
-				$html .= '<span class="help-inline '.$options['type'].' inline">'.$error.'</span>';
+				$html .= '<span class="help-block '.$options['type'].(($options['type'] == 'checkbox')?' checkbox-inline':' radio-inline').'">'.$error.'</span>';
 			else if(!empty($options['helper-block']))
 				$html .= '<p class="help-block">'.$error.'</p>';
 			else
-				$html .= '<span class="help-inline">'.$error.'</span>';
+				$html .= '<span class="help-block">'.$error.'</span>';
 		}else if(!empty($options['helper']) || !empty($options['helper-inline'])){
 			if (!empty($options['helper-inline'])) $options['helper'] = $options['helper-inline'];
 	        if (isset($options['type']) && ($options['type'] != 'checkbox' || $options['type'] != 'radio'))
-				$html .= '<span class="help-inline '.$options['type'].' inline">'.$options['helper'].'</span>';
+				$html .= '<span class="help-block '.$options['type'].(($options['type'] == 'checkbox')?' checkbox-inline':' radio-inline').'">'.$options['helper'].'</span>';
 			else
-				$html .= '<span class="help-inline">'.$options['helper'].'</span>';
+				$html .= '<span class="help-block">'.$options['helper'].'</span>';
     	}else if(!empty($options['helper-block'])){
     		$html .= '<p class="help-block">'.$options['helper-block'].'</p>';
         }
@@ -275,8 +277,8 @@ class form extends Functions{
 		}
         $value = $this->getFieldData($field);
 
-        $r = '<div class="control-group" '.$classError.'><label class="control-label" for="select'.$field.'">'.$label.'</label>';
-        $r.= '<div class="controls"><select name="'.$field.'" id="'.(!empty($options['id'])?$options['id']:'select'.$field).'">';
+        $r = '<div class="form-group" '.$classError.'><label class="col-sm-2 control-label" for="select'.$field.'">'.$label.'</label>';
+        $r.= '<div class="col-sm-10"><select class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" name="'.$field.'" id="'.(!empty($options['id'])?$options['id']:'select'.$field).'">';
         foreach ($options['data'] as $k => $v) {
         	if (is_array($v)) {
         		$r .= '<optgroup label="'.$k.'">';
@@ -296,9 +298,9 @@ class form extends Functions{
         }
         $r.= '</select>';
         if (!empty($error)) {
-			$r .= '<span class="help-inline">'.$error.'</span>';
+			$r .= '<span class="help-block">'.$error.'</span>';
 		}else if(!empty($options['helper'])){
-            $r .= '<span class="help-inline"><em>'.$options['helper'].'</em></span>';
+            $r .= '<span class="help-block"><em>'.$options['helper'].'</em></span>';
         }
         $r .= '</div></div>';
 
@@ -319,10 +321,10 @@ class form extends Functions{
     	if(isset($options['value']))$options['data'] = $options['value'];
     	if(isset($options['options']))$options['data'] = $options['options'];
     	$attr = ' ';
-		foreach ($options as $k => $v) { if (!in_array($k,array('data','type','helper','datalist','append','prepend','input-prepend','input-append','selected'))){
+		foreach ($options as $k => $v) { if (!in_array($k,array('data','type','helper','datalist','append','prepend','input-group','input-group','selected'))){
 				$attr .= $k.'="'.$v.'" ';
 		}}
-    	$select = '<select name="'.$name.'" id="'.(!empty($options['id'])?$options['id']:'select'.$name).'" class="'.((!empty($options['class']))?$options['class']:'').'" '.$attr.'>';
+    	$select = '<select class="form-control '.((!empty($options['class']))?$options['class']:'').'" name="'.$name.'" id="'.(!empty($options['id'])?$options['id']:'select'.$name).'" '.$attr.'>';
     	foreach ($options['data'] as $k => $v) {
         	if (is_array($v)) {
         		$select .= '<optgroup label="'.$k.'">';

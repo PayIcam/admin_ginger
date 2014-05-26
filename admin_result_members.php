@@ -1,7 +1,7 @@
 <?php
   require_once 'includes/_header.php';
   if(!Functions::islog()){          // sécuriser l'accès
-      Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','error');
+      Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
       header('Location:connection.php');exit;
   }
 
@@ -25,7 +25,7 @@
     $('.memberCount').each(function(event) {
       $(this).html(<?= '"'.$ListMembers->countSqlReturnedMembers.'/'.$ListMembers->countMembers.'"' ?>);
     });
-    $('.pagination').each(function(event) {
+    $('.pagination-container').each(function(event) {
       var pagination = '<?= $ListMembers->getPagination(1); ?>';
       $(this).html(pagination);
     });
