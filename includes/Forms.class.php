@@ -111,7 +111,7 @@ class form extends Functions{
 		$idName = (!empty($options['id'])?$options['id']:'input'.$name);
 		if (isset($this->errors[$name])) {
 			$error = $this->errors[$name];
-			$classError = 'error';
+			$classError = 'has-error';
 		}
 
 		if(isset($options['value']) && $label=='hidden')
