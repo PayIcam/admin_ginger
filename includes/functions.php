@@ -70,7 +70,10 @@ class Functions{
             $html = '';
             foreach ($_SESSION['flash'] as $k => $v) {
                 if(isset($v['message'])){
-                    $html .= '<div class="alert alert-'.$v['type'].'"><button class="close" data-dismiss="alert">×</button>'.$v['message'].'</div>';
+                    $html .= '<div class="alert alert-'.$v['type'].' alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        '.$v['message'].'
+                    </div>';
                 }
             }
             $html .= '<div class="clear"></div>';

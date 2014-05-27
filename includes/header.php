@@ -7,7 +7,7 @@ require_once 'includes/_header.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Administration Ginger - PayIcam">
     <meta name="author" content="Antoine Giraud">
-    <link rel="shortcut icon" href="img/favicon_IDiiL.ico">
+    <link rel="shortcut icon" href="favicon.png">
     
     <title><?php if(isset($title_for_layout)){echo $title_for_layout.' - ';} ?><?= WEBSITE_TITLE; ?></title>
     

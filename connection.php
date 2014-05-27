@@ -103,5 +103,10 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
     <?php if (Functions::getConfig('inscriptions') == true): ?>
         <p><a href="register.php">Vous n'avez pas de compte ?</a></p>
     <?php endif ?>
+
+
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
