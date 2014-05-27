@@ -87,8 +87,11 @@
     	<fieldset>
     	    <legend>Badge :</legend>
     	    <div>
-        	    <?= $form->input('badge_uid','Badge UID : ', array('maxlength'=>"8")); ?>
-        	    <?= $form->input('expiration_badge','Date Expication Badge : ', array('class'=>"datepicker")); ?>
+        	    <?= $form->input('badge_uid','Badge UID : ', array('maxlength'=>"8",'class'=>"has-warning",
+        	    	'input-group-prepend'=>'<span id="tag-ctrl" class="glyphicon glyphicon-tag input-group-addon"></span>',
+        	    	'input-group-append'=>'<span id="badgeuse-ctrl" class="glyphicon glyphicon-hdd input-group-addon has-warning" title="Connexion au lecteur de carte : non établie"></span>'
+    	    	)); ?>
+        	    <?= $form->input('expiration_badge','Date Expication Badge : ', array('class'=>"datepicker",'input-group-addon'=>'date')); ?>
     	    </div>
     	</fieldset>
     </div>
@@ -121,20 +124,24 @@
 
         ws.onopen = function() {
             handle("onopen", "");
+            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
         };
 
         ws.onerror = function() {
             handle("onerror", "");
+            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-success').addClass('has-error').attr('title', 'Connexion au lecteur de carte : Erreur');
         };
 
         ws.onclose = function() {
             handle("onclose", "");
+            $('#badgeuse-ctrl').removeClass('has-error').removeClass('has-success').addClass('has-warning').attr('title', 'Connexion au lecteur de carte : Non établie');
         };
 
         ws.onmessage = function(message) {
             var data = message.data.split(':');
             var event = data[0], data = data[1];
             handle(event, data);
+            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
         };
 
         service.ws = ws;
@@ -156,7 +163,15 @@
     service.subscribe("cardInserted", function(badge_id) {
         console.log('badge_id : '+badge_id);
         console.log($inputbadge_uid);
-        $inputbadge_uid.val(badge_id);
+        $inputbadge_uid.val(badge_id).animate({
+		backgroundColor: "#DFF0D8",
+	    borderColor: "#3C763D",
+	    color: "#3C763D",
+		}, 500 ).animate({
+		backgroundColor: "#fff",
+	    borderColor: "#ccc",
+	    color: "#555",
+		}, 500 );;
     });
 </script>
 

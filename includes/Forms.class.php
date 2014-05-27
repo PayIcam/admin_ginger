@@ -138,7 +138,7 @@ class form extends Functions{
 			$options['list']="liste-".$name;
 		}	
 		$attr = ' ';
-		foreach ($options as $k => $v) { if (!in_array($k,array('data','type','helper','datalist','append','prepend','input-group','input-group','selected','checkboxNoClassControl'))){
+		foreach ($options as $k => $v) { if (!in_array($k,array('class','data','type','helper','datalist','append','prepend','input-group-prepend','input-group-append','input-group-addon','selected','checkboxNoClassControl'))){
 				$attr .= $k.'="'.$v.'" ';
 		}}
 		if (!isset($options['class'])) {
@@ -148,19 +148,19 @@ class form extends Functions{
 			$html.= '<div class="input-group">
 				<span class="input-group-addon">@</span><input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
 			</div>';
-		}else if (!isset($options['type']) && $name == 'date') {
+		}else if (!isset($options['type']) && $name == 'date' || (!empty($options['input-group-addon']) && $options['input-group-addon'] == 'date')) {
 			$html.= '<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-calendar ui-datepicker-trigger"></i></span><input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>
 			</div>';
-		}else if (!isset($options['type']) && (isset($options['input-group']) || isset($options['input-group']))) {
-			$html.= '<div class="input-group input-group">';
-			if (isset($options['input-group']) && !is_array($options['input-group'])) {
-				if (!preg_match('/span|button|input/', $options['input-group']))
-					$html.= '<span class="input-group-addon">'.$options['input-group'].'</span>';
+		}else if (!isset($options['type']) && (isset($options['input-group-prepend']) || isset($options['input-group-append']))) {
+			$html.= '<div class="input-group">';
+			if (isset($options['input-group-prepend']) && !is_array($options['input-group-prepend'])) {
+				if (!preg_match('/span|button|input/', $options['input-group-prepend']))
+					$html.= '<span class="input-group-addon">'.$options['input-group-prepend'].'</span>';
 				else
-					$html.= $options['input-group'];
-			}elseif (isset($options['input-group']) && is_array($options['input-group'])) {
-				foreach ($options['input-group'] as $inkey => $inval) {
+					$html.= $options['input-group-prepend'];
+			}elseif (isset($options['input-group-prepend']) && is_array($options['input-group-prepend'])) {
+				foreach ($options['input-group-prepend'] as $inkey => $inval) {
 					if (($inkey == 'button' || $inkey == 'btn') && is_array($inval)) {
 						$html.= '<button class="btn';
 						if(!empty($inval['class'])) $html.= ' '.$inval['class'].' ';
@@ -174,13 +174,13 @@ class form extends Functions{
 				}
 			}
 			$html.= '<input class="form-control'.((!empty($options['class']))?' '.$options['class']:'').'" type="text" name="'.$name.'" id="'.$idName.'" value="'.$value.'" '.$attr.'/>';
-			if (isset($options['input-group']) && !is_array($options['input-group'])) {
-				if (!preg_match('/span|button|input/', $options['input-group']))
-					$html.= '<span class="input-group-addon">'.$options['input-group'].'</span>';
+			if (isset($options['input-group-append']) && !is_array($options['input-group-append'])) {
+				if (!preg_match('/span|button|input/', $options['input-group-append']))
+					$html.= '<span class="input-group-addon">'.$options['input-group-append'].'</span>';
 				else
-					$html.= $options['input-group'];				
-			}elseif (isset($options['input-group']) && is_array($options['input-group'])) {
-				foreach ($options['input-group'] as $inkey => $inval) {
+					$html.= $options['input-group-append'];				
+			}elseif (isset($options['input-group-append']) && is_array($options['input-group-append'])) {
+				foreach ($options['input-group-append'] as $inkey => $inval) {
 					if (($inkey == 'button' || $inkey == 'btn') && is_array($inval)) {
 						$html.= '<button class="btn';
 						if(!empty($inval['class'])) $html.= ' '.$inval['class'].' ';
