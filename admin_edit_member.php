@@ -107,7 +107,8 @@
 </div>
 
 <script type="text/javascript">
-	var url_root = '<?= dirname(HOME_URL) ?>';
+	var ginger_url = '<?= Config::get('ginger_url') ?>';
+	var ginger_key = '<?= Config::get('ginger_key') ?>';
 	window.JCAPPUCINO_APPLET =  'ws://localhost:9191/events';
 	var login = $('input[name=login]').val();
 	var $inputbadge_uid = $('#inputbadge_uid');
@@ -179,7 +180,7 @@
 		$TagCtrl.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
 	  	checkXhr('badge_id');
 		xhr['badge_id'] =  $.ajax({
-			url: url_root+"/ginger/index.php/v1/badge/"+badge_id+"?key=test_ginger",
+			url: ginger_url+"badge/"+badge_id+"?key="+ginger_key,
 			type: "GET",
 			dataType: "json"
 		}).done(function( server_response ) {
