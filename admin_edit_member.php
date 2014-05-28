@@ -107,6 +107,7 @@
 </div>
 
 <script type="text/javascript">
+	var url_root = '<?= dirname(HOME_URL) ?>';
 	window.JCAPPUCINO_APPLET =  'ws://localhost:9191/events';
 	var login = $('input[name=login]').val();
 	var $inputbadge_uid = $('#inputbadge_uid');
@@ -174,30 +175,31 @@
 	  }
 	}
 	function checkUsr(badge_id) {
+		$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
+		$TagCtrl.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
 	  	checkXhr('badge_id');
 		xhr['badge_id'] =  $.ajax({
-			url: "http://localhost/icam/payicam/ginger/index.php/v1/badge/"+badge_id+"?key=test_ginger",
+			url: url_root+"/ginger/index.php/v1/badge/"+badge_id+"?key=test_ginger",
 			type: "GET",
 			dataType: "json"
 		}).done(function( server_response ) {
 			if (server_response.login.length > 0 && server_response.login != login) {
-	    		$TagCtrl.removeClass('has-warning').removeClass('has-success').addClass('has-error').attr('title', 'Badge dejà utilisé par '+server_response.login+' ! Trouvez en un autre.');
-	    		$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-success').addClass('has-error');
+	    		$TagCtrl.addClass('has-error').attr('title', 'Badge dejà utilisé par '+server_response.login+' ! Trouvez en un autre.');
+	    		$Parent_inputbadge_uid.addClass('has-error');
 	    	}else if(server_response.login.length > 0 && server_response.login == login){
-	    		$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Vous ('+login+') utilisez déjà ce badge '+badge_id+' !');
+	    		$TagCtrl.addClass('has-success').attr('title', 'Vous ('+login+') utilisez déjà ce badge '+badge_id+' !');
 	    	}else{
-	    		$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
+	    		$TagCtrl.addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
 	    	};
 		}).fail(function( jqXHR, textStatus ) {
 			// Si on a un parse Error ... c'est que l'on a pas reçu de réponse
-			$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
+			$TagCtrl.addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
 		});
 	}
 
     // -------------------- Vérification & Réception badge_ic -------------------- //
 
     service.subscribe("cardInserted", function(badge_id) {
-    	$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
     	checkUsr(badge_id);
         console.log('badge_id : '+badge_id);
         $inputbadge_uid.val(badge_id).animate({
