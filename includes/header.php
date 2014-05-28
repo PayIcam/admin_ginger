@@ -17,6 +17,7 @@ require_once 'includes/_header.php';
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/Aristo/Aristo.css">
     <link rel="stylesheet" href="js/colorpicker/jquery.colorpicker.css">
+    <link rel="stylesheet" href="css/loaders.css">
     <link rel="stylesheet" href="css/style.css">
     <!-- endbuild -->
     <?php //*/ ?>

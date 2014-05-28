@@ -88,8 +88,8 @@
     	    <legend>Badge :</legend>
     	    <div>
         	    <?= $form->input('badge_uid','Badge UID : ', array('maxlength'=>"8",'class'=>"has-warning",
-        	    	'input-group-prepend'=>'<span id="tag-ctrl" class="glyphicon glyphicon-tag input-group-addon"></span>',
-        	    	'input-group-append'=>'<span id="badgeuse-ctrl" class="glyphicon glyphicon-hdd input-group-addon has-warning" title="Connexion au lecteur de carte : non établie"></span>'
+        	    	'input-group-prepend'=>'<span id="tag-ctrl" class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>',
+        	    	'input-group-append'=>'<span id="badgeuse-ctrl" class="input-group-addon has-warning"><span class="glyphicon glyphicon-hdd" title="Connexion au lecteur de carte : non établie"></span></span>'
     	    	)); ?>
         	    <?= $form->input('expiration_badge','Date Expication Badge : ', array('class'=>"datepicker",'input-group-addon'=>'date')); ?>
     	    </div>
@@ -113,9 +113,9 @@
 	var login = $('input[name=login]').val();
 	var $inputbadge_uid = $('#inputbadge_uid');
 	var $Parent_inputbadge_uid = $inputbadge_uid.parent().parent().parent();
-	console.log($Parent_inputbadge_uid);
 	var $badgeuseCtrl = $('#badgeuse-ctrl');
 	var $TagCtrl = $('#tag-ctrl');
+	var $TagCtrlInsideSpan = $('#tag-ctrl>span');
 	var service = {
         callback: {}
     };
@@ -178,12 +178,14 @@
 	function checkUsr(badge_id) {
 		$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
 		$TagCtrl.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
+		$TagCtrlInsideSpan.removeClass('glyphicon glyphicon-tag').addClass('loader loader-quart-tiny');
 	  	checkXhr('badge_id');
 		xhr['badge_id'] =  $.ajax({
 			url: ginger_url+"badge/"+badge_id+"?key="+ginger_key,
 			type: "GET",
 			dataType: "json"
 		}).done(function( server_response ) {
+			$TagCtrlInsideSpan.addClass('glyphicon glyphicon-tag').removeClass('loader loader-quart-tiny');
 			if (server_response.login.length > 0 && server_response.login != login) {
 	    		$TagCtrl.addClass('has-error').attr('title', 'Badge dejà utilisé par '+server_response.login+' ! Trouvez en un autre.');
 	    		$Parent_inputbadge_uid.addClass('has-error');
@@ -193,6 +195,7 @@
 	    		$TagCtrl.addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
 	    	};
 		}).fail(function( jqXHR, textStatus ) {
+			$TagCtrlInsideSpan.addClass('glyphicon glyphicon-tag').removeClass('loader loader-quart-tiny');
 			// Si on a un parse Error ... c'est que l'on a pas reçu de réponse
 			$TagCtrl.addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
 		});
