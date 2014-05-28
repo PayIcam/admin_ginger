@@ -108,7 +108,12 @@
 
 <script type="text/javascript">
 	window.JCAPPUCINO_APPLET =  'ws://localhost:9191/events';
+	var login = $('input[name=login]').val();
 	var $inputbadge_uid = $('#inputbadge_uid');
+	var $Parent_inputbadge_uid = $inputbadge_uid.parent().parent().parent();
+	console.log($Parent_inputbadge_uid);
+	var $badgeuseCtrl = $('#badgeuse-ctrl');
+	var $TagCtrl = $('#tag-ctrl');
 	var service = {
         callback: {}
     };
@@ -124,24 +129,24 @@
 
         ws.onopen = function() {
             handle("onopen", "");
-            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
+            $badgeuseCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
         };
 
         ws.onerror = function() {
             handle("onerror", "");
-            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-success').addClass('has-error').attr('title', 'Connexion au lecteur de carte : Erreur');
+            $badgeuseCtrl.removeClass('has-warning').removeClass('has-success').addClass('has-error').attr('title', 'Connexion au lecteur de carte : Erreur');
         };
 
         ws.onclose = function() {
             handle("onclose", "");
-            $('#badgeuse-ctrl').removeClass('has-error').removeClass('has-success').addClass('has-warning').attr('title', 'Connexion au lecteur de carte : Non établie');
+            $badgeuseCtrl.removeClass('has-error').removeClass('has-success').addClass('has-warning').attr('title', 'Connexion au lecteur de carte : Non établie');
         };
 
         ws.onmessage = function(message) {
             var data = message.data.split(':');
             var event = data[0], data = data[1];
             handle(event, data);
-            $('#badgeuse-ctrl').removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
+            $badgeuseCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Connexion au lecteur de carte : établie');
         };
 
         service.ws = ws;
@@ -160,18 +165,50 @@
 
     service.connect();
 
+    // -------------------- Functions Appel Ginger -------------------- //
+    var xhr = new Array();
+	function checkXhr(xhrName){
+	  if(xhr[xhrName]){
+	    xhr[xhrName].abort();
+	    delete xhr[xhrName];
+	  }
+	}
+	function checkUsr(badge_id) {
+	  	checkXhr('badge_id');
+		xhr['badge_id'] =  $.ajax({
+			url: "http://localhost/icam/payicam/ginger/index.php/v1/badge/"+badge_id+"?key=test_ginger",
+			type: "GET",
+			dataType: "json"
+		}).done(function( server_response ) {
+			if (server_response.login.length > 0 && server_response.login != login) {
+	    		$TagCtrl.removeClass('has-warning').removeClass('has-success').addClass('has-error').attr('title', 'Badge dejà utilisé par '+server_response.login+' ! Trouvez en un autre.');
+	    		$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-success').addClass('has-error');
+	    	}else if(server_response.login.length > 0 && server_response.login == login){
+	    		$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Vous ('+login+') utilisez déjà ce badge '+badge_id+' !');
+	    	}else{
+	    		$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
+	    	};
+		}).fail(function( jqXHR, textStatus ) {
+			// Si on a un parse Error ... c'est que l'on a pas reçu de réponse
+			$TagCtrl.removeClass('has-warning').removeClass('has-error').addClass('has-success').attr('title', 'Badge inconnu - Vous pouvez l\'utiliser');
+		});
+	}
+
+    // -------------------- Vérification & Réception badge_ic -------------------- //
+
     service.subscribe("cardInserted", function(badge_id) {
+    	$Parent_inputbadge_uid.removeClass('has-warning').removeClass('has-error').removeClass('has-success');
+    	checkUsr(badge_id);
         console.log('badge_id : '+badge_id);
-        console.log($inputbadge_uid);
         $inputbadge_uid.val(badge_id).animate({
-		backgroundColor: "#DFF0D8",
-	    borderColor: "#3C763D",
-	    color: "#3C763D",
+			backgroundColor: "#d9edf7",
+		    borderColor: "#31708F",
+		    color: "#31708f",
 		}, 500 ).animate({
-		backgroundColor: "#fff",
-	    borderColor: "#ccc",
-	    color: "#555",
-		}, 500 );;
+			backgroundColor: "#fff",
+		    borderColor: "#ccc",
+		    color: "#555",
+		}, 500 );
     });
 </script>
 

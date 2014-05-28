@@ -56,3 +56,9 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     border-color: #A94442;
     color: #A94442;
 }
+.input-group-addon.has-info {
+    border: 1px solid;
+    background-color:#d9edf7;
+    border-color:#31708F;
+    color:#31708f;
+}
