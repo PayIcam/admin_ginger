@@ -79,13 +79,14 @@ require_once 'includes/_header.php';
                 </ul>
               </li><?php } ?>
             <?php if($Auth->isLogged()){ ?>
-              <li class="dropdown">
+              <!-- <li class="dropdown">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Déconnection <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="logout.php"><i class="glyphicon glyphicon-log-out"></i> Log Only Admin Ginger Out</a></li>
                   <li><a href="logout.php?log_cas_out=1"><i class="glyphicon glyphicon-log-out"></i> Log Cas Out Too</a></li>
                 </ul>
-              </li>
+              </li> -->
+              <li><a href="logout.php">Déconnection</a></li>
             <?php }}
             if(!$Auth->isLogged()){ ?>
               <li><a href="connection.php">Se Connecter</a></li>

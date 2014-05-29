@@ -1,6 +1,6 @@
 <?php 
 
-include('/class/httpful.phar');
+include('class/httpful.phar');
 
 class Cas{
     protected $url;
