@@ -101,6 +101,7 @@ class Admin{
         	$DB->save(self::TABLE_NAME,$d,array('update'=>array('id'=>$id)));
         	Functions::setFlash("Changements effectués");
         }else{
+        	$id = $d['id']; unset($d['id']);
         	if (isset($d['login']) && $d['login'] == -1)
         		$d['login'] = $d['email'];
         	$id = $DB->save(self::TABLE_NAME,$d,'insert');

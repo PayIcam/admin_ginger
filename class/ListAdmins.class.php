@@ -200,7 +200,7 @@ class ListAdmins{
   <td><?= (empty($motclef))? $admin['nom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $admin['nom']); ?></td>
   <td><?= (empty($motclef))? $admin['prenom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $admin['prenom']); ?></td>
   <td><?= (empty($motclef))? $admin['email']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $admin['email']); ?></td>
-  <td><?= $Auth->getRoleName($admin['id']); ?></td>
+  <td><?= $Auth->getRoleName($admin['role_id']); ?></td>
   <td>
     <div class="pull-right">
       <a href="admin_edit_admin.php?id=<?= $admin['id'] ?>" title="Editer l'admin #<?= $admin['id']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>

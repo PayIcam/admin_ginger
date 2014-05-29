@@ -50,7 +50,7 @@
 	    $d = $Admin->checkForm($_POST); // $_POST for invite table : 'id','slug','nom','content','order'
 	    $form->set($d);
 	    if (empty($error['erreur']) && $form->validates($d)) { // fin pré-traitement
-	    	if($d['id'] == -1 && empty ($_POST['pass_new']) && empty ($_POST['pass_new2'])){
+	    	if($d['id'] == -1 && empty($_POST['password']) && empty ($_POST['pass_new']) && empty ($_POST['pass_new2'])){
 		    	$form->errors['pass_new'] = 'Il faut définir un mot de passe !';
 		    	$form->errors['pass_new2'] = '';
 		    }elseif ($d['id'] == -1 && current($DB->queryFirst('SELECT COUNT(*) FROM administrateurs WHERE email = :email',array('email'=>$d['email'])))) {
