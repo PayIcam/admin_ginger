@@ -2,7 +2,7 @@
 	require_once 'includes/_header.php';
 	require 'vendor/autoload.php';;
 
-	if(!Functions::islog()){					// sécuriser l'accès
+	if(!Functions::isLogged()){					// sécuriser l'accès
 	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
 	    header('Location:connection.php');exit;
 	}

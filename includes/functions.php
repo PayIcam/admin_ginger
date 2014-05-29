@@ -231,7 +231,7 @@ class Functions{
         return $DB->save('configs',array('value'=> $value),array('update'=>array('name'=>$name)));
     }
 
-    static function islog(){ // vérification de de l'existence d'une session "Auth", d'une session ouverte
+    static function isLogged(){ // vérification de de l'existence d'une session "Auth", d'une session ouverte
         global $DB;
         if(    isset($_SESSION['Auth'])
             && isset($_SESSION['Auth']['email'])
@@ -258,42 +258,6 @@ class Functions{
         )   return true;
         else
             return false;
-    }
-
-    static function isUser($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('users_admin',array('id'=>$id)) == 1) return true;
-        else return false;
-    }
-
-    static function isAuthor($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('authors',array('id'=>$id)) == 1) return true;
-        else return false;
-    }
-
-    static function isPost($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('posts',array('id'=>$id)) == 1) return true;
-        else return false;
-    }
-
-    static function isDoc($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('documents',array('id'=>$id)) == 1) return true;
-        else return false;
-    }
-
-    static function isGuest($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('invites',array('id'=>$id)) == 1) return true;
-        else return false;
-    }
-
-    static function isGroup($id){
-        global $DB;
-        if (is_numeric($id) && $DB->findCount('groups',array('id'=>$id)) == 1) return true;
-        else return false;
     }
 
     static function isPage(){

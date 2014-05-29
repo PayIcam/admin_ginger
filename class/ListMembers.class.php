@@ -4,11 +4,13 @@ require_once 'includes/_header.php';
 require_once ROOT_PATH.'class/Member.class.php';
 
 /**
-* Classe des ProgressBars pour le Gala
-*/
+* Class ListMembers
+**/
 class ListMembers{
 
-	const perPages = 120;
+	const perPages = 50;
+	private $searchFields = array('nom', 'prenom', 'mail', 'badge_uid');
+	private $exportFields = array('login','nom','prenom','mail','badge_uid','expiration_badge');
 
 	private $keyword;
 	private $page;
@@ -106,28 +108,44 @@ class ListMembers{
 		)
 			$sql .= ' ORDER BY login ASC LIMIT '.(($this->page-1)*$this->perPages).','.$this->perPages;
 		//*/
+		// debug($sql,'$sql');
 		$retour = $DB->query($sql, $q);
 
-		// debug($sql,'$sql');
 		return $retour;
 	}
 
 	public function getWhereForSearch(){
 		$where = '';$q = array();
 
+        // ---------------- Recherche en fonction du mot clé ---------------- //
         if (!empty($this->keyword)) {
-        	$where .= '';
-        	// ------------------------------ Recherche en fonction du mot clé ------------------------------ //
-		    $motclef = htmlspecialchars(str_replace('!', '', $this->keyword));
-		    $q = array('motclef'=>'%'.$motclef.'%');
-	    	if(preg_match('/^[!]/i', $this->keyword)){
-			    $where .= '('.implode(' NOT LIKE :motclef OR ', array('nom', 'prenom', 'mail', 'badge_uid')).' NOT LIKE :motclef)
+		    // Multiple research fields
+		    $explodedKeywords = explode(' ', htmlspecialchars(str_replace('!', '', $this->keyword)));
+		    // On se simplifie la vie si il rentre plus de mots que de champs de recherche ... ?!
+		    // if (count($explodedKeywords) > count($searchFields)) {
+		    // 	$rowLastKeywordToMergeIn = (count($searchFields)-1);
+		    // 	$rowLastKeywordToMerge = (count($explodedKeywords)-1);
+		    // 	for ($i=$rowLastKeywordToMergeIn+1; $i < $rowLastKeywordToMerge ; $i++) { 
+		    // 		$explodedKeywords[$rowLastKeywordToMergeIn] .= ' '.$explodedKeywords[$i];
+		    // 		unset($explodedKeywords[$i]);
+		    // 	}
+		    // }
+		    $q = array();
+		    $whereKeywords = array();
+		    $isNotLikeQuery = preg_match('/^[!]/i', $this->keyword);
+		    foreach ($explodedKeywords as $k => $kw) {
+		    	$k = 'motclef'.$k;
+		    	$q[$k] = '%'.$kw.'%';
+		    	if($isNotLikeQuery){
+				    $whereKeywords[] = '('.implode(' NOT LIKE :'.$k.' AND ', $this->searchFields).' NOT LIKE :'.$k.')
 ';
-		    }else{
-		    	$where .= '('.implode(' LIKE :motclef OR ', array('nom', 'prenom', 'mail', 'badge_uid')).' LIKE :motclef)
+			    }else{
+			    	$whereKeywords[] = '('.implode(' LIKE :'.$k.' OR ', $this->searchFields).' LIKE :'.$k.')
 ';
+			    }
 		    }
-			$q = array('motclef'=>'%'.$motclef.'%');
+		    $where .= '('.implode(' AND ', $whereKeywords).')
+';
 		}
 		return array('where'=>$where,'data'=>$q);
 	}
@@ -165,6 +183,7 @@ class ListMembers{
 	}
 
 	public function getMemberAsTr(){
+		$motclef = $this->keyword;
 		ob_start();
 		if($this->countMembers){
 	        foreach ($this->membersList as $member) { ?>
@@ -287,16 +306,12 @@ class ListMembers{
 		$output = fopen('php://output', 'w');
 
 		// output the column headings
-		fputcsv($output, array('login','nom','prenom','mail','badge_uid','expiration_badge'),';');
+		fputcsv($output, $this->exportFields,';');
 		foreach ($MembersArray as $member) {
-			$array = array(
-				'login'            => $member['login'],
-				'nom'              => $member['nom'],
-				'prenom'           => $member['prenom'],
-				'mail'             => $member['mail'],
-				'badge_uid'        => $member['badge_uid'],
-				'expiration_badge' => $member['expiration_badge'],
-			);
+			$array = array();
+			foreach ($this->exportFields as $field) {
+				$array[$field] = $member[$field];
+			}
 			fputcsv($output, $array,';');
 		}
 		fclose($output);

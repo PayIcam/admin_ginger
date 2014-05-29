@@ -66,7 +66,7 @@ require_once 'includes/_header.php';
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <?php if (Functions::islog() || Functions::getConfig('authentification') == false){if (Functions::isAdmin()){ ?>
+            <?php if (Functions::isLogged() || Functions::getConfig('authentification') == false){if (Functions::isAdmin()){ ?>
               <li class="dropdown<?php if(Functions::isPage('admin_liste_users','admin_edit_user','admin_parametres')) echo ' active'; ?>" id="admin">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Admin Site <b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -78,10 +78,10 @@ require_once 'includes/_header.php';
                   <li><a href="admin_parametres.php"><i class="glyphicon glyphicon-wrench"></i> Paramètres du Site</a></li>
                 </ul>
               </li><?php } ?>
-            <?php if(Functions::islog()){ ?>
+            <?php if(Functions::isLogged()){ ?>
             <li><a href="logout.php">Se Déconnecter</a></li>
             <?php }}
-            if(!Functions::islog()){ ?>
+            if(!Functions::isLogged()){ ?>
             <li><a href="connection.php">Se Connecter</a></li>
             <?php } ?>
           </ul>
