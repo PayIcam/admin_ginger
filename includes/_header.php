@@ -11,13 +11,17 @@
 	$DB = new DB(Config::get('sql_host'),Config::get('sql_user'),Config::get('sql_pass'),Config::get('sql_db'));
 
 	require_once ROOT_PATH.'includes/functions.php' ;
-	define('WEBSITE_TITLE', Functions::getConfig('websitename'));
-	Functions::maintenance();
+	define('WEBSITE_TITLE', Config::getDbConfig('websitename'));
+
 	if(!isset ($_SESSION)){session_start();} //si aucun session active
+	require_once ROOT_PATH.'class/Auth.class.php' ;
+	if (basename($_SERVER['SCRIPT_FILENAME']) != 'connection.php' && basename($_SERVER['SCRIPT_FILENAME']) != 'maintenance.php'){
+		if (Config::getDbConfig('maintenance') == true) {
+            $Auth->allow('admin');
+        }else{
+			$Auth->allow('member');
+        }
+	}
 
 	header('Content-Type: text/html; charset=utf-8');
-	if(!Functions::isLogged() && basename($_SERVER['SCRIPT_FILENAME']) != 'connection.php'){	// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
-	    header('Location:connection.php');exit;
-	}
-?>
+

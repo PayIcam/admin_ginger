@@ -75,7 +75,7 @@ class DB{
      * Permet d'éviter de taper tout ce code :
      * // connexion à la BDD, $DB
      * //récupération de tous les posts
-     * $sql = 'SELECT * FROM users_admin';
+     * $sql = 'SELECT * FROM administrateurs';
      * $req = $DB->prepare($sql); // on prépare la requête SQL à exécuter
      * $req->execute(); // on l'exécute
      * $Users = $req->fetchAll(PDO::FETCH_ASSOC); //permet de voir les données en tableau

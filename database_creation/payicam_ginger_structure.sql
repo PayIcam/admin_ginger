@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 25 Mai 2014 à 21:26
+-- Généré le: Jeu 29 Mai 2014 à 15:11
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -15,6 +15,26 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `payicam_ginger` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `payicam_ginger`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `administrateurs`
+--
+
+DROP TABLE IF EXISTS `administrateurs`;
+CREATE TABLE IF NOT EXISTS `administrateurs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `nom` varchar(55) NOT NULL,
+  `prenom` varchar(55) NOT NULL,
+  `online` tinyint(1) NOT NULL DEFAULT '0',
+  `role_id` int(2) NOT NULL DEFAULT '3',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `role_id` (`role_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -71,6 +91,30 @@ INSERT INTO `configs` (`name`, `value`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(2) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `slug` varchar(60) NOT NULL,
+  `level` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `slug`, `level`) VALUES
+(1, 'Administrateur', 'admin', 2),
+(2, 'Membre', 'member', 1),
+(3, 'Non inscrit', 'non-inscrit', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -85,21 +129,3 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`login`),
   UNIQUE KEY `badge_uid` (`badge_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `users_admin`
---
-
-DROP TABLE IF EXISTS `users_admin`;
-CREATE TABLE IF NOT EXISTS `users_admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `prenom` varchar(60) NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `password` varchar(40) NOT NULL,
-  `online` tinyint(1) NOT NULL,
-  `profil` varchar(20) NOT NULL DEFAULT 'non-inscrit',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 ;

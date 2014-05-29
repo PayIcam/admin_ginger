@@ -1,8 +1,8 @@
 <?php 
   require_once 'includes/_header.php';
 
-    $inscriptions = Functions::getConfig('inscriptions');
-    if ($inscriptions == false && !Functions::isAdmin()) {
+    $inscriptions = Config::getDbConfig('inscriptions');
+    if ($inscriptions == false && !$Auth->isAdmin()) {
         Functions::setFlash('Les inscriptions sont actuellement fermées.','info');
         header('Location:index.php');exit;
     }
@@ -14,9 +14,9 @@ if(!empty($_POST) && strlen($_POST['prenom'])>4 && filter_var($_POST['email'], F
     $email = $_POST['email'];
     $password = sha1($_POST['password']);
     // $token = sha1(uniqid(rand()));
-    if (!$DB->findCount('users_admin',array('email'=>$email))) {
+    if (!$DB->findCount('administrateurs',array('email'=>$email))) {
         $q = array('nom'=>$nom, 'prenom'=>$prenom, 'email'=>$email, 'password'=>$password);
-        $sql = 'INSERT INTO users_admin (nom, prenom, email, password) VALUES (:nom, :prenom, :email, :password)';
+        $sql = 'INSERT INTO administrateurs (nom, prenom, email, password) VALUES (:nom, :prenom, :email, :password)';
         $DB->query($sql, $q);
         Functions::setFlash('Votre inscription a bien été prise ne compte, un administrateur va activer votre compte.<br/>Si cela tarde, n\'hésitez pas à prendre contact.');
         header('Location:connection.php');exit();

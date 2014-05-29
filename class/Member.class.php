@@ -178,16 +178,16 @@ class Member{
                     if($DB->delete(self::TABLE_NAME,array('login'=>$login)))
                         $flash[] = '<strong>'.$nom.' #'.$login.' supprimé</strong>';
                 }
-            }else if ($_POST['action'] == 'online') {
-                foreach ($_POST[$name.'s'] as $login)
-                    if($DB->save(self::TABLE_NAME,array('online'=> 1),array('update'=>array('login'=>$login)))){
-                        $flash[] = '<strong>'.$nom.' #'.$login.' est en ligne</strong>';
-                }
-            }else if ($_POST['action'] == 'offline'){
-                foreach ($_POST[$name.'s'] as $login)
-                    if($DB->save(self::TABLE_NAME,array('online'=> 0),array('update'=>array('login'=>$login)))){
-                        $flash[] = '<strong>'.$nom.' #'.$login.' est hors ligne</strong>';
-                }
+            // }else if ($_POST['action'] == 'online') {
+            //     foreach ($_POST[$name.'s'] as $login)
+            //         if($DB->save(self::TABLE_NAME,array('online'=> 1),array('update'=>array('login'=>$login)))){
+            //             $flash[] = '<strong>'.$nom.' #'.$login.' est en ligne</strong>';
+            //     }
+            // }else if ($_POST['action'] == 'offline'){
+            //     foreach ($_POST[$name.'s'] as $login)
+            //         if($DB->save(self::TABLE_NAME,array('online'=> 0),array('update'=>array('login'=>$login)))){
+            //             $flash[] = '<strong>'.$nom.' #'.$login.' est hors ligne</strong>';
+            //     }
             // }else if ($_POST['action'] == 'client'){
                 // foreach ($_POST[$name.'s'] as $login)
                     // if($DB->save(self::TABLE_NAME,array('type'=> 'client'),array('update'=>array('login'=>$login)))){

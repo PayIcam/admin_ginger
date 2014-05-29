@@ -1,8 +1,8 @@
 <?php 
-  require_once 'includes/_header.php';
+	require_once 'includes/_header.php';
+	$title_for_layout = 'Maintenance';
+	include 'includes/header.php';
 ?>
-<?php $title_for_layout = 'Maintenance'; ?>
-<?php include 'includes/header.php'; ?>
     <div class="jumbotron">
         <h1>Maintenance</h1>
         <p>

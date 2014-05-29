@@ -1,23 +1,21 @@
 <?php 
 require_once 'includes/_header.php';
+$Auth->allow('admin');
+
 define('IMG_PATH', 'files/');
 require 'vendor/autoload.php';
-if(!Functions::isAdmin()){
-    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
-    header('Location:connection.php');exit;
-}
 
 $params = array(
-	'maintenance'  => Functions::getConfig('maintenance'),
-	'websitename'  => Functions::getConfig('websitename'),
-	'contact'      => Functions::getConfig('contact')
+	'maintenance'  => Config::getDbConfig('maintenance'),
+	'websitename'  => Config::getDbConfig('websitename'),
+	'contact'      => Config::getDbConfig('contact')
 );
 
 if (isset($_POST['edition'])) {
 	foreach ($params as $k => $v) {
 		if ($k == 'plaquette' || $k == 'pres_img') break;
 		if (isset($_POST[$k]) && $_POST[$k] != $params[$k]) {
-			Functions::setConfig($k,$_POST[$k]);
+			Config::setDbConfig($k,$_POST[$k]);
 			$params[$k] = $_POST[$k];
 		}
 	}

@@ -1,11 +1,7 @@
 <?php 
 	require_once 'includes/_header.php';
-	require 'vendor/autoload.php';;
-
-	if(!Functions::isLogged()){					// sécuriser l'accès
-	    Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
-	    header('Location:connection.php');exit;
-	}
+	$Auth->allow('member');
+	require 'vendor/autoload.php';
 
 	if (isset($_GET['login'],$_POST['login']) && $_GET['login'] != $_POST['login']) {
 		$_GET['login'] = $_POST['login'];
@@ -60,10 +56,7 @@
 	include 'includes/header.php';
 	require_once 'includes/Forms.class.php'; if(!isset ($form)){$form = new form();}
 	$form->set($Member->getAttrIdMember());
-
 ?>
-<div ng-app="mozartApp">
-	
 
 <h1 class="page-header clearfix">
 	<div class="pull-left"><img src="<?= $img; ?>" alt=""> <?= $nom_for_layout; ?> </div>
@@ -103,8 +96,6 @@
         </div>
     </div>
 </form>
-
-</div>
 
 <script type="text/javascript">
 	var ginger_url = '<?= Config::get('ginger_url') ?>';

@@ -52,7 +52,7 @@ require_once 'includes/_header.php';
           <a class="navbar-brand" href="<?= HOME_URL; ?>">Admin Ginger</a>
         </div>
         <div class="navbar-collapse collapse">
-          <?php if ((isset($title_for_layout) && ($title_for_layout != 'Maintenance' || ($title_for_layout == 'Maintenance' && Functions::isAdmin())) ) || !isset($title_for_layout)): // Si on est sur la page de maintenance, on n'affiche pas les liens vers les autres parties du site.. A moins que l'on soit un admin.?>
+          <?php if ((isset($title_for_layout) && ($title_for_layout != 'Maintenance' || ($title_for_layout == 'Maintenance' && $Auth->isAdmin())) ) || !isset($title_for_layout)): // Si on est sur la page de maintenance, on n'affiche pas les liens vers les autres parties du site.. A moins que l'on soit un admin.?>
           <ul class="nav navbar-nav">
             <li<?php if(Functions::isPage('index')) echo ' class="active"'; ?>><a href="index.php"><i class="glyphicon glyphicon-home glyphicon glyphicon-white"></i></a></li>
             <li><a href="http://barcafetlille.icam.fr" title="Retour Casper PayIcam">Retour PayIcam</a></li>
@@ -66,22 +66,22 @@ require_once 'includes/_header.php';
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <?php if (Functions::isLogged() || Functions::getConfig('authentification') == false){if (Functions::isAdmin()){ ?>
-              <li class="dropdown<?php if(Functions::isPage('admin_liste_users','admin_edit_user','admin_parametres')) echo ' active'; ?>" id="admin">
+            <?php if ($Auth->isLogged() || Config::getDbConfig('authentification') == false){if ($Auth->isAdmin()){ ?>
+              <li class="dropdown<?php if(Functions::isPage('admin_liste_admins','admin_edit_admin','admin_parametres')) echo ' active'; ?>" id="admin">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Admin Site <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil administration</a></li>
                   <li class="divider"></li>
-                  <li><a href="admin_liste_users.php"><i class="glyphicon glyphicon-user"></i> Liste des utilisateurs</a></li>
-                  <li><a href="admin_edit_user.php"><i class="glyphicon glyphicon-plus"></i> Nouvel utilisateur</a></li>
+                  <li><a href="admin_liste_admins.php"><i class="glyphicon glyphicon-user"></i> Liste des utilisateurs</a></li>
+                  <li><a href="admin_edit_admin.php"><i class="glyphicon glyphicon-plus"></i> Nouvel utilisateur</a></li>
                   <li class="divider"></li>
                   <li><a href="admin_parametres.php"><i class="glyphicon glyphicon-wrench"></i> Paramètres du Site</a></li>
                 </ul>
               </li><?php } ?>
-            <?php if(Functions::isLogged()){ ?>
+            <?php if($Auth->isLogged()){ ?>
             <li><a href="logout.php">Se Déconnecter</a></li>
             <?php }}
-            if(!Functions::isLogged()){ ?>
+            if(!$Auth->isLogged()){ ?>
             <li><a href="connection.php">Se Connecter</a></li>
             <?php } ?>
           </ul>

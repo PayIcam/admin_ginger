@@ -1,9 +1,6 @@
 <?php
   require_once 'includes/_header.php';
-  if(!Functions::isLogged()){          // sécuriser l'accès
-      Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
-      header('Location:connection.php');exit;
-  }
+  $Auth->allow('member');
 
   require_once 'class/Member.class.php';
   require_once 'class/ListMembers.class.php';

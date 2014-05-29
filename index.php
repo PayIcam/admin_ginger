@@ -1,12 +1,13 @@
 <?php 
 	require_once 'includes/_header.php';
+    $Auth->allow('member');
 	$title_for_layout = 'Accueil administration';
 	include 'includes/header.php'; // insertion du fichier header.php : entête, barre de navigation
 ?>
 <div class="jumbotron">
     <h1>Administration</h1> <!--titre en haut -->
-    <p>Bienvenue <?= (Functions::isAdmin())?$_SESSION['Auth']['prenom']:'Inconnu !' //Ecrire bienvenue + prénom de la personne connecté?> !</p>
-    <?php if (Functions::isAdmin()): ?>
+    <p>Bienvenue <?= ($Auth->isAdmin())?$Auth->user('prenom'):'Inconnu !' //Ecrire bienvenue + prénom de la personne connecté?> !</p>
+    <?php if ($Auth->isAdmin()): ?>
         <p>
             <a href="logout.php" class="btn btn-primary btn-lg">
             Se déconnecter !
@@ -32,14 +33,15 @@
                         <h5>L'équipe</h5>
                     </a>
                 </div>
+                <?php if ($Auth->isAdmin()){ ?>
                 <div class="col-md-4 board-item">
                     <div class="board-links">
                         <ul class="list-unstyled">
-                            <li><a href="admin_liste_users.php" title="Liste des Administrateurs"><i class="glyphicon glyphicon-list-alt"></i></a></li>
-                            <li><a href="admin_edit_user.php" title="Ajouter un Administrateurs"><i class="glyphicon glyphicon-plus"></i></a></li>
+                            <li><a href="admin_liste_admins.php" title="Liste des Administrateurs"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                            <li><a href="admin_edit_admin.php" title="Ajouter un Administrateurs"><i class="glyphicon glyphicon-plus"></i></a></li>
                         </ul>
                     </div>
-                    <a href="admin_liste_users.php" class="board-thumbnail thumbnail" title="Liste des Administrateurs"> 
+                    <a href="admin_liste_admins.php" class="board-thumbnail thumbnail" title="Liste des Administrateurs"> 
                         <img src="img/icons/user.png" alt="">
                         <h5>Admins</h5>
                     </a>
@@ -50,6 +52,7 @@
                         <h5>Paramêtres du Site</h5>
                     </a>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -59,12 +62,12 @@
             <table class="table">
                 <tbody>
                     <tr>
-                        <td><strong><?= current($DB->queryFirst('SELECT COUNT(*) FROM users')); ?></strong></td>
+                        <td><strong><?= $DB->findCount('users',[],'login'); ?></strong></td>
                         <td>&nbsp;</td>
                         <td>Membres PayIcam</td>
                     </tr>
                     <tr>
-                        <td><strong><?= $DB->findCount('users_admin'); ?></strong></td>
+                        <td><strong><?= $DB->findCount('administrateurs'); ?></strong></td>
                         <td>&nbsp;</td>
                         <td>Administrateurs</td>
                     </tr>

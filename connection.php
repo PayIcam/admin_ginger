@@ -1,31 +1,18 @@
 <?php
   require_once 'includes/_header.php';
 
-
-if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont demandées et que les champs email et password sont non vides
-    $email    = $_POST['email'];
-    $password = md5($_POST['password']);
-
-    //On vérifie si l'utilisateur existe
-    $return = $DB->queryFirst('SELECT * FROM users_admin WHERE email = :email', array('email'=>$email)); // on prend le tout premier résultats et on le met sous forme array
-    if(isset($return['password'],$return['email']) && $return['password']==$password){//Si il existe, on récupère email et password
-        if($return['online'] == 1){ // si l'utilisateur est actif dans la BDD
-            $_SESSION['Auth'] = array();
-            $_SESSION['Auth'] = $return;
-            Functions::setFlash('Vous êtes maintenant connecté','success'); // alors on le connecte
-            header('Location:index.php');exit; // et on le redirige vers la page index.php (de laquelle il sera sorti s'il n'est pas admin)
-        }else{
-            Functions::setFlash('<strong>Votre compte n\'est pas actif !</strong><br/>Veuillez attendre que les administrateurs activent votre compte ou contactez nous !','info');
-        } // Si utilisateur inactif, on met un message
+if(!empty($_POST['email']) && !empty($_POST['password'])){
+    if($Auth->login($_POST)){
+      Functions::setFlash('Vous êtes maintenant connecté','success'); // alors on le connecte
+      header('Location:index.php');exit;
     }else{
-        //Si utilisateur inconnu
-        Functions::setFlash('Identifiants incorects','danger');
-        $errorLogin = true;
+      Functions::setFlash('Identifiants incorects','danger');
+      $errorLogin = true;
     }
-    
 }else if (!empty($_POST)) { // Si l'utilisateur n'a pas rempli tous les champs demandés
     Functions::setFlash('Veuillez remplir tous vos champs','danger');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -100,10 +87,9 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){ // Si des infos sont 
             <input type="password" name="password" class="form-control" placeholder="Password" required>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
         </form>
-    <?php if (Functions::getConfig('inscriptions') == true): ?>
+    <?php if (Config::getDbConfig('inscriptions') == true): ?>
         <p><a href="register.php">Vous n'avez pas de compte ?</a></p>
     <?php endif ?>
-
 
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>
