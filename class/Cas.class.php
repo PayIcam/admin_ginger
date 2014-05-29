@@ -1,6 +1,6 @@
 <?php 
 
-include('/vendor/httpful.phar');
+include('/class/httpful.phar');
 
 class Cas{
     protected $url;
@@ -20,7 +20,7 @@ class Cas{
         try {
             $xml = new SimpleXMLElement($r->body);
         }catch (Exception $e) {
-            // echo "Return cannot be parsed : '{$r->body}'",  $e->getMessage(), "\n";
+            echo "Return cannot be parsed : '{$r->body}'",  $e->getMessage(), "\n";
             // return (string)"Return cannot be parsed";
         }
         
@@ -36,11 +36,11 @@ class Cas{
             $authFailed = $serviceResponse->authenticationFailure;
             if ($authFailed) {
                 $attributes = $authFailed->attributes();
-                // echo ("AuthenticationFailure : ".$attributes['code']." ($ticket, $service)");
+                echo ("AuthenticationFailure : ".$attributes['code']." ($ticket, $service)");
                 // return (string)"AuthenticationFailure";
             }
             else {
-                // echo ("Cas return is weird : '{$r->body}'");
+                echo ("Cas return is weird : '{$r->body}'");
                 // return (string)"Cas return is weird";
             }
         }
