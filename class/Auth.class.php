@@ -1,6 +1,5 @@
 <?php class Auth{
     
-    var $forbiddenPage = "connection.php";
     private $roles;
 
     function __construct(){
@@ -30,12 +29,13 @@
             $d);
         if (empty($return)) {
             return false;
-        }else if($return['online'] == 1){ // si l'utilisateur est actif dans la BDD
+        }else if($return['online'] == 1 && $return['level'] != 0){ // si l'utilisateur est actif dans la BDD
             $_SESSION['Auth'] = array();
             $_SESSION['Auth'] = $return;
             return true;
         }else{
             Functions::setFlash('<strong>Votre compte n\'est pas actif !</strong><br/>Veuillez attendre que les administrateurs activent votre compte ou contactez nous !','warning');
+            header('Location:connection.php');exit;
         }
         return false;
     }
