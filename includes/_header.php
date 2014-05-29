@@ -15,7 +15,7 @@
 
 	if(!isset ($_SESSION)){session_start();} //si aucun session active
 	require_once ROOT_PATH.'class/Auth.class.php' ;
-	if (basename($_SERVER['SCRIPT_FILENAME']) != 'connection.php' && basename($_SERVER['SCRIPT_FILENAME']) != 'maintenance.php'){
+	if (!in_array(basename($_SERVER['SCRIPT_FILENAME']), array('connection.php','maintenance.php','logout.php'))){
 		if (Config::getDbConfig('maintenance') == true) {
             $Auth->allow('admin');
         }else{

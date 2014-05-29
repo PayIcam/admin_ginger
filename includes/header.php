@@ -67,7 +67,7 @@ require_once 'includes/_header.php';
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if ($Auth->isLogged() || Config::getDbConfig('authentification') == false){if ($Auth->isAdmin()){ ?>
-              <li class="dropdown<?php if(Functions::isPage('admin_liste_admins','admin_edit_admin','admin_parametres')) echo ' active'; ?>" id="admin">
+              <li class="dropdown<?php if(Functions::isPage('admin_liste_admins','admin_edit_admin','admin_parametres')) echo ' active'; ?>">
                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">Admin Site <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil administration</a></li>
@@ -79,10 +79,16 @@ require_once 'includes/_header.php';
                 </ul>
               </li><?php } ?>
             <?php if($Auth->isLogged()){ ?>
-            <li><a href="logout.php">Se Déconnecter</a></li>
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Déconnection <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="logout.php"><i class="glyphicon glyphicon-log-out"></i> Log Only Admin Ginger Out</a></li>
+                  <li><a href="logout.php?log_cas_out=1"><i class="glyphicon glyphicon-log-out"></i> Log Cas Out Too</a></li>
+                </ul>
+              </li>
             <?php }}
             if(!$Auth->isLogged()){ ?>
-            <li><a href="connection.php">Se Connecter</a></li>
+              <li><a href="connection.php">Se Connecter</a></li>
             <?php } ?>
           </ul>
           <?php endif; ?>

@@ -1,4 +1,6 @@
 <?php class Auth{
+
+    const TABLE_NAME = 'administrateurs';
     
     private $roles;
 
@@ -39,6 +41,39 @@
         }
         return false;
     }
+
+    function loginUsingCas($ticket){
+        global $DB;
+        require 'class/Cas.class.php';
+        $CAS = new Cas(Config::get('cas_url'));
+
+        $userEmail = $CAS->authenticate($ticket,"http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']));
+
+        if (!empty($userEmail) && $DB->findCount(self::TABLE_NAME,array('email'=>$userEmail),'email') == 1) {
+            $return = $DB->queryFirst('SELECT administrateurs.id, administrateurs.email,administrateurs.nom,administrateurs.prenom,administrateurs.online,roles.name,roles.slug,roles.level FROM administrateurs LEFT JOIN roles ON administrateurs.role_id=roles.id WHERE email=:email',array('email'=>$userEmail));
+            if (empty($return)) {
+                Functions::setFlash("Vous ne faites pas parti des administrateur de l'Administration de Ginger.<br>Faites la demande aux responsables au besoin.",'warning');
+                return false;
+            }else if($return['online'] == 1 && $return['level'] != 0){ // si l'utilisateur est actif dans la BDD
+                $_SESSION['Auth'] = array();
+                $_SESSION['Auth'] = $return;
+                return true;
+            }else{
+                Functions::setFlash('<strong>Votre compte n\'est pas actif !</strong><br/>Veuillez attendre que les administrateurs activent votre compte ou contactez nous !','warning');
+                header('Location:connection.php');exit;
+            }
+        }else if ($userEmail == 'AuthenticationFailure' || $userEmail == "Cas return is weird" || $userEmail == "Return cannot be parsed") {
+            Functions::setFlash($userEmail,'danger');
+            return false;
+        }
+        return false;
+    }
+
+    public function logCasOut(){
+        require 'class/Cas.class.php';
+        $CAS = new Cas(Config::get('cas_url'));
+        return $CAS->logout();
+    }
     
     /**
      * Autorise un rang à accéder à une page, redirige vers forbidden sinon
@@ -74,7 +109,7 @@
      * */
     function forbidden(){
         Functions::setFlash('<strong>Identification requise</strong> Vous ne pouvez accéder à cette page.','danger');
-        header('Location:connection.php');exit;
+        header('Location:connection.php'.((!empty($_GET['ticket']))?'?ticket='.$_GET['ticket']:''));exit;
     }
 
     function isLogged(){ // vérification de de l'existence d'une session "Auth", d'une session ouverte
@@ -131,7 +166,6 @@
         $role = $this->getRole($id);
         return $role['name'];
     }
-    
 }
 
 $Auth = new Auth();

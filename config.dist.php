@@ -10,3 +10,6 @@ $_CONFIG['sql_db']   = "payicam_ginger";
 // En environnement de dev, utiliser https://github.com/PayIcam/faux-ginger
 $_CONFIG['ginger_key'] = "test_ginger";
 $_CONFIG['ginger_url'] = "http://localhost/ginger/index.php/v1/";
+
+// Chemin vers le serveur CAS (avec le / final)
+$_CONFIG['cas_url'] = "";
