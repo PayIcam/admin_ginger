@@ -114,14 +114,14 @@
     }
 
     // -------------------- Security & Token functions -------------------- //
-    function generateToken($nom = ''){
+    public static function generateToken($nom = ''){
         $token = md5(uniqid(rand(147,1753), true));
         $_SESSION['tokens'][$nom.'_token'] = $token;
         $_SESSION['tokens'][$nom.'_token_time'] = time();
         return $token;
     }
 
-    function validateToken($token, $temps = 600, $referer = '', $nom = ''){
+    public static function validateToken($token, $temps = 600, $referer = '', $nom = ''){
         if (empty($referer)){
             $referer = Config::get('admin_ginger_url').basename($_SERVER['PHP_SELF']);
         }

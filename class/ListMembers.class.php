@@ -186,6 +186,7 @@ class ListMembers{
 		$motclef = $this->keyword;
 		ob_start();
 		if($this->countMembers){
+			$token = Auth::generateToken();
 	        foreach ($this->membersList as $member) { ?>
 <tr>
   <td>
@@ -198,7 +199,7 @@ class ListMembers{
   <td>
     <div class="pull-right">
       <a href="admin_edit_member.php?login=<?= $member['login'] ?>" title="Editer le member #<?= $member['login']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="glyphicon glyphicon-trash"></i></a>              
+      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>&amp;token=<?= $token; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="glyphicon glyphicon-trash"></i></a>              
     </div>
   </td>
 </tr>

@@ -154,7 +154,7 @@ class Admin{
         if(!empty($_GET['del_admin'])){
             $nom = 'Admin';
             self::deleteAdmin($_GET['del_admin']);
-            // header('Location:'.$page);exit;
+            header('Location:'.$page);exit;
         }else if(!empty($_POST['action'])){
         	if ($_POST['action'] == -1 && isset($_POST['action2']) && $_POST['action2'] != -1)
                 $_POST['action'] = $_POST['action2'];

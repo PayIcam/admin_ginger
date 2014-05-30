@@ -15,9 +15,14 @@
 
 	if(!isset ($_SESSION)){session_start();} //si aucun session active
 	require_once ROOT_PATH.'class/Auth.class.php' ;
-	if ((!empty($_POST['token']) && !$Auth->validateToken($_POST['token'])) || (!empty($_GET['token']) && !$Auth->validateToken($_GET['token']))) {
-		Functions::setFlash('<strong>Erreur de Token</strong> Votre token n\'est plus valide !','danger');
-      	header('Location:index.php');exit;
+	if ((!empty($_POST['token']) && !Auth::validateToken($_POST['token'])) || (!empty($_GET['token']) && !Auth::validateToken($_GET['token']))) {
+		if ($Auth->isLogged()){
+      		header('Location:index.php');
+			Functions::setFlash('<strong>Erreur de Token</strong> Votre token n\'est plus valide !','danger');
+		}else{
+      		header('Location:connexion.php');
+		}
+      	exit;
 	}
 
 	if (!in_array(basename($_SERVER['SCRIPT_FILENAME']), array('connection.php','maintenance.php','logout.php'))){

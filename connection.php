@@ -18,10 +18,11 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
       header('Location:index.php');exit;
     }else{
       Functions::setFlash('Identifiants incorects','danger');
-      $errorLogin = true;
+      header('Location:connection.php?errorLogin=1');exit;
     }
 }else if (!empty($_POST)) { // Si l'utilisateur n'a pas rempli tous les champs demandés
     Functions::setFlash('Veuillez remplir tous vos champs','danger');
+    header('Location:connection.php?errorLogin=1');exit;
 }
 
 ?>
@@ -92,10 +93,10 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
 
     <div class="container">
       <?= Functions::flash(); ?>
-        <form class="form-signin<?= (isset($errorLogin))?' has-error':''; ?>" role="form" action="connection.php" method="POST">
+        <form class="form-signin<?= (isset($_GET['errorLogin']))?' has-error':''; ?>" role="form" action="connection.php" method="POST">
           <h2 class="form-signin-heading">Identifiez-vous !</h2>
-          <input type="hidden" name="token" value="<?= $Auth->generateToken(); ?>">
-          <input type="email" name="email" class="form-control" placeholder="Email" required autofocus value="<?= (isset($return['email']))?$return['email']:''; ?>">
+          <input type="hidden" name="token" value="<?= Auth::generateToken(); ?>">
+          <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
           <input type="password" name="password" class="form-control" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
           <?php if (Config::getDbConfig('inscriptions') == true): ?>

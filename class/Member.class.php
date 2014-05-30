@@ -150,7 +150,7 @@ class Member{
         if(!empty($_GET['del_member'])){
             $nom = 'Member';
             self::deleteMember($_GET['del_member']);
-            // header('Location:'.$page);exit;
+            header('Location:'.$page);exit;
         }else if(!empty($_POST['action'])){
         	if ($_POST['action'] == -1 && isset($_POST['action2']) && $_POST['action2'] != -1)
                 $_POST['action'] = $_POST['action2'];

@@ -187,6 +187,7 @@ class ListAdmins{
 		$motclef = $this->keyword;
 		ob_start();
 		if($this->countAdmins){
+			$token = Auth::generateToken();
 	        foreach ($this->adminsList as $admin) { ?>
 <tr>
   <td>
@@ -204,7 +205,7 @@ class ListAdmins{
   <td>
     <div class="pull-right">
       <a href="admin_edit_admin.php?id=<?= $admin['id'] ?>" title="Editer l'admin #<?= $admin['id']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-      <a href="admin_liste_admins.php?del_admin=<?= $admin['id']; ?>" title="Supprimer l'admin #<?= $admin['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce admin ?');"><i class="glyphicon glyphicon-trash"></i></a>              
+      <a href="admin_liste_admins.php?del_admin=<?= $admin['id']; ?>&amp;token=<?= $token; ?>" title="Supprimer l'admin #<?= $admin['id']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce admin ?');"><i class="glyphicon glyphicon-trash"></i></a>              
     </div>
   </td>
 </tr>
