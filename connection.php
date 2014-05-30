@@ -94,6 +94,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
       <?= Functions::flash(); ?>
         <form class="form-signin<?= (isset($errorLogin))?' has-error':''; ?>" role="form" action="connection.php" method="POST">
           <h2 class="form-signin-heading">Identifiez-vous !</h2>
+          <input type="hidden" name="token" value="<?= $Auth->generateToken(); ?>">
           <input type="email" name="email" class="form-control" placeholder="Email" required autofocus value="<?= (isset($return['email']))?$return['email']:''; ?>">
           <input type="password" name="password" class="form-control" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
@@ -102,7 +103,6 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
           <?php endif ?>
           <a href="https://cas.icam.fr/cas/login?service=<?= "http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']) ?>" class="btn btn-lg btn-info btn-block">Log in using CAS Icam</a>
         </form>
-
 
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui.js"></script>

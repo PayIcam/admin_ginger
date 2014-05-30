@@ -13,3 +13,6 @@ $_CONFIG['ginger_url'] = "http://localhost/ginger/index.php/v1/";
 
 // Chemin vers le serveur CAS (avec le / final)
 $_CONFIG['cas_url'] = "";
+
+// URL publique http(s) vers admin_ginger (avec le / final)
+$_CONFIG['admin_ginger_url'] = "http://xxx/admin_ginger/";

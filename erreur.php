@@ -76,6 +76,9 @@
          case '505':
          echo 'Version HTTP non supportée.';
          break;
+         case 'token':
+         echo 'Votre Token a expiré.';
+         break;
          default:
          echo 'Erreur !';
       }

@@ -53,6 +53,7 @@
             $return = $DB->queryFirst('SELECT administrateurs.id, administrateurs.email,administrateurs.nom,administrateurs.prenom,administrateurs.online,roles.name,roles.slug,roles.level FROM administrateurs LEFT JOIN roles ON administrateurs.role_id=roles.id WHERE email=:email',array('email'=>$userEmail));
             if (empty($return)) {
                 Functions::setFlash("Vous ne faites pas parti des administrateur de l'Administration de Ginger.<br>Faites la demande aux responsables au besoin.",'warning');
+                header('Location:connection.php');exit;
                 return false;
             }else if($return['online'] == 1 && $return['level'] != 0){ // si l'utilisateur est actif dans la BDD
                 $_SESSION['Auth'] = array();
@@ -112,13 +113,36 @@
         header('Location:connection.php'.((!empty($_GET['ticket']))?'?ticket='.$_GET['ticket']:''));exit;
     }
 
+    // -------------------- Security & Token functions -------------------- //
+    function generateToken($nom = ''){
+        $token = md5(uniqid(rand(147,1753), true));
+        $_SESSION['tokens'][$nom.'_token'] = $token;
+        $_SESSION['tokens'][$nom.'_token_time'] = time();
+        return $token;
+    }
+
+    function validateToken($token, $temps = 600, $referer = '', $nom = ''){
+        if (empty($referer)){
+            $referer = Config::get('admin_ginger_url').basename($_SERVER['PHP_SELF']);
+        }
+        if(isset($_SESSION['tokens'][$nom.'_token']) && isset($_SESSION['tokens'][$nom.'_token_time']) && !empty($token))
+            if($_SESSION['tokens'][$nom.'_token'] == $token)
+                if($_SESSION['tokens'][$nom.'_token_time'] >= (time() - $temps)){   
+                    if(!empty($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == $referer)
+                        return true;
+                    elseif(empty($_SERVER['HTTP_REFERER']))
+                        return true;
+                }
+        return false;
+    }
+
+    // -------------------- isXXX functions -------------------- //
     function isLogged(){ // vérification de de l'existence d'une session "Auth", d'une session ouverte
         if ($this->user('level') > 0)
             return true;
         else
             return false;
     }
-
     function isAdmin(){ //vérification que l'utilisateur loggué est administrateur
         if ($this->user('role') == 'admin')
             return true;
@@ -126,6 +150,7 @@
             return false;
     }
 
+    // -------------------- Getters -------------------- //
     public function getLevels($key = 'slug'){
         global $DB;
         if ($key != 'slug' || $key != 'id')
@@ -137,7 +162,6 @@
         }
         return $roles;
     }
-
     public function getRoles($key = 'id'){
         global $DB;
         if ($key != 'slug' || $key != 'id')
@@ -149,7 +173,6 @@
         }
         return $roles;
     }
-
     public function getRole($key){
         if (isset($this->roles[$key])) {
             return $this->roles[$key];
