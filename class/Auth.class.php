@@ -47,7 +47,7 @@
         require 'class/Cas.class.php';
         $CAS = new Cas(Config::get('cas_url'));
 
-        $userEmail = $CAS->authenticate($ticket,"http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']));
+        $userEmail = $CAS->authenticate($ticket,Config::get('admin_ginger_url'));
 
         if (!empty($userEmail) && $DB->findCount(self::TABLE_NAME,array('email'=>$userEmail),'email') == 1) {
             $return = $DB->queryFirst('SELECT administrateurs.id, administrateurs.email,administrateurs.nom,administrateurs.prenom,administrateurs.online,roles.name,roles.slug,roles.level FROM administrateurs LEFT JOIN roles ON administrateurs.role_id=roles.id WHERE email=:email',array('email'=>$userEmail));
