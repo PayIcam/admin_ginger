@@ -44,6 +44,6 @@ include 'includes/header.php';
 	        &nbsp;
 	        <button class="btn btn-default" type="reset">Cancel</button>
         </div>
-    </div>            
+    </div>
 </form>
 <?php include 'includes/footer.php'; ?>

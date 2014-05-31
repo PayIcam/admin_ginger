@@ -2,7 +2,7 @@
 
 <footer class="footer">
     <p class="clearfix">
-        <em>Administration par Antoine Giraud <small>115</small> pour PayIcam :)</em>
+        <em>Administration par <a href="mailto:antoine_giraud2@hotmail.fr">Antoine Giraud</a> <small>115</small> pour PayIcam :)</em>
         <a class="pull-right" href="#">Back to top</a>
     </p>
 </footer>
