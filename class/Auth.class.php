@@ -121,14 +121,14 @@
         return $token;
     }
 
-    public static function validateToken($token, $temps = 600, $referer = '', $nom = ''){
+    public static function validateToken($token, $nom = '', $temps = 600, $referer = ''){
         if (empty($referer)){
-            $referer = Config::get('admin_ginger_url').basename($_SERVER['PHP_SELF']);
+            $referer = Config::get('admin_ginger_url').basename($_SERVER['REQUEST_URI']);
         }
         if(isset($_SESSION['tokens'][$nom.'_token']) && isset($_SESSION['tokens'][$nom.'_token_time']) && !empty($token))
             if($_SESSION['tokens'][$nom.'_token'] == $token)
-                if($_SESSION['tokens'][$nom.'_token_time'] >= (time() - $temps)){   
-                    if(!empty($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] == $referer)
+                if($_SESSION['tokens'][$nom.'_token_time'] >= (time() - $temps)){
+                    if(!empty($_SERVER['HTTP_REFERER']) && dirname($_SERVER['HTTP_REFERER']) == dirname($referer))
                         return true;
                     elseif(empty($_SERVER['HTTP_REFERER']))
                         return true;

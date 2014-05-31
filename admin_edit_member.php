@@ -72,6 +72,7 @@
 	        <legend>Informations générales :</legend>
         	<div>
         		<?= $form->input('login', 'hidden', array('value'=>$_GET["login"])); ?>
+        		<?= $form->input('token', 'hidden', array('value'=>Auth::generateToken())); ?>
         	    <?= $form->input('mail','Email : ', array('maxlength'=>"105",'helper'=>'<em>Identifiant</em>')); ?>
         	    <?= $form->input('nom','Nom : ', array('maxlength'=>"55")); ?>
         	    <?= $form->input('prenom','Prénom : ', array('maxlength'=>"55")); ?>

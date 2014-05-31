@@ -17,7 +17,7 @@
 	require_once ROOT_PATH.'class/Auth.class.php' ;
 	if ((!empty($_POST['token']) && !Auth::validateToken($_POST['token'])) || (!empty($_GET['token']) && !Auth::validateToken($_GET['token']))) {
 		if ($Auth->isLogged()){
-      		header('Location:index.php');
+      		header('Location:'.$_SERVER['PHP_SELF']);
 			Functions::setFlash('<strong>Erreur de Token</strong> Votre token n\'est plus valide !','danger');
 		}else{
       		header('Location:connexion.php');

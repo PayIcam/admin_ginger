@@ -19,7 +19,7 @@ if (isset($_POST['edition'])) {
 			$params[$k] = $_POST[$k];
 		}
 	}
-	// header('Location:admin_parametres.php');exit;
+	header('Location:admin_parametres.php');exit;
 }
 
 $title_for_layout = 'Paramètres';
@@ -33,6 +33,7 @@ include 'includes/header.php';
 <form action="admin_parametres.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
 	<fieldset>
     	<legend>En vrac :</legend>
+    	<?= $form->input('token', 'hidden', array('value'=>Auth::generateToken())); ?>
 		<?= $form->input('edition', 'hidden', array('value'=>'true')); ?>
 		<?= $form->input('maintenance','Maintenance :',array('type'=>'checkbox')); ?>
 		<?= $form->input('websitename','Nom du site : ', array('maxlength'=>"255")); ?>

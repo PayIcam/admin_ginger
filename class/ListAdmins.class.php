@@ -211,6 +211,7 @@ class ListAdmins{
 </tr>
 	        	<?php
 	        }
+			echo '<input type="hidden" value="'.$token.'" name="token">';
 	    }else{?>
 	        <tr>
 	          <td colspan="12">
