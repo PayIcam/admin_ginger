@@ -57,10 +57,10 @@ require_once 'includes/_header.php';
             <li<?php if(Functions::isPage('index')) echo ' class="active"'; ?>><a href="index.php"><i class="glyphicon glyphicon-home glyphicon glyphicon-white"></i></a></li>
             <li><a href="http://barcafetlille.icam.fr" title="Retour Casper PayIcam">Retour PayIcam</a></li>
             <li class="dropdown<?php if(Functions::isPage('admin_liste_members','admin_edit_member')) echo ' active'; ?>" id="liste Icam PayIcam">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Divers <b class="caret"></b></a>
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Membres PayIcam <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li class="dropdown-header">Les Icam</li>
-                <li><a href="admin_liste_members.php"><i class="glyphicon glyphicon-list-alt"></i> Liste des membres</a></li>
+                <li><a href="admin_liste_members.php"><i class="glyphicon glyphicon-book"></i> Liste des membres</a></li>
                 <li><a href="admin_edit_member.php"><i class="glyphicon glyphicon-plus"></i> Nouveau membre</a></li>
               </ul>
             </li>
@@ -72,10 +72,12 @@ require_once 'includes/_header.php';
                 <ul class="dropdown-menu">
                   <li><a href="index.php"><i class="glyphicon glyphicon-home"></i> Accueil administration</a></li>
                   <li class="divider"></li>
-                  <li><a href="admin_liste_admins.php"><i class="glyphicon glyphicon-user"></i> Liste des utilisateurs</a></li>
+                  <li><a href="admin_liste_admins.php"><i class="glyphicon glyphicon-book"></i> Liste des utilisateurs</a></li>
                   <li><a href="admin_edit_admin.php"><i class="glyphicon glyphicon-plus"></i> Nouvel utilisateur</a></li>
                   <li class="divider"></li>
                   <li><a href="admin_parametres.php"><i class="glyphicon glyphicon-wrench"></i> Paramètres du Site</a></li>
+                  <li class="divider"></li>
+                  <li><a href="admin_test_websale.php"><i class="glyphicon glyphicon-credit-card"></i> Test Websale PayIcam</a></li>
                 </ul>
               </li><?php } ?>
             <?php if($Auth->isLogged()){ ?>

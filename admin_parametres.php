@@ -3,7 +3,6 @@ require_once 'includes/_header.php';
 $Auth->allow('admin');
 
 define('IMG_PATH', 'files/');
-require 'vendor/autoload.php';
 
 $params = array(
 	'maintenance'  => Config::getDbConfig('maintenance'),
@@ -29,7 +28,7 @@ include 'includes/header.php';
 
 ?>
 
-<h1 class="page-header"><img src="img/icons/gear_48.png" alt="Paramètres"> Paramétrer le site</h1>
+<h1 class="page-header"><span class="glyphicon glyphicon-cog"></span> Paramétrer le site</h1>
 <form action="admin_parametres.php" method="POST" enctype="multipart/form-data" class="form-horizontal">
 	<fieldset>
     	<legend>En vrac :</legend>

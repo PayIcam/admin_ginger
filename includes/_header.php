@@ -3,6 +3,8 @@
 	define("ROOT_PATH", preg_replace('/includes$/', '', dirname(__FILE__)));
 	define("HOME_URL", dirname($_SERVER['PHP_SELF']));
 
+	require_once 'vendor/autoload.php';
+
 	require_once ROOT_PATH.'class/Config.php';
 	require "config.php";
 	Config::initFromArray($_CONFIG);

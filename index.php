@@ -29,8 +29,8 @@
                         </ul>
                     </div>
                     <a href="admin_liste_members.php" class="board-thumbnail thumbnail" title="Liste des membres"> 
-                        <img src="img/icons/lequipe.jpg" alt="">
-                        <h5>L'équipe</h5>
+                        <span class="glyphicon glyphicon-user" style="font-size: 40px;"></span>
+                        <h5>Membres PayIcam</h5>
                     </a>
                 </div>
                 <?php if ($Auth->isAdmin()){ ?>
@@ -42,13 +42,13 @@
                         </ul>
                     </div>
                     <a href="admin_liste_admins.php" class="board-thumbnail thumbnail" title="Liste des Administrateurs"> 
-                        <img src="img/icons/user.png" alt="">
+                        <span class="glyphicon glyphicon-tower" style="font-size: 40px;"></span>
                         <h5>Admins</h5>
                     </a>
                 </div>
                 <div class="col-md-4 board-item">
                     <a href="admin_parametres.php" class="board-thumbnail thumbnail" title="Paramètres du site (maintenance, inscriptions, ...">
-                        <img src="img/icons/gear_48.png" alt="Paramètres">
+                        <span class="glyphicon glyphicon-cog" style="font-size: 40px;"></span>
                         <h5>Paramêtres du Site</h5>
                     </a>
                 </div>

@@ -52,7 +52,7 @@ if(!empty($_POST) && strlen($_POST['prenom'])>4 && filter_var($_POST['email'], F
 ?>
 <?php $title_for_layout = 'Inscriptions'; ?>
 <?php include 'includes/header.php'; ?>
-    <h1 class="page-header"><img src="img/icons/contact.png" alt=""> Formulaire d'inscription :</h1>
+    <h1 class="page-header"><span class="glyphicon glyphicon-book"></span> Formulaire d'inscription :</h1>
     <form action="register.php" method="POST" class="form-horizontal">
         <div class="form-group <?php if(isset($error_nom)){echo 'error';} ?>">
             <label class="col-sm-2 control-label" for="nom">Nom :</label>

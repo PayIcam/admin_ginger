@@ -20,7 +20,7 @@
 ?>
 
 <h1 class="page-header clearfix">
-  <div class="pull-left"><img src="img/icons/contact.png" alt=""> Liste des membres</div>
+  <div class="pull-left"><span class="glyphicon glyphicon-book"></span> Liste des membres</div>
   <div class="pull-right">
     <a id="export" href="export_liste_members.php" class="btn btn-primary btn-lg" onlick="">Exporter</a>
     <a href="admin_edit_member.php" class="btn btn-info btn-lg">Ajouter</a>

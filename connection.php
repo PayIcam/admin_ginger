@@ -102,7 +102,7 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
           <?php if (Config::getDbConfig('inscriptions') == true): ?>
             <p><a href="register.php">Vous n'avez pas de compte ?</a></p>
           <?php endif ?>
-          <a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-info btn-block">Log in using CAS Icam</a>
+          <a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-info btn-block">Or click to log in using CAS Icam</a>
         </form>
 
     <script src="js/jquery.js"></script>

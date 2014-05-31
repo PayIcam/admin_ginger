@@ -13,7 +13,6 @@
 		$Member = new Member($_GET['login']);
 		// Cas où on édite un User
 		$nom_for_layout = 'Editer le membre <small>#'.$Member->login.'</small>';
-		$img  = 'img/icons/user_edit.png';
 	}else if (isset($_GET['login']) && $_GET['login'] != -1 && !Member::isMember($_GET['login'])){
 		// Cas où l'login donnée ne corresponds à aucun utilisateur
 		Functions::setFlash('<strong>Erreur :</strong> Ce login ne correspond à aucun member','danger');
@@ -23,7 +22,6 @@
 		// Cas de l'ajout d'un nouvel utilisateur
 		$_GET["login"] = -1;
 		$nom_for_layout = 'Ajouter un nouveau membre';
-		$img  = 'img/icons/user+.png';
 	}else{
 		header('Location:admin_edit_member.php?login=-1');exit;
 	}
@@ -59,7 +57,7 @@
 ?>
 
 <h1 class="page-header clearfix">
-	<div class="pull-left"><img src="<?= $img; ?>" alt=""> <?= $nom_for_layout; ?> </div>
+	<div class="pull-left"><span class="glyphicon glyphicon-user"></span> <?= $nom_for_layout; ?> </div>
 	<div class="pull-right">
 		<a href="admin_edit_member.php?login=-1" class="btn btn-info btn-lg">Ajouter</a>
 		<a href="admin_liste_members.php" class="btn btn-primary btn-lg" onlick="">Retour liste</a>

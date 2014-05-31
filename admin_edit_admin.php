@@ -13,7 +13,6 @@
 		$Admin = new Admin($_GET['id']);
 		// Cas où on édite un User
 		$nom_for_layout = 'Editer le membre <small>#'.$Admin->id.'</small>';
-		$img  = 'img/icons/user_edit.png';
 	}else if (isset($_GET['id']) && $_GET['id'] != -1 && !Admin::isAdmin($_GET['id'])){
 		// Cas où l'id donnée ne corresponds à aucun utilisateur
 		Functions::setFlash('<strong>Erreur :</strong> Ce id ne correspond à aucun admin','danger');
@@ -23,7 +22,6 @@
 		// Cas de l'ajout d'un nouvel utilisateur
 		$_GET["id"] = -1;
 		$nom_for_layout = 'Ajouter un nouveau membre';
-		$img  = 'img/icons/user+.png';
 	}else{
 		header('Location:admin_edit_admin.php?id=-1');exit;
 	}
@@ -71,7 +69,7 @@
 ?>
 
 <h1 class="page-header clearfix">
-	<div class="pull-left"><img src="<?= $img; ?>" alt=""> <?= $nom_for_layout; ?> </div>
+	<div class="pull-left"><span class="glyphicon glyphicon-tower"></span> <?= $nom_for_layout; ?> </div>
 	<div class="pull-right">
 		<a href="admin_edit_admin.php?id=-1" class="btn btn-info btn-lg">Ajouter</a>
 		<a href="admin_liste_admins.php" class="btn btn-primary btn-lg" onlick="">Retour liste</a>
