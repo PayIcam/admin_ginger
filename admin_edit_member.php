@@ -42,7 +42,7 @@
 	    		$form->errors['mail'] = 'Utilisateur déjà existant !!';
 	    	}elseif ($d['login'] != -1 && $d['login'] != $d['mail'] && current($DB->queryFirst('SELECT COUNT(*) FROM users WHERE login = :login',array('login'=>$d['mail']))) ) {
 	    		$form->errors['mail'] = 'Utilisateur déjà existant !! Vous ne pouvez pas changer vers le login/mail : '.$d['mail'];
-	    	}elseif ( current($DB->queryFirst('SELECT COUNT(*) FROM users WHERE login != :login AND badge_uid = :badge_uid',array('login'=>$d['login'],'badge_uid'=>$d['badge_uid']))) ) {
+	    	}elseif (!empty($d['badge_uid']) && current($DB->queryFirst('SELECT COUNT(*) FROM users WHERE login != :login AND badge_uid = :badge_uid',array('login'=>$d['login'],'badge_uid'=>$d['badge_uid']))) ) {
 	    		$form->errors['badge_uid'] = 'Badge '.$d['badge_uid'].' déjà utilisé !';
 	    	}else{
 	        	$Member->save();

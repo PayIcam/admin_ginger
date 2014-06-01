@@ -127,5 +127,4 @@ CREATE TABLE IF NOT EXISTS `users` (
   `badge_uid` varchar(8) DEFAULT NULL,
   `expiration_badge` date DEFAULT NULL,
   PRIMARY KEY (`login`),
-  UNIQUE KEY `badge_uid` (`badge_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
