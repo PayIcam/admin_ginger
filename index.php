@@ -73,8 +73,8 @@
                     </tr>
                 </tbody>
             </table>
-            <?= Functions::getProgressBar(25, 'info') ?>
-            <?= Functions::getMultipleProgressBar(
+            <?php //echo Functions::getProgressBar(25, 'info') ?>
+            <?php /* echo Functions::getMultipleProgressBar(
                 array('sum'=>100, 'all'=>array(
                     array('pourcent'=>1,'class'=>'info','title'=>'Promues : '.(1).'/'.(100)),
                     array('pourcent'=>25,'class'=>'warning','title'=>'Promues : '.(25).'/'.(100)),
