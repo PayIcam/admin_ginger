@@ -481,28 +481,50 @@ class Functions{
     </script>";
     }
 
-    static function getProgressBar( $pourcent, $width, $height, $color, $class='success' ) {
-        $bar = '<div style="margin:0 auto;height:'.$height.'px;width:'.$width.'px;border:1px solid '.$color.';text-align:left;display:inline-block;position:relative;" class="progress progress-'.$class.'">
-            <div class="progress-bar" style="width: '.$pourcent.'%;"></div>
+    static function getProgressBar( $pourcent, $class='', $width='', $height='', $color='') {
+        $style = '';
+        if (!empty($height)) $style .= 'height:'.$height.(is_integer($height)?'':'px').';';
+        if (!empty($width)) $style .= 'width:'.$width.(is_integer($width)?'':'px').';';
+        if (!empty($color)) $style .= 'border:1px solid '.$color.';';
+        $bar = '<div '.((!empty($style))?'style="'.$style.'" ':'').'class="progress '.((!empty($class))?'progress-'.$class:'').'">
+            <div class="progress-bar" style="width: '.$pourcent.'%;"
+                role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                <span>'.$pourcent.'%</span>
+            </div>
         </div>';
         return $bar;
     }
 
-    static function getMultipleProgressBar( $options,$mainbar) {
-        if (empty($mainbar)) {
-            $mainbar = array('height'=>'6','width'=>'40','display'=>'block','class'=>'success');
-        }
-        $returnbar = '<span style="height:'.$mainbar['height'].'px;width:'.(($mainbar['width']>0)?$mainbar['width'].'px':$mainbar['width']).';text-align:left;margin:auto;'.((!empty($mainbar['display']) && $mainbar['display']=='inline-block')?'margin:auto 5px;':'').'display:'.((!empty($mainbar['display']))?$mainbar['display']:'block').';" class="progress'.((!empty($options['all']) && (!empty($mainbar['class']) && $mainbar['class'] != 'no'))?' bar-'.((!empty($mainbar['class']))?$mainbar['class']:$options['all'][count($options['all'])-1]['class']):'').'">';
+    static function getMultipleProgressBar( $options,$mainbar=[]) {
+        $default = array('height'=>'','width'=>'','display'=>'','class'=>'info','color'=>'');
+        $o = array_merge($default, $mainbar);
+        $style = '';
+        if (!empty($o['height'])) $style .= 'height:'.$o['height'].(is_integer($o['height'])?'':'px').';';
+        if (!empty($o['width'])) $style .= 'width:'.$o['width'].(is_integer($o['width'])?'':'px').';';
+        if (!empty($o['color'])) $style .= 'border:1px solid '.$o['color'].';';
+        if (!empty($o['display'])) $style .= 'display:'.$o['display'].';';
+        $returnbar = '
+            <div '.((!empty($style))?'style="'.$style.'" ':'').'
+                class="progress'.((!empty($options['all']) && (!empty($mainbar['class']) && $mainbar['class'] != 'no'))?' progress-bar-'.((!empty($mainbar['class']))?$mainbar['class']:$options['all'][count($options['all'])-1]['class']):'').'"
+            >';
             if (!empty($options['sum'])) {
                 foreach ($options['all'] as $key => $bar) {
                     if ($key<count($options['all'])-1) {
-                        $returnbar .= '<span class="progress-bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
-                    }else{
-                        $returnbar .= '<span class="progress-bar'.((!empty($bar['class']))?' bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100-0.01,2).'%;"'.((!empty($bar['title']))?' rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'></span>';
-                    }//rel="tooltip" href="#" data-original-title
+                        $returnbar .= '<div class="progress-bar'.((!empty($bar['class']))?' progress-bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100,2).'%;"'.((!empty($bar['title']))?'
+                            rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'
+                            role="progressbar" aria-valuenow="'.$bar['pourcent'].'" aria-valuemin="0" aria-valuemax="100">
+                                <span>'.$bar['pourcent'].'%</span>
+                            </div>';
+                    }else{ // Pour être sur que cela rentre...
+                        $returnbar .= '<div class="progress-bar'.((!empty($bar['class']))?' progress-bar-'.$bar['class']:'').'" style="width: '.round($bar['pourcent']/$options['sum']*100-0.01,2).'%;"'.((!empty($bar['title']))?'
+                            rel="tooltip" title="'.$bar['title'].'" data-original-title="'.$bar['title'].'"':'').'
+                            role="progressbar" aria-valuenow="'.$bar['pourcent'].'" aria-valuemin="0" aria-valuemax="100">
+                                <span>'.$bar['pourcent'].'%</span>
+                            </div>';
+                    }
                 }
             }
-        $returnbar .= '</span>';
+        $returnbar .= '</div>';
         return $returnbar;
     }
 
