@@ -41,6 +41,8 @@ jQuery(function($){
 /* -------------------- Plugin colorpicker -------------------- */
 jQuery(function($){
     $('.cp-basic').colorpicker();
+
+	$(".knob").knob();
 });
 
 /* -------------------- Plugin Slider -------------------- */

@@ -15,7 +15,7 @@
   }
 
   $nom_for_layout = 'Liste des membres';
-  $required_script[] = 'admin_search_member.js';
+  $js_for_layout[] = 'admin_search_member.js';
   include 'includes/header.php';
 ?>
 

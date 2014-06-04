@@ -33,6 +33,7 @@ require_once 'includes/_header.php';
     <script src="js/jquery-ui.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/colorpicker/jquery.colorpicker.js"></script>
+    <script src="js/knob.js"></script>
     <script src="js/main.js"></script>
     <!-- endbuild -->
     <?php //*/ ?>
