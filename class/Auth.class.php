@@ -66,6 +66,9 @@
         }else if ($userEmail == 'AuthenticationFailure' || $userEmail == "Cas return is weird" || $userEmail == "Return cannot be parsed") {
             Functions::setFlash($userEmail,'danger');
             return false;
+        }else if(!empty($userEmail)){
+            Functions::setFlash("Vous ne faites pas parti des administrateur de l'Administration du projet PSA.<br>Faites la demande aux responsables au besoin.",'warning');
+            header('Location:connection.php');exit;
         }
         return false;
     }
