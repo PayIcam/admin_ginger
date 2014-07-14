@@ -22,7 +22,7 @@
       		header('Location:'.$_SERVER['PHP_SELF']);
 			Functions::setFlash('<strong>Erreur de Token</strong> Votre token n\'est plus valide !','danger');
 		}else{
-      		header('Location:connexion.php');
+      		header('Location:connection.php');
 		}
       	exit;
 	}
