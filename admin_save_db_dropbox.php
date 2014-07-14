@@ -29,7 +29,7 @@ if ($_POST) {
     foreach ($conf['db_to_save'] as $db) {
             $d = time();
             //création du fichier backup_filename avec son nom de DB+Date
-            $backup_filename = __DIR__.DS.$db['sql_db'].'-'.date('Y-m-d_h-i-s').'.sql';
+            $backup_filename = $conf['tmp_save_dir'].$db['sql_db'].'-'.date('Y-m-d_h-i-s').'.sql';
              
             //mysqldump --host=".$host." --user=".$username." --password=".$password."
             //execute la commande pour récupérer la base de donnée
@@ -37,9 +37,9 @@ if ($_POST) {
             passthru($command);
             
             //on envoie sur Dropbox
-            uploadFileToDropbox($backup_filename, $conf['mail_dropbox'], $conf['pwsd_dropbox'], $conf['save_folder']);
+            uploadFileToDropbox($backup_filename, $conf['mail_dropbox'], $conf['pwsd_dropbox'], $conf['dropbox_dir']);
             if ($_POST['email'] && $_POST['password']) {
-                uploadFileToDropbox($backup_filename, $_POST['email'], $_POST['password'], $conf['save_folder']);
+                uploadFileToDropbox($backup_filename, $_POST['email'], $_POST['password'], $conf['dropbox_dir']);
             }
              
             //On supprimme le fichier backup_filename
@@ -55,7 +55,7 @@ include 'includes/header.php';
 ?>
 
 <h1 class="page-header"><span class="glyphicon glyphicon-export"></span> Sauvegarder les bases de données de Ginger et PayIcam</h1>
-<p>Les sauvegardes seront placées sur le compte dropbox <em><?= $conf['mail_dropbox']; ?></em> dans le répertoire <em><?= $conf['save_folder'] ?></em></p>
+<p>Les sauvegardes seront placées sur le compte dropbox <em><?= $conf['mail_dropbox']; ?></em> dans le répertoire <em><?= $conf['dropbox_dir'] ?></em></p>
 <form action="admin_save_db_dropbox.php" method="POST" class="form-horizontal">
     <fieldset>
         <legend>Sauvegarder aussi sur un autre compte Dropbox :</legend>
