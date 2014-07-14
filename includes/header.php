@@ -78,6 +78,9 @@ require_once 'includes/_header.php';
                   <li class="divider"></li>
                   <li><a href="admin_parametres.php"><i class="glyphicon glyphicon-wrench"></i> Paramètres du Site</a></li>
                   <li class="divider"></li>
+                  <li><a href="admin_save_db_dropbox.php"><i class="glyphicon glyphicon-export"></i> Sauvegarde DB sur Dropbox</a></li>
+                  <li><a href="admin_upload_file_dropbox.php"><i class="glyphicon glyphicon-cloud-upload"></i> upload fichier sur Dropbox</a></li>
+                  <li class="divider"></li>
                   <li><a href="admin_test_websale.php"><i class="glyphicon glyphicon-credit-card"></i> Test Websale PayIcam</a></li>
                 </ul>
               </li><?php } ?>

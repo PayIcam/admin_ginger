@@ -84,7 +84,6 @@
      * */
     function allow($rang){
         $roles = $this->getLevels();
-
         if(!$this->user('slug')){
             $this->forbidden(); 
         }else{
