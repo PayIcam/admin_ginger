@@ -79,7 +79,7 @@
     	<fieldset>
     	    <legend>Badge :</legend>
     	    <div>
-        	    <?= $form->input('badge_uid','Badge UID : ', array('maxlength'=>"8",'class'=>"has-warning",
+        	    <?= $form->input('badge_uid','Badge UID : ', array('maxlength'=>"20",'class'=>"has-warning",
         	    	'input-group-prepend'=>'<span id="tag-ctrl" class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>',
         	    	'input-group-append'=>'<span id="badgeuse-ctrl" class="input-group-addon has-warning"><span class="glyphicon glyphicon-hdd" title="Connexion au lecteur de carte : non établie"></span></span>'
     	    	)); ?>
