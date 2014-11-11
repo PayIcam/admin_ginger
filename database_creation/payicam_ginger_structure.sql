@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `nom` varchar(55) DEFAULT NULL,
   `prenom` varchar(55) DEFAULT NULL,
   `mail` varchar(105) DEFAULT NULL,
-  `badge_uid` varchar(8) DEFAULT NULL,
+  `badge_uid` varchar(20) DEFAULT NULL,
   `expiration_badge` date DEFAULT NULL,
   PRIMARY KEY (`login`),
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
