@@ -99,9 +99,6 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
           <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
           <input type="password" name="password" class="form-control" placeholder="Password" required>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
-          <?php if (Config::getDbConfig('inscriptions') == true): ?>
-            <p><a href="register.php">Vous n'avez pas de compte ?</a></p>
-          <?php endif ?>
           <a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-info btn-block">Or click to log in using CAS Icam</a>
         </form>
 
