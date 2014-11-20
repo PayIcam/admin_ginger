@@ -187,7 +187,7 @@ class ListMembers{
 		ob_start();
 		if($this->countMembers){
 			$token = Auth::generateToken();
-			echo '<input type="hidden" value="'.$token.'" name="token">';
+			//echo '<input type="hidden" value="'.$token.'" name="token">';
 	        foreach ($this->membersList as $member) { ?>
 <tr>
   <td>
