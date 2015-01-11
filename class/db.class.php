@@ -17,7 +17,7 @@ class DB{
     private $db;
 
     public function __construct($host = null, $username = null, $password = null, $database = null){
-        if(!empty($host) && !empty($username) && !empty($password) && !empty($database)){
+        if(!empty($host) && !empty($username) && !empty($database)){
             $this->host     = $host;
             $this->username = $username;
             $this->password = $password;
