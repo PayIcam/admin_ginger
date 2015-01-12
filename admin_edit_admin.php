@@ -31,7 +31,7 @@
 		$validate = array(
 			'prenom' => array('rule'=>'notEmpty','message' => 'Entrez votre prénom'),
 			'nom'    => array('rule'=>'notEmpty','message' => 'Entrez votre nom'),
-			'email' => array('rule'=>'^[a-z-]+[.]+[a-z-]+[.0-9a-z-]?@(mgf\.)?([0-9]{4}[.])?icam[.]fr$','message' => 'Entrez un email Icam valide !')
+			'email' => array('rule'=>'^[a-z-]+[.]+[a-z-]+([.0-9a-z-]+)?@(mgf\.)?([0-9]{4}[.])?icam[.]fr$','message' => 'Entrez un email Icam valide !')
 	    );
 	    $form->setValidates($validate);
 
