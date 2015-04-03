@@ -9,8 +9,8 @@ require_once ROOT_PATH.'class/Member.class.php';
 class ListMembers{
 
 	const perPages = 50;
-	private $searchFields = array('nom', 'prenom', 'mail', 'badge_uid');
-	private $exportFields = array('login','nom','prenom','mail','badge_uid','expiration_badge');
+	private $searchFields = array('nom', 'prenom', 'mail','promo','filiere', 'badge_uid');
+	private $exportFields = array('login','nom','prenom','mail','promo','filiere','badge_uid','expiration_badge');
 
 	private $keyword;
 	private $page;
@@ -196,6 +196,8 @@ class ListMembers{
   <td><?= (empty($motclef))? $member['login']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['login']); ?></td>
   <td><?= (empty($motclef))? $member['nom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['nom']); ?></td>
   <td><?= (empty($motclef))? $member['prenom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['prenom']); ?></td>
+  <td><?= (empty($motclef))? $member['promo']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['promo']); ?></td>
+  <td><?= (empty($motclef))? $member['filiere']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['filiere']); ?></td>
   <td><?= (empty($motclef))? $member['badge_uid']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['badge_uid']); ?></td>
   <td>
     <div class="pull-right">
@@ -227,6 +229,8 @@ class ListMembers{
 				<th>login</th>
 				<th>Nom</th>
 				<th>Prénom</th>
+				<th>Promo</th>
+				<th>Filiere</th>
 				<th>Badge UID</th>
 				<th>Actions</th>
 			</tr>
