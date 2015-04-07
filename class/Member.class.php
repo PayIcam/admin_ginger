@@ -12,6 +12,15 @@ class Member{
 
 	public static $membersCount;
 
+	public static $filieres = array(
+		'integre'    => 'Intégré',
+		'apprenti'   => 'Apprenti',
+		'permanent'  => 'Permanent',
+		'mgf'        => 'Master Génie Féroviaire',
+		'f_continue' => 'Formation Continue'
+	);
+
+
 	const TABLE_NAME = 'users';
 	const LOG_FILE   = 'log/log-members.txt';
 
@@ -193,11 +202,14 @@ class Member{
                     // if($DB->save(self::TABLE_NAME,array('type'=> 'client'),array('update'=>array('login'=>$login)))){
                         // $flash[] = '<strong>'.$nom.' #'.$login.' est maintenant un client</strong>';
                 // }
-            // }else if ($_POST['action'] == 'member'){
-                // foreach ($_POST[$name.'s'] as $login)
-                    // if($DB->save(self::TABLE_NAME,array('type'=> 'member'),array('update'=>array('login'=>$login)))){
-                        // $flash[] = '<strong>'.$nom.' #'.$login.' est maintenant un member</strong>';
-                // }
+            }else if (strpos($_POST['action'], 'filiere_') === 0){
+            	$filiere = str_replace('filiere_', '', $_POST['action']);
+            	if (array_key_exists($filiere, Member::$filieres)) { // Si la filière est reconnue on l'enregistre à la troupe des user selectionnés
+	                foreach ($_POST[$name.'s'] as $login)
+	                    if($DB->save(self::TABLE_NAME,array('filiere'=> $filiere),array('update'=>array('login'=>$login)))){
+	                        $flash[] = '<strong>'.$nom.' #'.$login.' est maintenant un '.$filiere.'</strong>';
+	                }
+            	}
             }else if (isset(self::$types[$_POST['action']]) && !empty(self::$types[$_POST['action']])){
                 $type_value = self::$types[$_POST['action']];
                 foreach ($_POST[$name.'s'] as $login)

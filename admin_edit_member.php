@@ -72,6 +72,8 @@
         		<?= $form->input('login', 'hidden', array('value'=>$_GET["login"])); ?>
         		<?= $form->input('token', 'hidden', array('value'=>Auth::generateToken())); ?>
         	    <?= $form->input('mail','Email : ', array('maxlength'=>"105",'helper'=>'<em>Identifiant</em>')); ?>
+        	    <?= $form->input('promo','Promotion : ', array('maxlength'=>"5",'helper'=>'<em>Promotion de la personne. 0 Si il n\'est pas Ingé</em>')); ?>
+        	    <?= $form->select('filiere', 'Filière : ', array('data'=>Member::$filieres)); ?>
         	    <?= $form->input('nom','Nom : ', array('maxlength'=>"55")); ?>
         	    <?= $form->input('prenom','Prénom : ', array('maxlength'=>"55")); ?>
         	</div>

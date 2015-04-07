@@ -250,6 +250,11 @@ class ListMembers{
         <option value="online">Oui</option>
         <option value="offline">Non</option>
       </optgroup>
+      <optgroup label="Filières">
+	  	<?php foreach (Member::$filieres as $key => $value): ?>
+	  	  <option value="filiere_<?= $key ?>"><?= $value ?></option>
+	  	<?php endforeach ?>
+      </optgroup>
 	  <option value="delete">Supprimer </option>
 	</select>
 	<button class="btn btn-default" type="submit">Appliquer</button>
