@@ -92,7 +92,7 @@ require_once 'includes/_header.php';
                   <li><a href="logout.php?log_cas_out=1"><i class="glyphicon glyphicon-log-out"></i> Log Cas Out Too</a></li>
                 </ul>
               </li> -->
-              <li><a href="logout.php">Déconnection</a></li>
+              <li><a href="logout.php">Déconnexion</a></li>
             <?php }}
             if(!$Auth->isLogged()){ ?>
               <li><a href="connection.php">Se Connecter</a></li>
