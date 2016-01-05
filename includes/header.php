@@ -56,7 +56,7 @@ require_once 'includes/_header.php';
           <?php if ((isset($title_for_layout) && ($title_for_layout != 'Maintenance' || ($title_for_layout == 'Maintenance' && $Auth->isAdmin())) ) || !isset($title_for_layout)): // Si on est sur la page de maintenance, on n'affiche pas les liens vers les autres parties du site.. A moins que l'on soit un admin.?>
           <ul class="nav navbar-nav">
             <li<?php if(Functions::isPage('index')) echo ' class="active"'; ?>><a href="index.php"><i class="glyphicon glyphicon-home glyphicon glyphicon-white"></i></a></li>
-            <li><a href="http://barcafetlille.icam.fr" title="Retour Casper PayIcam">Retour PayIcam</a></li>
+            <li><a href="../" title="Retour PayIcam">Retour PayIcam</a></li>
             <li class="dropdown<?php if(Functions::isPage('admin_liste_members','admin_edit_member')) echo ' active'; ?>" id="liste Icam PayIcam">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Membres PayIcam <b class="caret"></b></a>
               <ul class="dropdown-menu">
