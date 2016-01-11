@@ -1,20 +1,18 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4
+-- version 3.4.11.1deb2+deb7u2
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 29 Mai 2014 à 15:11
--- Version du serveur: 5.6.12-log
--- Version de PHP: 5.4.12
+-- Généré le: Lun 11 Janvier 2016 à 14:56
+-- Version du serveur: 5.5.46
+-- Version de PHP: 5.6.17-1~dotdeb+7.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
 -- Base de données: `payicam_ginger`
 --
-CREATE DATABASE IF NOT EXISTS `payicam_ginger` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `payicam_ginger`;
 
 -- --------------------------------------------------------
 
@@ -22,7 +20,6 @@ USE `payicam_ginger`;
 -- Structure de la table `administrateurs`
 --
 
-DROP TABLE IF EXISTS `administrateurs`;
 CREATE TABLE IF NOT EXISTS `administrateurs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -34,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `administrateurs` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `role_id` (`role_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 -- --------------------------------------------------------
 
@@ -42,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `administrateurs` (
 -- Structure de la table `applications`
 --
 
-DROP TABLE IF EXISTS `applications`;
 CREATE TABLE IF NOT EXISTS `applications` (
   `app_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'id interne de l''application',
   `app_url` varchar(255) DEFAULT NULL COMMENT 'url du service autorisé',
@@ -55,14 +51,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `app_removed` datetime DEFAULT NULL COMMENT 'Est ce que la clef est supprimée.',
   PRIMARY KEY (`app_id`),
   UNIQUE KEY `app_key` (`app_key`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Liste des applications et leurs clefs.' AUTO_INCREMENT=2 ;
-
---
--- Contenu de la table `applications`
---
-
-INSERT INTO `applications` (`app_id`, `app_url`, `app_key`, `app_name`, `app_desc`, `app_creator`, `app_lastuse`, `app_created`, `app_removed`) VALUES
-(1, 'http://localhost/icam/payicam/test_ginger', 'test_ginger', 'test_ginger', 'test de ginger', 'Antoine', '2014-05-24 00:00:00', '2014-05-24 00:00:00', NULL);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Liste des applications et leurs clefs.' AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -70,23 +59,11 @@ INSERT INTO `applications` (`app_id`, `app_url`, `app_key`, `app_name`, `app_des
 -- Structure de la table `configs`
 --
 
-DROP TABLE IF EXISTS `configs`;
 CREATE TABLE IF NOT EXISTS `configs` (
   `name` varchar(255) NOT NULL,
   `value` varchar(255) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `configs`
---
-
-INSERT INTO `configs` (`name`, `value`) VALUES
-('authentification', '1'),
-('contact', 'contact@payicam.fr'),
-('inscriptions', ''),
-('maintenance', '0'),
-('websitename', 'Admin Ginger');
 
 -- --------------------------------------------------------
 
@@ -94,7 +71,6 @@ INSERT INTO `configs` (`name`, `value`) VALUES
 -- Structure de la table `roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(2) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
@@ -103,28 +79,21 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
---
--- Contenu de la table `roles`
---
-
-INSERT INTO `roles` (`id`, `name`, `slug`, `level`) VALUES
-(1, 'Administrateur', 'admin', 2),
-(2, 'Membre', 'member', 1),
-(3, 'Non inscrit', 'non-inscrit', 0);
-
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `login` varchar(105) NOT NULL DEFAULT '',
   `nom` varchar(55) DEFAULT NULL,
   `prenom` varchar(55) DEFAULT NULL,
   `mail` varchar(105) DEFAULT NULL,
+  `promo` int(5) NOT NULL DEFAULT '0',
+  `filiere` varchar(55) NOT NULL DEFAULT 'Ingenieur',
   `badge_uid` varchar(20) DEFAULT NULL,
   `expiration_badge` date DEFAULT NULL,
-  PRIMARY KEY (`login`),
+  `sexe` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

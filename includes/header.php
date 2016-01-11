@@ -63,6 +63,10 @@ require_once 'includes/_header.php';
                 <li class="dropdown-header">Les Icam</li>
                 <li><a href="admin_liste_members.php"><i class="glyphicon glyphicon-book"></i> Liste des membres</a></li>
                 <li><a href="admin_edit_member.php"><i class="glyphicon glyphicon-plus"></i> Nouveau membre</a></li>
+                <?php if ($Auth->isAdmin()) { ?>
+                <li class="divider"></li>
+                <li><a href="admin_import.php"><i class="glyphicon glyphicon-plus"></i><i class="glyphicon glyphicon-plus"></i> Import de masse</a></li>
+                <?php } // endif ?>
               </ul>
             </li>
           </ul>
