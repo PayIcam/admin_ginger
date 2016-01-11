@@ -55,12 +55,13 @@ if (!empty($_POST['import'])) {
     $imported = 0;
     $updated = 0;
 
-    if (!empty($error) || !empty($errorMail)){
+    if (!empty($errorMail)){ $count = count($errorMail);
+      Functions::setFlash("<strong>Attention</strong>, vous avez ".$count." ligne".(($count==1)?"":"s")." non valide avec un mail non icam.<br>Soit ".(($count==1)?"à la ligne":"aux lignes")." : ".implode(', ', $errorMail), 'warning');
+    }
+
+    if (!empty($error)){
       if (!empty($error)){ $count = count($error);
         Functions::setFlash("<strong>Attention</strong>, vous avez ".$count." ligne".(($count==1)?"":"s")." non valide qui ne respectent pas les labels donnés en première ligne.<br>Soit ".(($count==1)?"à la ligne":"aux lignes")." : ".implode(', ', $error), 'warning');
-      }
-      if (!empty($errorMail)){ $count = count($errorMail);
-        Functions::setFlash("<strong>Attention</strong>, vous avez ".$count." ligne".(($count==1)?"":"s")." non valide qui un mail non icam.<br>Soit ".(($count==1)?"à la ligne":"aux lignes")." : ".implode(', ', $errorMail), 'warning');
       }
       $textareaValue = implode(';', $labels) . "\n" . implode("\n", $_POST['import']);
     }else{
