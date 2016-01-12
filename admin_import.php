@@ -2,7 +2,6 @@
 require_once 'includes/_header.php';
 $Auth->allow('admin');
 require 'vendor/autoload.php';
-require_once 'class/Member.class.php';
 
 if (!empty($_POST['import'])) {
   $_POST['import'] = explode("\n", $_POST['import']);
@@ -10,7 +9,7 @@ if (!empty($_POST['import'])) {
   // Préparation des label //
   ///////////////////////////
   $labels = explode(';', array_shift($_POST['import']));
-  $gingerAvialableLabels = array('nom', 'prenom', 'mail', 'promo', 'filiere', 'badge_uid', 'expiration_badge', 'sexe');
+  $gingerAvialableLabels = array('nom', 'prenom', 'mail', 'promo', 'filiere', 'badge_uid', 'expiration_badge', 'sexe', 'naissance', 'img_link');
   $error = array();
   $mailPresent = false;
   foreach ($labels as $k => $label) {

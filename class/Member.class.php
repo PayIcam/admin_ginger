@@ -13,9 +13,9 @@ class Member{
 	public static $membersCount;
 
 	public static $filieres = array(
-		'integre'    => 'Intégré',
-		'apprenti'   => 'Apprenti',
-		'permanent'  => 'Permanent',
+		'Intégré'    => 'Intégré',
+		'Apprentissage'   => 'Apprentissage',
+		'Permanent'  => 'Permanent',
 		'mgf'        => 'Master Génie Féroviaire',
 		'f_continue' => 'Formation Continue'
 	);
