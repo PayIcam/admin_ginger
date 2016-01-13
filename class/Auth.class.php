@@ -74,9 +74,10 @@
     }
 
     public function logCasOut(){
-        require 'class/Cas.class.php';
-        $CAS = new Cas(Config::get('cas_url'));
-        return $CAS->logout();
+        $_SESSION = array();
+        session_destroy();
+
+        return Config::get('cas_url');
     }
     
     /**

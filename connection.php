@@ -5,24 +5,11 @@
 if (!empty($_GET['ticket'])) {
   $_SESSION['flash'] = array();
   if ($Auth->loginUsingCas($_GET['ticket'])) {
-    Functions::setFlash("Youhouhouuuu c'est la fête tu t'es authentifié avec le CAS Icam !!! :)",'success');
+    Functions::setFlash("Authentification réussie !",'success');
     header('Location:index.php');exit;
   }else{
     
   }
-}
-
-if(!empty($_POST['email']) && !empty($_POST['password'])){
-    if($Auth->login($_POST)){
-      Functions::setFlash('Vous êtes maintenant connecté','success'); // alors on le connecte
-      header('Location:index.php');exit;
-    }else{
-      Functions::setFlash('Identifiants incorects','danger');
-      header('Location:connection.php?errorLogin=1');exit;
-    }
-}else if (!empty($_POST)) { // Si l'utilisateur n'a pas rempli tous les champs demandés
-    Functions::setFlash('Veuillez remplir tous vos champs','danger');
-    header('Location:connection.php?errorLogin=1');exit;
 }
 
 ?>
@@ -43,6 +30,8 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
           padding-top: 40px;
           padding-bottom: 40px;
           background-color: #eee;
+          text-align: center;
+          
         }
 
         .form-signin {
@@ -93,13 +82,11 @@ if(!empty($_POST['email']) && !empty($_POST['password'])){
 
     <div class="container">
       <?= Functions::flash(); ?>
-        <form class="form-signin<?= (isset($_GET['errorLogin']))?' has-error':''; ?>" role="form" action="connection.php" method="POST">
-          <h2 class="form-signin-heading">Identifiez-vous !</h2>
-          <input type="hidden" name="token" value="<?= Auth::generateToken(); ?>">
-          <input type="email" name="email" class="form-control" placeholder="Email" required autofocus>
-          <input type="password" name="password" class="form-control" placeholder="Password" required>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Se connecter</button>
-          <a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-info btn-block">Or click to log in using CAS Icam</a>
+        <form class="form-signin<?= (isset($_GET['errorLogin']))?' has-error':''; ?>" role="form">
+          <p><img src="img/PayIcam.png" alt="PayIcam"></p>
+          <h2 class="form-signin-heading page-header">Identifiez-vous !</h2>
+          <br>
+          <p><a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-primary btn-block">Connexion</a></p>
         </form>
 
     <script src="js/jquery.js"></script>
