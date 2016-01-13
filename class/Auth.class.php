@@ -77,7 +77,10 @@
         $_SESSION = array();
         session_destroy();
 
-        return Config::get('cas_url');
+        $service = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}"; 
+        $casUrl = Config::get('cas_url')."logout?url=".urlencode($service);
+
+        return $casUrl;
     }
     
     /**
