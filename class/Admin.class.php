@@ -109,7 +109,7 @@ class Admin{
         		$id = $d['id'];	
         	}
         	Functions::setFlash("Ajout de ".$d['nom']." effectué");
-        	// self::ajouterAuxLog(date('Y-m-d H:m:s').' : Ajout Admin #'.$id.' '.$d['nom']."\n");
+        	// self::ajouterAuxLog(date('Y-m-d H:i:s').' : Ajout Admin #'.$id.' '.$d['nom']."\n");
         }
         return $id;
 	}

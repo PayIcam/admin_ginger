@@ -114,7 +114,7 @@ class Member{
         	$login = $DB->save(self::TABLE_NAME,$d,'insert');
         	$login = $d['login'];
         	Functions::setFlash("Ajout de ".$d['nom']." effectué");
-        	// self::ajouterAuxLog(date('Y-m-d H:m:s').' : Ajout Member #'.$login.' '.$d['nom']."\n");
+        	// self::ajouterAuxLog(date('Y-m-d H:i:s').' : Ajout Member #'.$login.' '.$d['nom']."\n");
         }
         return $login;
 	}
