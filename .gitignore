@@ -4,3 +4,4 @@ composer.lock
 composer.phar
 database_creation/payicam_ginger.sql
 /.htaccess
+uploads/

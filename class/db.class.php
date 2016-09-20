@@ -8,7 +8,7 @@
     }
 }//*/
 
-class DB{
+class DB {
 
     private $host     = 'localhost';
     private $username = 'root';
@@ -27,7 +27,8 @@ class DB{
         try{
             $this->db = new PDO('mysql:host='.$this->host.';dbname='.$this->database, $this->username, $this->password, array(
                 PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8',
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+
             ));
         }catch(PDOException $e){
             die('<h1>Impossible de se connecter a la base de donnee</h1><p>'.$e->getMessage().'<p>');
@@ -35,7 +36,6 @@ class DB{
     }
 
     public function query($sql, $data = array(),$fetch = PDO::FETCH_ASSOC){
-        try{
             $req = $this->db->prepare($sql);
             $req->execute($data);
             if(!preg_match('/^(INSERT|UPDATE|DELETE|TRUNCATE|DROP|CREATE)/', $sql)){
@@ -45,9 +45,6 @@ class DB{
                     return $req->fetchAll();
             }else
                 return $this->db->lastInsertId();
-        }catch(PDOException $e){
-            die('<h3>Erreur : </h3><p>'.$e->getMessage().'</p>');
-        }
     }
 
     public function queryFirst($sql, $data = array(),$fetch = PDO::FETCH_ASSOC){
@@ -57,7 +54,7 @@ class DB{
 
             if (!empty($fetch))
                 $return = $req->fetch($fetch);
-            else 
+            else
                 $return = $req->fetch();
             if(!empty($return))
                 return $return;
@@ -87,7 +84,7 @@ class DB{
             $sql = $table;
         }else{
             $sql = 'SELECT ';
-            
+
             // Construciton des champs à récupérer dans la table
             if (isset($req['fields'])) {
                 if (is_array($req['fields'])) {
@@ -100,7 +97,7 @@ class DB{
             }
 
             $sql .= ' FROM '.$table.' ';
-            
+
             // Construction du Join
             if (isset($req['join'])) {
                 $join = array(
@@ -154,7 +151,7 @@ class DB{
                 }
             }
 
-            // GROUP BY            
+            // GROUP BY
             if (isset($req['groupBy'])) {
                 $sql.='GROUP BY ';
                 if (!is_array($req['groupBy'])) {

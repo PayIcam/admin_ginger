@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require_once 'includes/_header.php';
 	$Auth->allow('member');
 	require 'vendor/autoload.php';
@@ -68,15 +68,24 @@
 	<div class="row">
 	    <fieldset>
 	        <legend>Informations générales :</legend>
-        	<div>
-        		<?= $form->input('login', 'hidden', array('value'=>$_GET["login"])); ?>
-        		<?= $form->input('token', 'hidden', array('value'=>Auth::generateToken())); ?>
-        	    <?= $form->input('mail','Email : ', array('maxlength'=>"105",'helper'=>'<em>Identifiant</em>')); ?>
-        	    <?= $form->input('promo','Promotion : ', array('maxlength'=>"5",'helper'=>'<em>Promotion de la personne. 0 Si il n\'est pas Ingé</em>')); ?>
-        	    <?= $form->select('filiere', 'Filière : ', array('data'=>Member::$filieres)); ?>
-        	    <?= $form->input('nom','Nom : ', array('maxlength'=>"55")); ?>
-        	    <?= $form->input('prenom','Prénom : ', array('maxlength'=>"55")); ?>
-        	</div>
+	        <div class="row">
+	        	<div class="col-sm-1<?= empty($Member->attr['img_link'])?'2':'0' ?>">
+	        		<?= $form->input('login', 'hidden', array('value'=>$_GET["login"])); ?>
+	        		<?= $form->input('token', 'hidden', array('value'=>Auth::generateToken())); ?>
+	        	    <?= $form->input('mail','Email : ', array('maxlength'=>"105",'helper'=>'<em>Identifiant</em>')); ?>
+	        	    <?= $form->input('promo','Promotion : ', array('maxlength'=>"5",'helper'=>'<em>Promotion de la personne. 0 Si il n\'est pas Ingé</em>')); ?>
+	        	    <?= $form->select('filiere', 'Filière : ', array('data'=>Member::$filieres)); ?>
+	        	    <?= $form->input('site','Site : ', array('maxlength'=>"55")); ?>
+	        	    <?= $form->input('nom','Nom : ', array('maxlength'=>"55")); ?>
+	        	    <?= $form->input('prenom','Prénom : ', array('maxlength'=>"55")); ?>
+        		</div>
+        		<?= $Member->attr['site']."ere" ?>
+        		<?php if (!empty($Member->attr['img_link'])): ?>
+	        	<div class="col-sm-2">
+	        			<img src="<?= $Member->attr['img_link'] ?>" class="img-thumbnail">
+	        	</div>
+			    <?php endif ?>
+	        </div>
 	    </fieldset>
     	<fieldset>
     	    <legend>Badge :</legend>

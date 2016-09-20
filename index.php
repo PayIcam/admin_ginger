@@ -1,4 +1,4 @@
-<?php 
+<?php
 	require_once 'includes/_header.php';
     $Auth->allow('member');
 	$title_for_layout = 'Accueil administration';
@@ -28,7 +28,7 @@
                             <li><a href="admin_edit_member.php" title="Ajouter un membre"><span class="glyphicon glyphicon-plus"></span></a></li>
                         </ul>
                     </div>
-                    <a href="admin_liste_members.php" class="board-thumbnail thumbnail" title="Liste des membres"> 
+                    <a href="admin_liste_members.php" class="board-thumbnail thumbnail" title="Liste des membres">
                         <span class="glyphicon glyphicon-user" style="font-size: 40px;"></span>
                         <h5>Membres PayIcam</h5>
                     </a>
@@ -41,9 +41,15 @@
                             <li><a href="admin_edit_admin.php" title="Ajouter un Administrateurs"><span class="glyphicon glyphicon-plus"></span></a></li>
                         </ul>
                     </div>
-                    <a href="admin_liste_admins.php" class="board-thumbnail thumbnail" title="Liste des Administrateurs"> 
+                    <a href="admin_liste_admins.php" class="board-thumbnail thumbnail" title="Liste des Administrateurs">
                         <span class="glyphicon glyphicon-tower" style="font-size: 40px;"></span>
                         <h5>Admins</h5>
+                    </a>
+                </div>
+                <div class="col-sm-4 board-item">
+                    <a href="admin_upload_update_membres.php" class="board-thumbnail thumbnail" title="Mettre à jour les membres ginger">
+                        <span class="glyphicon glyphicon-cloud-upload" style="font-size: 40px;"></span>
+                        <h5>Upload nouveau membres</h5>
                     </a>
                 </div>
                 <div class="col-sm-4 board-item">

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'includes/_header.php';
 
@@ -32,7 +32,7 @@ class Member{
 		$this->login = $login;
 		$this->attr  = $attr;
 		$this->attr  = self::checkMemberFields($this->getAttrPlusId());
-		
+
 		// Récupérer les infos d'un participant
 		$this->update();
 	}
@@ -44,7 +44,7 @@ class Member{
         return $this->login;
 	}
 	public function saveFields($fieldsToSave){
-		if (!($this->login > 0) || empty($fieldsToSave)) 
+		if (!($this->login > 0) || empty($fieldsToSave))
 			return false;
 		if (!is_array($fieldsToSave))
 			$fieldsToSave = array($fieldsToSave);
@@ -60,7 +60,7 @@ class Member{
         return true;
 	}
 	public function update(){
-		if (!empty($this->login) && empty($this->attr['nom']) && self::isMember($this->login)) { 
+		if (!empty($this->login) && empty($this->attr['nom']) && self::isMember($this->login)) {
 			$this->attr = $this->DB->findFirst(self::TABLE_NAME,array('conditions'=>array('login'=>$this->login)));
 			if(empty($this->attr)){Functions::setFlash("Erreur, member inexistante...");return false;}
 			if(isset($this->attr['login'])) unset($this->attr['login']);
@@ -80,7 +80,7 @@ class Member{
 		$this->attr = self::checkMemberFields($POST); // $POST for savoir-faire table : 'login','slug','nom','content','order'
 		return $this->getAttrPlusId();
 	}
-	
+
 	// ---------------------------------------- Static Functions ---------------------------------------- //
 
 	static public function getMembersCount(){

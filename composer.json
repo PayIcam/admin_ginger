@@ -2,6 +2,10 @@
 	"name": "PayIcam/admin_ginger",
     "type": "project",
     "description": "Administration Ginger pour PayIcam",
+    "autoload": {
+        "classmap": [],
+        "psr-4": { "": "src" }
+    },
     "require": {
         "php": ">=5.4.0",
         "imagine/imagine": "~0.5.0",
