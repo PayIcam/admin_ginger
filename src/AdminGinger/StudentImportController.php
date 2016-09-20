@@ -116,7 +116,7 @@ class StudentImportController {
                     )
                         $this->usersPerGroup['update'][] = array_merge($userDB, $updateUsr);
                     else
-                        $this->usersPerGroup['pasMaj'][] = $userDB
+                        $this->usersPerGroup['pasMaj'][] = $userDB;
                     unset($this->newStudents[$userDB['mail']]);
                 } else if (!empty($this->newStudentsById[$idIcam])) { // redoublant
                     $this->usersPerGroup['updateRedoublants'][$userDB['mail']] = array_merge($userDB, $this->newStudentsById[$idIcam]);
