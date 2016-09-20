@@ -103,7 +103,20 @@ class StudentImportController {
 
                 $idIcam = substr($userDB['img_link'], -5);
                 if (!empty($this->newStudents[$userDB['mail']])) { // MAJ
-                    $this->usersPerGroup['update'][] = array_merge($userDB, $this->newStudents[$userDB['mail']]);
+                    $updateUsr = $this->newStudents[$userDB['mail']];
+                    if ($updateUsr['id_icam'] != $userDB['id_icam']
+                        || $updateUsr['nom'] != $userDB['nom']
+                        || $updateUsr['prenom'] != $userDB['prenom']
+                        || $updateUsr['promo'] != $userDB['promo']
+                        || $updateUsr['filiere'] != $userDB['filiere']
+                        || $updateUsr['site'] != $userDB['site']
+                        || $updateUsr['naissance'] != $userDB['naissance']
+                        || $updateUsr['sexe'] != $userDB['sexe']
+                        || $updateUsr['img_link'] != $userDB['img_link']
+                    )
+                        $this->usersPerGroup['update'][] = array_merge($userDB, $updateUsr);
+                    else
+                        $this->usersPerGroup['pasMaj'][] = $userDB
                     unset($this->newStudents[$userDB['mail']]);
                 } else if (!empty($this->newStudentsById[$idIcam])) { // redoublant
                     $this->usersPerGroup['updateRedoublants'][$userDB['mail']] = array_merge($userDB, $this->newStudentsById[$idIcam]);
@@ -161,7 +174,7 @@ class StudentImportController {
                 unset($d['badge_uid'], $d['expiration_badge']);
                 $d['oldMail'] = $oldMail;
                 try {
-                $DB->query("UPDATE users SET
+                    $DB->query("UPDATE users SET
                                 id_icam = :id_icam,
                                 nom = :nom,
                                 prenom = :prenom,
@@ -183,8 +196,13 @@ class StudentImportController {
                 fwrite($fp, implode(";", array_values($user)) . "\n");
                 $d = $user;
                 unset($d['badge_uid'], $d['expiration_badge']);
-                $DB->query("INSERT INTO users (id_icam,nom,prenom,login,mail,promo,filiere,site,naissance,sexe,img_link) VALUES
+                try {
+                    $DB->query("INSERT INTO users (id_icam,nom,prenom,login,mail,promo,filiere,site,naissance,sexe,img_link) VALUES
                         (:id_icam,:nom,:prenom,:login,:mail,:promo,:filiere,:site,:naissance,:sexe,:img_link)", $d);
+                } catch (\Exception $e) {
+                    $this->usersPerGroup['problemes'][$user['login']] = $user;
+                    echo '<h4>Erreur avec <small>'.$user['login'].'</small></h4><p>'.$e->getMessage().'</p>';
+                }
 
             }
             foreach ($this->usersPerGroup['pasMaj'] as $user) {

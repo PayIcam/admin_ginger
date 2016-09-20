@@ -10,7 +10,8 @@ if (!empty($_FILES['newStudents'])) {
 
     $uploadfile = 'uploads/listeElevesUpload'.date("Ymd_Hi").'.csv';
     if (!@move_uploaded_file($_FILES['newStudents']['tmp_name'], $uploadfile)) {
-        Functions::setFlash("Vous avez envoyé un drôle de fichier ou alors ce dernier est trop lourd.",'warning');
+        $uploadfile = $_FILES['newStudents']['tmp_name'];
+        // Functions::setFlash("Vous avez envoyé un drôle de fichier ou alors ce dernier est trop lourd.",'warning');
         // header('Location:admin_upload_update_membres.php');exit;
     }
 
