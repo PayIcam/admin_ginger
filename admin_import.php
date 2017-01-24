@@ -46,7 +46,7 @@ if (!empty($_POST['import'])) {
         $label = $labels[$k];
         $newValue = trim($v);
         if ($label == 'nom' || $label == 'nom') $newValue = str_replace('É', 'é', ucfirst(strtolower($newValue)));
-        if ($label == 'mail' && !preg_match('/^[a-z-]+[.]+[a-z-]+([.0-9a-z-]+)?@(mgf\.)?([0-9]{4}[.])?icam[.]fr$/', $newValue)){$errorMail[] = $i+1;continue(2);} ;
+        if ($label == 'mail' && !preg_match('/^[a-z-]+[.]+[a-z-]+([.0-9a-z-]+)?@(mgf\.)?(fp-lille\.)?([0-9]{4}[.])?icam[.]fr$/', $newValue)){$errorMail[] = $i+1;continue(2);} ;
         $lineArray[$label] = $newValue;
       }
       $imports[] = $lineArray;
