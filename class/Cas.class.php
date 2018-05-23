@@ -16,39 +16,27 @@ class Cas{
           ->sendsXml()
           ->timeoutIn($this->timeout)
           ->send();
-	// var_dump($r);
-        
-	$user = $body = trim(str_replace("\n", "", $r->raw_body));
-		
+	    
+	$user = trim(str_replace("\n", "", $r->raw_body));
+        // Log::warning("AuthenticationFailure : ($ticket, $service)".$r->raw_body."\n".$r->body);
         try {
-            $xml = new SimpleXMLElement($body);
-        }catch (Exception $e) {
-            echo "Return cannot be parsed : '{$body}'",  $e->getMessage(), "\n";
-            // return (string)"Return cannot be parsed";
-        }
-        
-        $namespaces = $xml->getNamespaces();
-        
-        $serviceResponse = $xml->children($namespaces['cas']);
-        $user = $serviceResponse->authenticationSuccess->user;
-        //*/
-
-        if ($user) {
-            return (string)$user; // cast simplexmlelement to string
-        }
-        else {
+            $xml = new SimpleXMLElement(trim(str_replace("\n", "", $r->raw_body)));
+            $namespaces = $xml->getNamespaces();
+            $serviceResponse = $xml->children($namespaces['cas']);
+            $user = $serviceResponse->authenticationSuccess->user;
             $authFailed = $serviceResponse->authenticationFailure;
             if ($authFailed) {
                 $attributes = $authFailed->attributes();
                 echo ("AuthenticationFailure : ".$attributes['code']." ($ticket, $service)");
-                // return (string)"AuthenticationFailure";
             }
-            else {
-                echo ("Cas return is weird : '{$body}'");
-                // return (string)"Cas return is weird";
-            }
+        } catch (\Exception $e) {
+            $user = trim(str_replace("\n", "", $r->raw_body));
         }
-        // never reach there
+        if ($user) {
+            return (string)$user; // cast simplexmlelement to string
+        } else {
+            echo "Cas return is weird : '{".$r->raw_body."}'";
+        }
     }
 
     public function logout(){
