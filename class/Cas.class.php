@@ -16,11 +16,14 @@ class Cas{
           ->sendsXml()
           ->timeoutIn($this->timeout)
           ->send();
-        $r->body = str_replace("\n", "", $r->body);
+	// var_dump($r);
+        
+	$user = $body = trim(str_replace("\n", "", $r->raw_body));
+		
         try {
-            $xml = new SimpleXMLElement($r->body);
+            $xml = new SimpleXMLElement($body);
         }catch (Exception $e) {
-            echo "Return cannot be parsed : '{$r->body}'",  $e->getMessage(), "\n";
+            echo "Return cannot be parsed : '{$body}'",  $e->getMessage(), "\n";
             // return (string)"Return cannot be parsed";
         }
         
@@ -28,7 +31,8 @@ class Cas{
         
         $serviceResponse = $xml->children($namespaces['cas']);
         $user = $serviceResponse->authenticationSuccess->user;
-        
+        //*/
+
         if ($user) {
             return (string)$user; // cast simplexmlelement to string
         }
@@ -40,7 +44,7 @@ class Cas{
                 // return (string)"AuthenticationFailure";
             }
             else {
-                echo ("Cas return is weird : '{$r->body}'");
+                echo ("Cas return is weird : '{$body}'");
                 // return (string)"Cas return is weird";
             }
         }
