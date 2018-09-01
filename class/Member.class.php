@@ -15,6 +15,7 @@ class Member{
 	public static $filieres = array(
 		'Intégré'    => 'Intégré',
 		'Apprentissage'   => 'Apprentissage',
+		'Ouvert'	=>	'Ouvert',
 		'Permanent'  => 'Permanent',
 		'mgf'        => 'Master Génie Féroviaire',
 		'f_continue' => 'Formation Continue'

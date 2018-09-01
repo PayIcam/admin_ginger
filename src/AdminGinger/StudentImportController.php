@@ -38,6 +38,8 @@ class StudentImportController {
                         $filiere = 'f_continue';
                     else if (substr($field['filiere_site'], 0, 8) == 'ICAM App')
                         $filiere = 'Apprentissage';
+                    else if (substr($field['filiere_site'], 0, 8) == 'ICAM Ouv')
+                        $filiere = 'Ouvert';
                     else
                         $filiere = 'Permanent';
                     if (strpos($field['anniversaire'], '/') > -1) {
