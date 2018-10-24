@@ -36,6 +36,13 @@ require_once 'includes/_header.php';
     <script src="js/knob.js"></script>
     <script src="js/main.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112368112-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-112368112-1');
+    </script>
     <!-- endbuild -->
     <?php //*/ ?>
   </head>
