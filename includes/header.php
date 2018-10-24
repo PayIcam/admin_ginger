@@ -8,9 +8,9 @@ require_once 'includes/_header.php';
     <meta name="description" content="Administration Ginger - PayIcam">
     <meta name="author" content="Antoine Giraud">
     <link rel="shortcut icon" href="favicon.png">
-    
+
     <title><?php if(isset($title_for_layout)){echo $title_for_layout.' - ';} ?><?= WEBSITE_TITLE; ?></title>
-    
+
     <?php //* ?>
     <!-- build:css css/min.css -->
     <link rel="stylesheet" href="css/jqueryui/style.css">
@@ -26,7 +26,7 @@ require_once 'includes/_header.php';
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    
+
     <?php //* ?>
     <!-- build:js js/min.js -->
     <script src="js/jquery.js"></script>
@@ -35,6 +35,7 @@ require_once 'includes/_header.php';
     <script src="js/colorpicker/jquery.colorpicker.js"></script>
     <script src="js/knob.js"></script>
     <script src="js/main.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112368112-1"></script>
     <!-- endbuild -->
     <?php //*/ ?>
   </head>

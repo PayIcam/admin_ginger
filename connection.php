@@ -8,7 +8,7 @@ if (!empty($_GET['ticket'])) {
     Functions::setFlash("Authentification réussie !",'success');
     header('Location:index.php');exit;
   }else{
-    
+
   }
 }
 
@@ -31,7 +31,7 @@ if (!empty($_GET['ticket'])) {
           padding-bottom: 40px;
           background-color: #eee;
           text-align: center;
-          
+
         }
 
         .form-signin {
@@ -86,7 +86,7 @@ if (!empty($_GET['ticket'])) {
           <p><img src="img/PayIcam.png" alt="PayIcam"></p>
           <h2 class="form-signin-heading page-header">Identifiez-vous !</h2>
           <br>
-          <p><a href="https://cas.icam.fr/cas/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-primary btn-block">Connexion</a></p>
+          <p><a href="<?= Config::get('cas_url') ?>/login?service=<?= urlencode(Config::get('admin_ginger_url')) ?>" class="btn btn-lg btn-primary btn-block">Connexion</a></p>
         </form>
 
     <script src="js/jquery.js"></script>
