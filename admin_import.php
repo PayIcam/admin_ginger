@@ -1,4 +1,4 @@
-<?php 
+<?php
 require_once 'includes/_header.php';
 $Auth->allow('admin');
 require 'vendor/autoload.php';
@@ -9,11 +9,11 @@ if (!empty($_POST['import'])) {
   // Préparation des label //
   ///////////////////////////
   $labels = explode(';', array_shift($_POST['import']));
-  $gingerAvialableLabels = array('nom', 'prenom', 'mail', 'promo', 'filiere', 'badge_uid', 'expiration_badge', 'sexe', 'naissance', 'img_link');
+  $gingerAvialableLabels = array('id_icam', 'site', 'nom', 'prenom', 'mail', 'promo', 'filiere', 'badge_uid', 'expiration_badge', 'sexe', 'naissance', 'img_link');
   $error = array();
   $mailPresent = false;
   foreach ($labels as $k => $label) {
-    $label = trim($label); $labels[$k] = $label; 
+    $label = trim($label); $labels[$k] = $label;
     if (!in_array($label, $gingerAvialableLabels))
       $error[] = $label;
     elseif ($label == 'mail')
@@ -45,7 +45,7 @@ if (!empty($_POST['import'])) {
       foreach ($line as $k => $v) {
         $label = $labels[$k];
         $newValue = trim($v);
-        if ($label == 'nom' || $label == 'nom') $newValue = str_replace('É', 'é', ucfirst(strtolower($newValue)));
+        if ($label == 'nom' || $label == 'prenom') $newValue = ucfirst($newValue);
         if ($label == 'mail' && !preg_match('/^[a-z-]+[.]+[a-z-]+([.0-9a-z-]+)?@(mgf\.)?(fp-lille\.)?([0-9]{4}[.])?icam[.]fr$/', $newValue)){$errorMail[] = $i+1;continue(2);} ;
         $lineArray[$label] = $newValue;
       }
@@ -115,7 +115,7 @@ include 'includes/header.php';
     <label for="textareaDataToImport">Données CSV:</label>
     <p class="help-block">
       On attend un fichier CSV avec pour première ligne les noms des champs dans l'ordre des lignes qui suiveront.<br>
-      Pour rappel, voici les champs existants dans Ginger: 
+      Pour rappel, voici les champs existants dans Ginger:
       <em>nom, prenom, mail, promo, filiere, badge_uid, expiration_badge, sexe</em><br>
       <small>Le login est le même que le mail, pas besoin de rentrer le login donc!</small><br>
       On a besoin d'avoir au moins du champ mail pour faire un match parfait. <small><em>On aurait pu essayer juste avec le nom et le prénom à la limite...</em></small>
