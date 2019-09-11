@@ -79,7 +79,6 @@
 	        	    <?= $form->input('nom','Nom : ', array('maxlength'=>"55")); ?>
 	        	    <?= $form->input('prenom','Prénom : ', array('maxlength'=>"55")); ?>
         		</div>
-        		<?= $Member->attr['site']."ere" ?>
         		<?php if (!empty($Member->attr['img_link'])): ?>
 	        	<div class="col-sm-2">
 	        			<img src="<?= $Member->attr['img_link'] ?>" class="img-thumbnail">

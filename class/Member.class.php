@@ -68,7 +68,7 @@ class Member{
 		}
 	}
 	public function getAttrPlusId(){
-		$return = !empty($this->attr)?$this->attr:array();
+		$return = !empty($this->attr) ? $this->attr : array();
 		$return['login'] = $this->login;
 		return $return;
 	}
@@ -107,11 +107,26 @@ class Member{
 
 		if ($d['login'] !== 0 && $d['login'] !== -1 && $login_exist == 1) {
 			$login = $d['login']; unset($d['login']);
-        	$DB->save(self::TABLE_NAME,$d,array('update'=>array('login'=>$login)));
-        	Functions::setFlash("Changements effectués");
+            unset($d['id_icam']);
+            unset($d['naissance']);
+            unset($d['sexe']);
+            unset($d['img_link']);
+            unset($d['date_creation']);
+            $d['expiration_badge'] = empty($d['expiration_badge']) ? null : $d['expiration_badge'];
+
+            $DB->save(self::TABLE_NAME,$d,array('update'=>array('login'=>$login)));
+            Functions::setFlash("Changements effectués");
         }else{
-        	if ($d['login'] == -1)
-        		$d['login'] = $d['mail'];
+            if ($d['login'] == -1)
+                $d['login'] = $d['mail'];
+
+            unset($d['id_icam']);
+            unset($d['naissance']);
+            unset($d['sexe']);
+            unset($d['img_link']);
+            unset($d['date_creation']);
+            $d['expiration_badge'] = empty($d['expiration_badge']) ? null : $d['expiration_badge'];
+
         	$login = $DB->save(self::TABLE_NAME,$d,'insert');
         	$login = $d['login'];
         	Functions::setFlash("Ajout de ".$d['nom']." effectué");
@@ -131,8 +146,10 @@ class Member{
 		$MemberTable = Functions::getFirstVals($DB->find('SHOW COLUMNS FROM '.self::TABLE_NAME));
 		$attr = array();
 		foreach ($MemberTable as $tabName) {
-			if ($tabName == "online")
-				$attr[$tabName] = 1;
+            if ($tabName == "online")
+                $attr[$tabName] = 1;
+			if ($tabName == "id_icam")
+				$attr[$tabName] = 0;
 			else
 				$attr[$tabName] = '';
 		}

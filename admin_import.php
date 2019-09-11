@@ -121,7 +121,7 @@ include 'includes/header.php';
       On a besoin d'avoir au moins du champ mail pour faire un match parfait. <small><em>On aurait pu essayer juste avec le nom et le prénom à la limite...</em></small>
     </p>
     <textarea name="import" id="textareaDataToImport" class="form-control" style="width:100%;height:400px"
-        placeholder="mail;nom;prenom;promo;filiere;badge_uid<?= "\n"?>mail1@2015.icam.fr;nom1;prenom1;115;Integre;11111111<?= "\n"?>mail2@2015.icam.fr;nom2;prenom2;2015;Apprenti;22222222<?= "\n"?>mail3@icam.fr;nom3;prenom3;;Permanant;33333333"><?= (isset($textareaValue))?$textareaValue:'' ?></textarea>
+        placeholder="mail;nom;prenom;promo;filiere;badge_uid<?= "\n"?>mail1@2015.icam.fr;nom1;prenom1;115;Integre;11111111<?= "\n"?>mail2@2015.icam.fr;nom2;prenom2;2015;Apprenti;22222222<?= "\n"?>mail3@icam.fr;nom3;prenom3;;Permanent;33333333"><?= (isset($textareaValue))?$textareaValue:'' ?></textarea>
   </div>
   <div class="form-actions">
       <button class="btn btn-primary" type="submit">Save changes</button>
