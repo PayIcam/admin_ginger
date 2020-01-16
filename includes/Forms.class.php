@@ -1,6 +1,6 @@
-<?php 
+<?php
 
-/* 
+/*
  * Objet Formulaire
  * Il permet la création rapide et simple de formulaires, et de ses helpers.
  */
@@ -25,13 +25,13 @@ class form extends Functions{
     		$ex = explode('[', str_replace(']', '', $fieldName));
     		$countExplode = count($ex);
     		if ($countExplode == 1) {
-    			if (isset($this->data[$ex[0]])) 
+    			if (isset($this->data[$ex[0]]))
     				$return = $this->data[$ex[0]];
     		}if ($countExplode == 2) {
-    			if (isset($this->data[$ex[0]][$ex[1]])) 
+    			if (isset($this->data[$ex[0]][$ex[1]]))
     				$return = $this->data[$ex[0]][$ex[1]];
     		}if ($countExplode == 3) {
-    			if (isset($this->data[$ex[0]][$ex[1]][$ex[2]])) 
+    			if (isset($this->data[$ex[0]][$ex[1]][$ex[2]]))
     				$return = $this->data[$ex[0]][$ex[1]][$ex[2]];
     		}
     	}
@@ -70,7 +70,7 @@ class form extends Functions{
 		}
                 return $date;
     }
-    
+
     public function validates($data){
 		$errors = array();
 		foreach ($this->validate as $k => $v) {
@@ -92,9 +92,9 @@ class form extends Functions{
 		}
 		return false;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	/*
 <div class="form-group ">
@@ -116,8 +116,13 @@ class form extends Functions{
 
 		if(isset($options['value']) && $label=='hidden')
 			$value = $options['value'];
-		else
-			$value = $this->getFieldData($name);
+		else {
+            if ($name === 'badge_uid') {
+                $value = empty($this->getFieldData($name)) ? '' : json_decode($this->getFieldData($name))->ids[0];
+            } else {
+                $value = $this->getFieldData($name);
+            }
+        }
 
 		if ($label=='hidden')
 			return '<input type="hidden" name="'.$name.'" value="'.$value.'"/>';
@@ -136,7 +141,7 @@ class form extends Functions{
         	$html .= ' '.$options['append'].' ';
 		if (isset($options['datalist'])) {
 			$options['list']="liste-".$name;
-		}	
+		}
 		$attr = ' ';
 		foreach ($options as $k => $v) { if (!in_array($k,array('class','data','type','helper','datalist','append','prepend','input-group-prepend','input-group-append','input-group-addon','selected','checkboxNoClassControl'))){
 				$attr .= $k.'="'.$v.'" ';
@@ -178,7 +183,7 @@ class form extends Functions{
 				if (!preg_match('/span|button|input/', $options['input-group-append']))
 					$html.= '<span class="input-group-addon">'.$options['input-group-append'].'</span>';
 				else
-					$html.= $options['input-group-append'];				
+					$html.= $options['input-group-append'];
 			}elseif (isset($options['input-group-append']) && is_array($options['input-group-append'])) {
 				foreach ($options['input-group-append'] as $inkey => $inval) {
 					if (($inkey == 'button' || $inkey == 'btn') && is_array($inval)) {
@@ -252,11 +257,11 @@ class form extends Functions{
         }
         if (!empty($options['append']))
         	$html .= ' '.$options['append'].' ';
-        
+
         if (isset($options['type'],$options['checkboxNoClassControl']) && $options['type'] == 'checkbox')
 			$html .='';
 		else
-        	$html.='</div></div>';			
+        	$html.='</div></div>';
 
 		return $html;
 	}

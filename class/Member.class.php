@@ -106,6 +106,12 @@ class Member{
 		$login_exist = current($DB->queryFirst('SELECT COUNT(*) FROM '.self::TABLE_NAME.' WHERE login = :login',array('login'=>$d['login'])));
 
 		if ($d['login'] !== 0 && $d['login'] !== -1 && $login_exist == 1) {
+            $badges = json_decode($DB->queryFirst('SELECT badge_uid FROM '.self::TABLE_NAME.' WHERE login = :login',array('login'=>$d['login']))['badge_uid']);
+            $current_badges = $badges->ids;
+            $current_badges[0] = $d['badge_uid'];
+            $badges->ids =  $current_badges;
+            $d['badge_uid'] = json_encode($badges);
+
 			$login = $d['login']; unset($d['login']);
             unset($d['id_icam']);
             unset($d['naissance']);
@@ -119,6 +125,9 @@ class Member{
         }else{
             if ($d['login'] == -1)
                 $d['login'] = $d['mail'];
+
+            $badges->ids = [$d['badge_uid']];
+            $d['badge_uid'] = json_encode($badges);
 
             unset($d['id_icam']);
             unset($d['naissance']);

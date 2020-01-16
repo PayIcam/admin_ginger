@@ -20,7 +20,7 @@ class ListMembers{
 	private $countMembers;
 	private $countSqlReturnedMembers;
 	private $countPages;
-	
+
 	private $membersList;
 
 	function __construct($data=array()){
@@ -125,7 +125,7 @@ class ListMembers{
 		    // if (count($explodedKeywords) > count($searchFields)) {
 		    // 	$rowLastKeywordToMergeIn = (count($searchFields)-1);
 		    // 	$rowLastKeywordToMerge = (count($explodedKeywords)-1);
-		    // 	for ($i=$rowLastKeywordToMergeIn+1; $i < $rowLastKeywordToMerge ; $i++) { 
+		    // 	for ($i=$rowLastKeywordToMergeIn+1; $i < $rowLastKeywordToMerge ; $i++) {
 		    // 		$explodedKeywords[$rowLastKeywordToMergeIn] .= ' '.$explodedKeywords[$i];
 		    // 		unset($explodedKeywords[$i]);
 		    // 	}
@@ -172,7 +172,7 @@ class ListMembers{
                 	// $cond[] = 'id IN( SELECT tmptable.bracelet_id FROM ( SELECT bracelet_id FROM guests WHERE bracelet_id != 0 GROUP BY bracelet_id HAVING COUNT(bracelet_id) >1 ) AS tmptable )';
                 	// $this->perPages = 3000;
                 // }
-                
+
                 if (!empty($cond)) {
                		$whereOptions .= '('.implode(' AND ',$cond).')
 ';
@@ -188,21 +188,25 @@ class ListMembers{
 		if($this->countMembers){
 			$token = Auth::generateToken();
 			//echo '<input type="hidden" value="'.$token.'" name="token">';
-	        foreach ($this->membersList as $member) { ?>
+	        foreach ($this->membersList as $member) {
+                $badge_uids = json_decode($member['badge_uid']);
+                $badge_uids_text = implode(', ', $badge_uids->ids);
+?>
 <tr>
   <td>
     <input id="member_<?= $member['login']; ?>" class="checkbox" type="checkbox" value="<?= $member['login']; ?>" name="members[]">
   </td>
-  <td><?= (empty($motclef))? $member['login']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['login']); ?></td>
+  <td>
+    <?= (empty($motclef))? $member['login']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['login']); ?></td>
   <td><?= (empty($motclef))? $member['nom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['nom']); ?></td>
   <td><?= (empty($motclef))? $member['prenom']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['prenom']); ?></td>
   <td><?= (empty($motclef))? $member['promo']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['promo']); ?></td>
   <td><?= (empty($motclef))? $member['filiere']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['filiere']); ?></td>
-  <td><?= (empty($motclef))? $member['badge_uid']: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $member['badge_uid']); ?></td>
+  <td><?= (empty($motclef))? $badge_uids_text: preg_replace('/('.$motclef.')/i', "<strong>$1</strong>", $badge_uids_text); ?></td>
   <td>
     <div class="pull-right">
       <a href="admin_edit_member.php?login=<?= $member['login'] ?>" title="Editer le member #<?= $member['login']; ?>"><i class="glyphicon glyphicon-pencil"></i></a>
-      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>&amp;token=<?= $token; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="glyphicon glyphicon-trash"></i></a>              
+      <a href="admin_liste_members.php?del_member=<?= $member['login']; ?>&amp;token=<?= $token; ?>" title="Supprimer le member #<?= $member['login']; ?>" onclick="return confirm('Voulez-vous vraiment supprimer ce member ?');"><i class="glyphicon glyphicon-trash"></i></a>
     </div>
   </td>
 </tr>
@@ -234,7 +238,7 @@ class ListMembers{
 				<th>Badge UID</th>
 				<th>Actions</th>
 			</tr>
-	    <?php 
+	    <?php
 	    $return = ob_get_contents();
 		ob_end_clean();
 		return $return;
@@ -274,7 +278,7 @@ class ListMembers{
 <p class="pull-right">
 	<em><span class="memberCount" title="nombre de membres affichés"><?= $this->countSqlReturnedMembers.'/'.$this->countMembers; ?></span> member</em>
 </p>
-	    <?php 
+	    <?php
 	    $return = ob_get_contents();
 		ob_end_clean();
 		return $return;
@@ -296,7 +300,7 @@ class ListMembers{
 				</li>
 			<?php endfor; ?>
 		</ul>
-		<?php 
+		<?php
 		$return = ob_get_contents();
 		ob_end_clean();
 		if ($forjs) {
