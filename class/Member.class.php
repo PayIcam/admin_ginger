@@ -106,7 +106,9 @@ class Member{
 		$login_exist = current($DB->queryFirst('SELECT COUNT(*) FROM '.self::TABLE_NAME.' WHERE login = :login',array('login'=>$d['login'])));
 
 		if ($d['login'] !== 0 && $d['login'] !== -1 && $login_exist == 1) {
+            $data = $DB->queryFirst('SELECT badge_uid FROM '.self::TABLE_NAME.' WHERE login = :login',array('login'=>$d['login']));
             $badges = json_decode($DB->queryFirst('SELECT badge_uid FROM '.self::TABLE_NAME.' WHERE login = :login',array('login'=>$d['login']))['badge_uid']);
+
             $current_badges = $badges->ids;
             $current_badges[0] = $d['badge_uid'];
             $badges->ids =  $current_badges;
@@ -119,6 +121,8 @@ class Member{
             unset($d['img_link']);
             unset($d['date_creation']);
             $d['expiration_badge'] = empty($d['expiration_badge']) ? null : $d['expiration_badge'];
+            $d['badge_activated'] = $data['badge_activated'];
+            $d['user_key'] = $data['user_key'];
 
             $DB->save(self::TABLE_NAME,$d,array('update'=>array('login'=>$login)));
             Functions::setFlash("Changements effectués");
@@ -135,6 +139,8 @@ class Member{
             unset($d['img_link']);
             unset($d['date_creation']);
             $d['expiration_badge'] = empty($d['expiration_badge']) ? null : $d['expiration_badge'];
+            $d['badge_activated'] = 0;
+            $d['user_key'] = null;
 
         	$login = $DB->save(self::TABLE_NAME,$d,'insert');
         	$login = $d['login'];
